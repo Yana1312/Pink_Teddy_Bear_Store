@@ -1,0 +1,48 @@
+﻿<Window x:Class="StroreTeddyBearWin.Views.ProfileWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StroreTeddyBearWin.Views"
+        mc:Ignorable="d"
+        Title="Профиль" Height="450" Width="800" WindowState="Maximized" Icon="/ElementsVisualization/Image/Профиль.png">
+    <Grid Background="#FFF4F4">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="120"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Viewbox Stretch="Uniform" HorizontalAlignment="Left" Margin="30 5">
+                <Ellipse Width="100" Height="100">
+                    <Ellipse.Fill>
+                        <ImageBrush ImageSource="/ElementsVisualization/Image/Дефолтное фото пользователя квадрат.png"/>
+                    </Ellipse.Fill>
+                </Ellipse>
+            </Viewbox>
+
+            <Viewbox Grid.Column="2" Stretch="Uniform" Height="100" Width="80" HorizontalAlignment="Right">
+                <Grid>
+                    <Image Source="/ElementsVisualization/Image/фон для правой меню.png"/>
+                    <Image Source="/ElementsVisualization/Image/Профиль обратный.png" Width="450" Height="450"/>
+                </Grid>
+            </Viewbox>
+            
+        </Grid>
+        
+        
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+        </Grid>
+    </Grid>
+</Window>
