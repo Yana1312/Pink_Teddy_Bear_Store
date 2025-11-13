@@ -1,0 +1,177 @@
+C:\Users\user\source\repos\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\StroreTeddyBearWin.csproj.AssemblyReference.cache
+C:\Users\user\source\repos\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\App.g.cs
+C:\Users\user\source\repos\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\StroreTeddyBearWin_MarkupCompile.cache
+C:\Users\user\source\repos\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\StroreTeddyBearWin_MarkupCompile.lref
+C:\Users\user\source\repos\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\StoreTeddyBear.deps.json
+C:\Users\user\source\repos\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\StoreTeddyBear.runtimeconfig.json
+C:\Users\user\source\repos\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\appsettings.Development.json
+C:\Users\user\source\repos\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\appsettings.json
+C:\Users\user\source\repos\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\StoreTeddyBear.staticwebassets.endpoints.json
+C:\Users\user\source\repos\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\StoreTeddyBear.exe
+C:\Users\user\source\repos\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\StroreTeddyBearWin.exe
+C:\Users\user\source\repos\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\StroreTeddyBearWin.deps.json
+C:\Users\user\source\repos\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\StroreTeddyBearWin.runtimeconfig.json
+C:\Users\user\source\repos\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\StroreTeddyBearWin.dll
+C:\Users\user\source\repos\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\StroreTeddyBearWin.pdb
+C:\Users\user\source\repos\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\BCrypt.Net-Next.dll
+C:\Users\user\source\repos\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\Castle.Core.dll
+C:\Users\user\source\repos\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\Microsoft.AspNetCore.OpenApi.dll
+C:\Users\user\source\repos\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\Microsoft.EntityFrameworkCore.dll
+C:\Users\user\source\repos\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\user\source\repos\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\Microsoft.EntityFrameworkCore.Proxies.dll
+C:\Users\user\source\repos\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\user\source\repos\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\Microsoft.Extensions.Caching.Memory.dll
+C:\Users\user\source\repos\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\user\source\repos\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\user\source\repos\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\Microsoft.Extensions.Logging.dll
+C:\Users\user\source\repos\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\user\source\repos\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\Microsoft.Extensions.Options.dll
+C:\Users\user\source\repos\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\Microsoft.OpenApi.dll
+C:\Users\user\source\repos\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\MySqlConnector.dll
+C:\Users\user\source\repos\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\Pomelo.EntityFrameworkCore.MySql.dll
+C:\Users\user\source\repos\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\user\source\repos\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\user\source\repos\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\user\source\repos\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\StoreTeddyBear.dll
+C:\Users\user\source\repos\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\StoreTeddyBear.pdb
+C:\Users\user\source\repos\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\StroreTeddyBearWin.g.resources
+C:\Users\user\source\repos\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\StroreTeddyBearWin.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user\source\repos\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\StroreTeddyBearWin.AssemblyInfoInputs.cache
+C:\Users\user\source\repos\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\StroreTeddyBearWin.AssemblyInfo.cs
+C:\Users\user\source\repos\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\StroreTeddyBearWin.csproj.CoreCompileInputs.cache
+C:\Users\user\source\repos\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\StroreTe.134B9788.Up2Date
+C:\Users\user\source\repos\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\StroreTeddyBearWin.dll
+C:\Users\user\source\repos\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\refint\StroreTeddyBearWin.dll
+C:\Users\user\source\repos\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\StroreTeddyBearWin.pdb
+C:\Users\user\source\repos\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\StroreTeddyBearWin.genruntimeconfig.cache
+C:\Users\user\source\repos\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\ref\StroreTeddyBearWin.dll
+C:\Users\user\source\repos\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\Newtonsoft.Json.dll
+C:\Users\user\source\repos\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\Views\MainWindow.g.cs
+C:\Users\user\source\repos\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\Views\MainWindow.baml
+C:\Users\user\source\repos\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\ElementsVisualization\Grafics.baml
+C:\Users\user\source\repos\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\App.baml
+C:\Users\user\source\repos\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\MaskedTextBox.dll
+C:\Users\user\source\repos\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\Views\CatalogWindow.g.cs
+C:\Users\user\source\repos\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\Views\CatalogWindow.baml
+C:\Users\user\Desktop\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\appsettings.Development.json
+C:\Users\user\Desktop\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\appsettings.json
+C:\Users\user\Desktop\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\StoreTeddyBear.deps.json
+C:\Users\user\Desktop\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\StoreTeddyBear.runtimeconfig.json
+C:\Users\user\Desktop\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\StoreTeddyBear.staticwebassets.endpoints.json
+C:\Users\user\Desktop\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\StoreTeddyBear.exe
+C:\Users\user\Desktop\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\StroreTeddyBearWin.exe
+C:\Users\user\Desktop\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\StroreTeddyBearWin.deps.json
+C:\Users\user\Desktop\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\StroreTeddyBearWin.runtimeconfig.json
+C:\Users\user\Desktop\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\StroreTeddyBearWin.dll
+C:\Users\user\Desktop\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\StroreTeddyBearWin.pdb
+C:\Users\user\Desktop\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\BCrypt.Net-Next.dll
+C:\Users\user\Desktop\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\Castle.Core.dll
+C:\Users\user\Desktop\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\MaskedTextBox.dll
+C:\Users\user\Desktop\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\Microsoft.AspNetCore.OpenApi.dll
+C:\Users\user\Desktop\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\Microsoft.EntityFrameworkCore.dll
+C:\Users\user\Desktop\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\user\Desktop\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\Microsoft.EntityFrameworkCore.Proxies.dll
+C:\Users\user\Desktop\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\user\Desktop\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\Microsoft.Extensions.Caching.Memory.dll
+C:\Users\user\Desktop\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\user\Desktop\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\user\Desktop\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\Microsoft.Extensions.Logging.dll
+C:\Users\user\Desktop\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\user\Desktop\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\Microsoft.Extensions.Options.dll
+C:\Users\user\Desktop\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\Microsoft.OpenApi.dll
+C:\Users\user\Desktop\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\MySqlConnector.dll
+C:\Users\user\Desktop\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\Newtonsoft.Json.dll
+C:\Users\user\Desktop\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\Pomelo.EntityFrameworkCore.MySql.dll
+C:\Users\user\Desktop\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\user\Desktop\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\user\Desktop\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\user\Desktop\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\StoreTeddyBear.dll
+C:\Users\user\Desktop\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\StoreTeddyBear.pdb
+C:\Users\user\Desktop\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\StroreTeddyBearWin.csproj.AssemblyReference.cache
+C:\Users\user\Desktop\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\ElementsVisualization\Grafics.baml
+C:\Users\user\Desktop\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\Views\CatalogWindow.g.cs
+C:\Users\user\Desktop\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\Views\MainWindow.g.cs
+C:\Users\user\Desktop\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\App.g.cs
+C:\Users\user\Desktop\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\StroreTeddyBearWin_MarkupCompile.cache
+C:\Users\user\Desktop\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\StroreTeddyBearWin_MarkupCompile.lref
+C:\Users\user\Desktop\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\App.baml
+C:\Users\user\Desktop\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\Views\CatalogWindow.baml
+C:\Users\user\Desktop\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\Views\MainWindow.baml
+C:\Users\user\Desktop\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\StroreTeddyBearWin.g.resources
+C:\Users\user\Desktop\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\StroreTeddyBearWin.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user\Desktop\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\StroreTeddyBearWin.AssemblyInfoInputs.cache
+C:\Users\user\Desktop\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\StroreTeddyBearWin.AssemblyInfo.cs
+C:\Users\user\Desktop\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\StroreTeddyBearWin.csproj.CoreCompileInputs.cache
+C:\Users\user\Desktop\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\StroreTe.134B9788.Up2Date
+C:\Users\user\Desktop\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\StroreTeddyBearWin.dll
+C:\Users\user\Desktop\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\refint\StroreTeddyBearWin.dll
+C:\Users\user\Desktop\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\StroreTeddyBearWin.pdb
+C:\Users\user\Desktop\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\StroreTeddyBearWin.genruntimeconfig.cache
+C:\Users\user\Desktop\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\ref\StroreTeddyBearWin.dll
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\appsettings.Development.json
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\appsettings.json
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\StoreTeddyBear.staticwebassets.endpoints.json
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\StoreTeddyBear.deps.json
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\StoreTeddyBear.runtimeconfig.json
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\StoreTeddyBear.exe
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\StroreTeddyBearWin.exe
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\StroreTeddyBearWin.deps.json
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\StroreTeddyBearWin.runtimeconfig.json
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\StroreTeddyBearWin.dll
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\StroreTeddyBearWin.pdb
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\BCrypt.Net-Next.dll
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\Castle.Core.dll
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\MaskedTextBox.dll
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\Microsoft.AspNetCore.OpenApi.dll
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\Microsoft.EntityFrameworkCore.dll
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\Microsoft.EntityFrameworkCore.Proxies.dll
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\Microsoft.Extensions.Caching.Memory.dll
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\Microsoft.Extensions.Logging.dll
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\Microsoft.Extensions.Options.dll
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\Microsoft.OpenApi.dll
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\MySqlConnector.dll
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\Newtonsoft.Json.dll
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\Pomelo.EntityFrameworkCore.MySql.dll
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\StoreTeddyBear.dll
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\StoreTeddyBear.pdb
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\StroreTeddyBearWin.csproj.AssemblyReference.cache
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\ElementsVisualization\Grafics.baml
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\Views\CatalogWindow.g.cs
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\Views\MainWindow.g.cs
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\App.g.cs
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\StroreTeddyBearWin_MarkupCompile.cache
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\StroreTeddyBearWin_MarkupCompile.lref
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\App.baml
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\Views\CatalogWindow.baml
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\Views\MainWindow.baml
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\StroreTeddyBearWin.g.resources
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\StroreTeddyBearWin.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\StroreTeddyBearWin.AssemblyInfoInputs.cache
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\StroreTeddyBearWin.AssemblyInfo.cs
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\StroreTeddyBearWin.csproj.CoreCompileInputs.cache
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\StroreTe.134B9788.Up2Date
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\StroreTeddyBearWin.dll
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\refint\StroreTeddyBearWin.dll
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\StroreTeddyBearWin.pdb
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\StroreTeddyBearWin.genruntimeconfig.cache
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\ref\StroreTeddyBearWin.dll
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\Views\CartCatalog.g.cs
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\Views\CartCatalog.baml
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\MaterialDesignColors.dll
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\MaterialDesignThemes.Wpf.dll
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\bin\Debug\net8.0-windows\Microsoft.Xaml.Behaviors.dll
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\Views\CartControl.g.cs
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\StroreTeddyBearWin_Content.g.cs
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\Views\CartControl.baml
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\Views\AdminWindow.g.cs
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\Views\ProfileWindow.g.cs
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\Views\AdminWindow.baml
+C:\Users\user\Desktop\проекты\проекты WPF\мишки\StoreTeddyBear\StroreTeddyBearWin\obj\Debug\net8.0-windows\Views\ProfileWindow.baml

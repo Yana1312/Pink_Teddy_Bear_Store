@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "Новый профиль",
+    "Projects": [
+      {
+        "Path": "StroreTeddyBearWin\\StroreTeddyBearWin.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "StoreTeddyBear\\StoreTeddyBear.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]
