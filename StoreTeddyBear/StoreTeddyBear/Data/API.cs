@@ -80,6 +80,7 @@ namespace StoreTeddyBear.Data
                 StatusUsersProfile = "неактивный",
                 RoleUsers = "пользователь"
             };
+            var content = new StringContent(JsonConvert.SerializeObject(updateData), Encoding.UTF8, "application/json");
             var response = await _httpClient.PatchAsync($"{_baseUrl}/User/{id}/Deactivate", content);
 
             if (response.IsSuccessStatusCode)
