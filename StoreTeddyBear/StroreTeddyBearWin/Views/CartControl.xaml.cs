@@ -13,9 +13,9 @@ namespace StroreTeddyBearWin.Views
         public event EventHandler<int> IncreaseQuantityClicked;
         public event EventHandler<int> DecreaseQuantityClicked;
 
-        private API.CartItem _cartItem;
+        private Orderitem _cartItem;
 
-        public CartControl(API.CartItem cartItem)
+        public CartControl(Orderitem cartItem)
         {
             _cartItem = cartItem;
             InitializeComponent();
@@ -55,8 +55,8 @@ namespace StroreTeddyBearWin.Views
                 }
 
                 // Устанавливаем Tag кнопок для идентификации товара
-                AddcountBtn.Tag = _cartItem.OrderItemId;
-                DiscountBtn.Tag = _cartItem.OrderItemId;
+                AddcountBtn.Tag = _cartItem.IdOrderItem;
+                DiscountBtn.Tag = _cartItem.IdOrderItem;
             }
             catch (Exception ex)
             {

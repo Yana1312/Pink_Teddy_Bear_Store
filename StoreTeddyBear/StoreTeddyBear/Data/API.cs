@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json;
 using StoreTeddyBear.Models;
 using System.Text;
+using System.Xml.Linq;
 
 namespace StoreTeddyBear.Data
 {
@@ -14,7 +15,7 @@ namespace StoreTeddyBear.Data
 
         public static async Task<Useransadmin?> Auth(string email, string password)
         {
-            var authData = new { Email = email, Password = password };
+            var authData = new { email, password };
             var content = new StringContent(JsonConvert.SerializeObject(authData), Encoding.UTF8, "application/json");
             var response = await _httpClient.PostAsync($"{_baseUrl}/User/Authorization", content);
 
@@ -47,19 +48,60 @@ namespace StoreTeddyBear.Data
             return null;
         }
 
-        public static async Task<Order?> AddToCart(int customerId, string articulToy, int quantity, string shippingAddress = "")
+        public static async Task<Useransadmin?> EditProfile(int id,string email, string password, string name)
+        {
+            Useransadmin updateData = new Useransadmin
+            {
+                EmailUsers = email,
+                NameUsers = name,
+                PasswordHash = password,
+                StatusUsersProfile = "активный",
+                RoleUsers = "пользователь"
+            };
+            var content = new StringContent(JsonConvert.SerializeObject(updateData), Encoding.UTF8, "application/json");
+            var response = await _httpClient.PatchAsync($"{_baseUrl}/User/{id}/EditProfile", content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                string responseJson = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<Useransadmin>(responseJson);
+            }
+            return null;
+        }
+
+        public static async Task<Useransadmin?> DeactivateCustomer(int id)
+        {
+            var user = StorepinkteddybearBdContext.Instance.Useransadmins.Find(id);
+            Useransadmin updateData = new Useransadmin
+            {
+                EmailUsers = user.EmailUsers,
+                NameUsers = user.NameUsers,
+                PasswordHash = user.PasswordHash,
+                StatusUsersProfile = "неактивный",
+                RoleUsers = "пользователь"
+            };
+            var response = await _httpClient.PatchAsync($"{_baseUrl}/User/{id}/Deactivate", content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                string responseJson = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<Useransadmin>(responseJson);
+            }
+            return null;
+        }
+
+        public static async Task<Order?> AddToCart(int customerId, string articulToy, int quantity)
         {
             try
             {
-                var cartRequest = new CartRequest
+                var cart = new
                 {
-                    CustomerId = customerId,
-                    ArticulToy = articulToy,
-                    Quantity = quantity,
-                    ShippingAddress = shippingAddress
+                    customerId,
+                    articulToy,
+                    quantity
                 };
 
-                var content = new StringContent(JsonConvert.SerializeObject(cartRequest), Encoding.UTF8, "application/json");
+                var content = new StringContent(JsonConvert.SerializeObject(cart), Encoding.UTF8, "application/json");
                 var response = await _httpClient.PostAsync($"{_baseUrl}/Cart/AddToCart", content);
 
                 if (response.IsSuccessStatusCode)
@@ -81,7 +123,7 @@ namespace StoreTeddyBear.Data
             }
         }
 
-        public static async Task<CartResponse?> GetCart(int customerId)
+        public static async Task<Order?> GetCart(int customerId)
         {
             try
             {
@@ -90,14 +132,14 @@ namespace StoreTeddyBear.Data
                 if (response.IsSuccessStatusCode)
                 {
                     string responseJson = await response.Content.ReadAsStringAsync();
-                    return JsonConvert.DeserializeObject<CartResponse>(responseJson);
+                    return JsonConvert.DeserializeObject<Order>(responseJson);
                 }
-                return new CartResponse { Items = new List<CartItem>(), TotalAmount = 0 };
+                return new Order { Orderitems = new List<Orderitem>(), TotalAmount = 0 };
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Ошибка получения корзины: {ex.Message}");
-                return new CartResponse { Items = new List<CartItem>(), TotalAmount = 0 };
+                return new Order { Orderitems = new List<Orderitem>(), TotalAmount = 0 };
             }
         }
 
@@ -107,10 +149,7 @@ namespace StoreTeddyBear.Data
             {
                 var response = await _httpClient.DeleteAsync($"{_baseUrl}/Cart/RemoveFromCart/{orderItemId}");
 
-                if (response.IsSuccessStatusCode)
-                {
-                    return true;
-                }
+                if (response.IsSuccessStatusCode)  return true;
                 else
                 {
                     var errorMessage = await response.Content.ReadAsStringAsync();
@@ -129,19 +168,16 @@ namespace StoreTeddyBear.Data
         {
             try
             {
-                var updateRequest = new UpdateQuantityRequest
+                var updateQuantity = new 
                 {
-                    OrderItemId = orderItemId,
-                    NewQuantity = newQuantity
+                    orderItemId,
+                    newQuantity
                 };
 
-                var content = new StringContent(JsonConvert.SerializeObject(updateRequest), Encoding.UTF8, "application/json");
+                var content = new StringContent(JsonConvert.SerializeObject(updateQuantity), Encoding.UTF8, "application/json");
                 var response = await _httpClient.PutAsync($"{_baseUrl}/Cart/UpdateQuantity", content);
 
-                if (response.IsSuccessStatusCode)
-                {
-                    return true;
-                }
+                if (response.IsSuccessStatusCode) return true;
                 else
                 {
                     var errorMessage = await response.Content.ReadAsStringAsync();
@@ -160,12 +196,7 @@ namespace StoreTeddyBear.Data
         {
             try
             {
-                var checkoutRequest = new CheckoutRequest
-                {
-                    ShippingAddress = shippingAddress
-                };
-
-                var content = new StringContent(JsonConvert.SerializeObject(checkoutRequest), Encoding.UTF8, "application/json");
+                var content = new StringContent(JsonConvert.SerializeObject(shippingAddress), Encoding.UTF8, "application/json");
                 var response = await _httpClient.PostAsync($"{_baseUrl}/Cart/Checkout/{orderId}", content);
 
                 if (response.IsSuccessStatusCode)
@@ -187,21 +218,20 @@ namespace StoreTeddyBear.Data
             }
         }
 
-        // === МЕТОДЫ ДЛЯ РАБОТЫ С ОТЗЫВАМИ ===
 
         public static async Task<Review?> AddReview(string articulToy, int customerId, sbyte rating, string comment)
         {
             try
             {
-                var reviewRequest = new ReviewRequest
+                var review = new Review
                 {
                     ArticulToy = articulToy,
-                    CustomerId = customerId,
-                    Rating = rating,
-                    Comment = comment
+                    IdCustomer = customerId,
+                    RatingReview = rating,
+                    CommentReview = comment
                 };
 
-                var content = new StringContent(JsonConvert.SerializeObject(reviewRequest), Encoding.UTF8, "application/json");
+                var content = new StringContent(JsonConvert.SerializeObject(review), Encoding.UTF8, "application/json");
                 var response = await _httpClient.PostAsync($"{_baseUrl}/Review/Add", content);
 
                 if (response.IsSuccessStatusCode)
@@ -223,7 +253,7 @@ namespace StoreTeddyBear.Data
             }
         }
 
-        public static async Task<List<ReviewResponse>?> GetReviewsByProduct(string articulToy)
+        public static async Task<List<Review>?> GetReviewsByProduct(string articulToy)
         {
             try
             {
@@ -232,14 +262,14 @@ namespace StoreTeddyBear.Data
                 if (response.IsSuccessStatusCode)
                 {
                     string responseJson = await response.Content.ReadAsStringAsync();
-                    return JsonConvert.DeserializeObject<List<ReviewResponse>>(responseJson);
+                    return JsonConvert.DeserializeObject<List<Review>>(responseJson);
                 }
-                return new List<ReviewResponse>();
+                return new List<Review>();
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Ошибка получения отзывов по товару: {ex.Message}");
-                return new List<ReviewResponse>();
+                return new List<Review>();
             }
         }
 
@@ -267,10 +297,10 @@ namespace StoreTeddyBear.Data
         {
             try
             {
-                var editRequest = new EditReviewRequest
+                var editRequest = new
                 {
-                    Rating = rating,
-                    Comment = comment
+                    rating,
+                    comment
                 };
 
                 var content = new StringContent(JsonConvert.SerializeObject(editRequest), Encoding.UTF8, "application/json");
@@ -301,10 +331,7 @@ namespace StoreTeddyBear.Data
             {
                 var response = await _httpClient.DeleteAsync($"{_baseUrl}/Review/Delete/{reviewId}");
 
-                if (response.IsSuccessStatusCode)
-                {
-                    return true;
-                }
+                if (response.IsSuccessStatusCode)  return true;
                 else
                 {
                     var errorMessage = await response.Content.ReadAsStringAsync();
@@ -339,7 +366,7 @@ namespace StoreTeddyBear.Data
             }
         }
 
-        // Добавьте эти методы в класс API
+
         public static async Task<Toy?> AddToy(Toy toy)
         {
             try
@@ -398,10 +425,7 @@ namespace StoreTeddyBear.Data
             {
                 var response = await _httpClient.DeleteAsync($"{_baseUrl}/AdminToy/Delete/{Uri.EscapeDataString(articulToy)}");
 
-                if (response.IsSuccessStatusCode)
-                {
-                    return true;
-                }
+                if (response.IsSuccessStatusCode) return true;
                 else
                 {
                     var errorMessage = await response.Content.ReadAsStringAsync();
@@ -436,66 +460,70 @@ namespace StoreTeddyBear.Data
             }
         }
 
-        public class CartRequest
+        public static async Task<List<Order>> GetCustomerOrders(int customerId)
         {
-            public int CustomerId { get; set; }
-            public string ArticulToy { get; set; }
-            public int Quantity { get; set; }
-            public string ShippingAddress { get; set; }
+            try
+            {
+                var response = await _httpClient.GetAsync($"{_baseUrl}/OrderController/{customerId}/CustomerOrders");
+                if (response.IsSuccessStatusCode) 
+                {
+                    string responseJson = await response.Content.ReadAsStringAsync();
+                    return JsonConvert.DeserializeObject<List<Order>>(responseJson);
+                }
+                return new List<Order>();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Ошибка получения заказов покупателя: {ex.Message}");
+                return new List<Order>();
+            }
         }
 
-        public class UpdateQuantityRequest
+        public static async Task<List<Order>> GetOrderDetails(int orderId)
         {
-            public int OrderItemId { get; set; }
-            public int NewQuantity { get; set; }
+            try
+            {
+                var response = await _httpClient.GetAsync($"{_baseUrl}/OrderController/{orderId}/Details");
+                if (response.IsSuccessStatusCode)
+                {
+                    string responseJson = await response.Content.ReadAsStringAsync();
+                    return JsonConvert.DeserializeObject<List<Order>>(responseJson);
+                }
+                return new List<Order>();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Ошибка получения деталей заказа: {ex.Message}");
+                return new List<Order>();
+            }
         }
 
-        public class CheckoutRequest
+        public static async Task<Order> UpdateOrderStatus(int orderId, string newStatus)
         {
-            public string ShippingAddress { get; set; }
+            try
+            {
+                var statusOrder = new
+                {
+                    orderId,
+                    newStatus
+                };
+                var content = new StringContent(JsonConvert.SerializeObject(statusOrder), Encoding.UTF8, "application/json");
+                var response = await _httpClient.PutAsync($"{_baseUrl}/OrderController/{orderId}/UpdateStatus",  content);
+                if (response.IsSuccessStatusCode)
+                {
+                    string responseJson = await response.Content.ReadAsStringAsync();
+                    return JsonConvert.DeserializeObject<Order>(responseJson);
+                }
+                return new Order();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Ошибка обновления статуса заказа: {ex.Message}");
+                return new Order();
+            }
         }
 
-        public class CartResponse
-        {
-            public int OrderId { get; set; }
-            public List<CartItem> Items { get; set; }
-            public decimal TotalAmount { get; set; }
-        }
 
-        public class CartItem
-        {
-            public int OrderItemId { get; set; }
-            public string ArticulToy { get; set; }
-            public string Title { get; set; }
-            public int Quantity { get; set; }
-            public decimal UnitPrice { get; set; }
-            public decimal TotalPrice { get; set; }
-        }
-
-        // === КЛАССЫ ДЛЯ РАБОТЫ С ОТЗЫВАМИ ===
-
-        public class ReviewRequest
-        {
-            public string ArticulToy { get; set; }
-            public int CustomerId { get; set; }
-            public sbyte Rating { get; set; }
-            public string Comment { get; set; }
-        }
-
-        public class EditReviewRequest
-        {
-            public sbyte Rating { get; set; }
-            public string Comment { get; set; }
-        }
-
-        public class ReviewResponse
-        {
-            public int IdReview { get; set; }
-            public string CustomerName { get; set; }
-            public sbyte Rating { get; set; }
-            public string Comment { get; set; }
-            public DateTime? Date { get; set; }
-        }
 
         public class AverageRatingResponse
         {

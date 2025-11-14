@@ -11,7 +11,7 @@ namespace StroreTeddyBearWin.Views
     public partial class CartCatalog : Window
     {
         private Useransadmin _currentUser;
-        private API.CartResponse _currentCart;
+        private Order _currentCart;
 
         public CartCatalog(Useransadmin useransadmin)
         {
@@ -48,11 +48,11 @@ namespace StroreTeddyBearWin.Views
             {
                 _currentCart = await API.GetCart(_currentUser.IdCustomer);
 
-                if (_currentCart != null && _currentCart.Items != null && _currentCart.Items.Any())
+                if (_currentCart != null && _currentCart.Orderitems != null && _currentCart.Orderitems.Any())
                 {
                     CartItemsLv.Items.Clear();
 
-                    foreach (var cartItem in _currentCart.Items)
+                    foreach (var cartItem in _currentCart.Orderitems)
                     {
                         var cartControl = new CartControl(cartItem);
                         cartControl.RemoveItemClicked += OnRemoveItemClicked;

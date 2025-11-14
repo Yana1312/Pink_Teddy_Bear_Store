@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("StroreTeddyBearWin")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ac1071f677b277e7c76d296986f4e69b70d38efb")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e841804e469d12afcf61b044d9a31ad5ecec23df")]
 [assembly: System.Reflection.AssemblyProductAttribute("StroreTeddyBearWin")]
 [assembly: System.Reflection.AssemblyTitleAttribute("StroreTeddyBearWin")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
