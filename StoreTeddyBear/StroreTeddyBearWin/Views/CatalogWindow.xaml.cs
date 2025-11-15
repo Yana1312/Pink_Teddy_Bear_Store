@@ -79,9 +79,10 @@ namespace StroreTeddyBearWin.Views
 
         private void LoadImage(System.Windows.Controls.Image image, string imagePath)
         {
+
             try
             {
-                if (File.Exists(@"C:/Users/user/Desktop/проекты/проекты WPF/мишки/StoreTeddyBear/StroreTeddyBearWin" + imagePath))
+                if (File.Exists(@"C:\Users\user\Desktop\проекты\проекты WPF\GitHub Bears\StoreTeddyBear\StroreTeddyBearWin\" + imagePath))
                     image.Source = new BitmapImage(new Uri(imagePath, UriKind.Relative));
                 else throw new Exception();
             }
@@ -126,8 +127,7 @@ namespace StroreTeddyBearWin.Views
                 var result = await API.AddToCart(
                     _currentUser.IdCustomer,
                     currentToy.ArticulToy,
-                    1,
-                    ""
+                    1
                 );
 
                 if (result != null)

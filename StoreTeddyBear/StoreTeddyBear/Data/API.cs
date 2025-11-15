@@ -91,19 +91,19 @@ namespace StoreTeddyBear.Data
             return null;
         }
 
-        public static async Task<Order?> AddToCart(int customerId, string articulToy, int quantity)
+        public static async Task<Order?> AddToCart(int CustomerId, string ArticulToy, int Quantity)
         {
             try
             {
                 var cart = new
                 {
-                    customerId,
-                    articulToy,
-                    quantity
+                    CustomerId,
+                    ArticulToy,
+                    Quantity
                 };
 
                 var content = new StringContent(JsonConvert.SerializeObject(cart), Encoding.UTF8, "application/json");
-                var response = await _httpClient.PostAsync($"{_baseUrl}/Cart/AddToCart", content);
+                var response = await _httpClient.PostAsync($"{_baseUrl}/Cart/AddToCart?CustomerId={CustomerId}&ArticulToy={ArticulToy}&Quantity={Quantity}", content);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -176,7 +176,7 @@ namespace StoreTeddyBear.Data
                 };
 
                 var content = new StringContent(JsonConvert.SerializeObject(updateQuantity), Encoding.UTF8, "application/json");
-                var response = await _httpClient.PutAsync($"{_baseUrl}/Cart/UpdateQuantity", content);
+                var response = await _httpClient.PutAsync($"{_baseUrl}/Cart/UpdateQuantity?orderItemId={orderItemId}&newQuantity={newQuantity}", content);
 
                 if (response.IsSuccessStatusCode) return true;
                 else
@@ -233,7 +233,7 @@ namespace StoreTeddyBear.Data
                 };
 
                 var content = new StringContent(JsonConvert.SerializeObject(review), Encoding.UTF8, "application/json");
-                var response = await _httpClient.PostAsync($"{_baseUrl}/Review/Add", content);
+                var response = await _httpClient.PostAsync($"{_baseUrl}/Review/Add?customerId={customerId}&ArticulToy={articulToy}&rating={rating}&comment={comment}", content);
 
                 if (response.IsSuccessStatusCode)
                 {

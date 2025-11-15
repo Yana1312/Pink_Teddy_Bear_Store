@@ -50,18 +50,7 @@ namespace StroreTeddyBearWin.Views
 
                 if (_currentCart != null && _currentCart.Orderitems != null && _currentCart.Orderitems.Any())
                 {
-                    CartItemsLv.Items.Clear();
-
-                    foreach (var cartItem in _currentCart.Orderitems)
-                    {
-                        var cartControl = new CartControl(cartItem);
-                        cartControl.RemoveItemClicked += OnRemoveItemClicked;
-                        cartControl.IncreaseQuantityClicked += OnIncreaseQuantityClicked;
-                        cartControl.DecreaseQuantityClicked += OnDecreaseQuantityClicked;
-
-                        CartItemsLv.Items.Add(cartControl);
-                    }
-
+                    UpdateListView(_currentCart.Orderitems.ToList());
                     UpdateTotalAmount();
                     CreateOrderBtn.IsEnabled = true;
                     ClearCartBtn.IsEnabled = true;
@@ -69,13 +58,6 @@ namespace StroreTeddyBearWin.Views
                 else
                 {
                     CartItemsLv.Items.Clear();
-                    CartItemsLv.Items.Add(new TextBlock
-                    {
-                        Text = "Корзина пуста",
-                        HorizontalAlignment = HorizontalAlignment.Center,
-                        VerticalAlignment = VerticalAlignment.Center,
-                        FontSize = 16
-                    });
                     TotalAmountText.Text = "Итоговая сумма заказа: 0 рублей";
                     CreateOrderBtn.IsEnabled = false;
                     ClearCartBtn.IsEnabled = false;
@@ -143,7 +125,7 @@ namespace StroreTeddyBearWin.Views
         {
             try
             {
-                var currentItem = _currentCart.Items.FirstOrDefault(i => i.OrderItemId == orderItemId);
+                var currentItem = _currentCart.Orderitems.FirstOrDefault(i => i.IdOrderItem == orderItemId);
                 if (currentItem != null)
                 {
                     int newQuantity = increase ? currentItem.Quantity + 1 : currentItem.Quantity - 1;
@@ -177,7 +159,7 @@ namespace StroreTeddyBearWin.Views
         {
             try
             {
-                if (_currentCart == null || !_currentCart.Items.Any())
+                if (_currentCart == null || !_currentCart.Orderitems.Any())
                 {
                     MessageBox.Show("Корзина пуста!", "Внимание",
                         MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -192,7 +174,7 @@ namespace StroreTeddyBearWin.Views
                     return;
                 }
 
-                var result = await API.Checkout(_currentCart.OrderId, selectedAddress);
+                var result = await API.Checkout(_currentCart.IdOrder, selectedAddress);
 
                 if (result != null)
                 {
@@ -219,11 +201,17 @@ namespace StroreTeddyBearWin.Views
             }
         }
 
+        private void UpdateListView(List<Orderitem> currentOrder)
+        {
+            CartItemsLv.ItemsSource = null;
+            CartItemsLv.ItemsSource = currentOrder;
+        }
+
         private async void ClearCartBtn_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                if (_currentCart == null || !_currentCart.Items.Any())
+                if (_currentCart == null || !_currentCart.Orderitems.Any())
                 {
                     MessageBox.Show("Корзина уже пуста!", "Внимание",
                         MessageBoxButton.OK, MessageBoxImage.Information);
@@ -235,9 +223,9 @@ namespace StroreTeddyBearWin.Views
 
                 if (result == MessageBoxResult.Yes)
                 {
-                    foreach (var item in _currentCart.Items.ToList())
+                    foreach (var item in _currentCart.Orderitems.ToList())
                     {
-                        await API.RemoveFromCart(item.OrderItemId);
+                        await API.RemoveFromCart(item.IdOrderItem);
                     }
 
                     MessageBox.Show("Корзина очищена", "Успех",
@@ -252,12 +240,21 @@ namespace StroreTeddyBearWin.Views
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
         private void BackToMainWindowImg_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             CatalogWindow catalogWindow = new CatalogWindow(_currentUser);
             catalogWindow.Show();
             this.Close();
+        }
+
+        private void DiscountBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AddcountBtn_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

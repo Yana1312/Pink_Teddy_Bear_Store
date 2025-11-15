@@ -57,7 +57,7 @@
                     </Button>-->
                     <!--<Image x:Name="RightBearImg" Source="/ElementsVisualization/Мишки/Мишка _Валентинка_.png"  Margin="250 300 200 0"/>-->
                     <Image x:Name="RightBearImg"
-                            Source="/ElementsVisualization/Мишки/Валентинка.png"  
+                            Source="/ElementsVisualization/Bears/Валентинка.png"  
                             Width="100"
                             MouseDown="RightBearImg_MouseDown"
                             VerticalAlignment="Top"
@@ -78,7 +78,7 @@
             </Viewbox>
             <Viewbox Grid.Column="1" Stretch="Uniform" VerticalAlignment="Top">
                 <Image x:Name="CurrentBearImg" 
-                       Source="/ElementsVisualization/Мишки/Весенний.png"
+                       Source="/ElementsVisualization/Bears/Весенний.png"
                        Width="100"
                        Height="100"
                        />
@@ -97,7 +97,7 @@
                     </Button.Background>
                 </Button>-->
                     <Image x:Name="LeftBearImg" 
-                           Source="/ElementsVisualization/Мишки/Нежность.png"  
+                           Source="/ElementsVisualization/Bears/Нежность.png"  
                            Grid.Column="1" 
                            Width="100"
                            Margin=" 0 15 0 0"

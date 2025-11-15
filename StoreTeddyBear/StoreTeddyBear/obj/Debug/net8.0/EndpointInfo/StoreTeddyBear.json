@@ -53,7 +53,7 @@
         }
       }
     },
-    "/api/AdminToy/Update/{articulToy}": {
+    "/api/AdminToy/{articulToy}/Update": {
       "put": {
         "tags": [
           "AdminToy"
@@ -111,7 +111,7 @@
         }
       }
     },
-    "/api/AdminToy/Delete/{articulToy}": {
+    "/api/AdminToy/{articulToy}/Delete": {
       "delete": {
         "tags": [
           "AdminToy"
@@ -374,7 +374,7 @@
         }
       }
     },
-    "/api/Order/CustomerOrders/{customerId}": {
+    "/api/Order/{customerId}/CustomerOrders": {
       "get": {
         "tags": [
           "Order"
@@ -398,7 +398,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/OrderResponse"
+                    "$ref": "#/components/schemas/Order"
                   }
                 }
               },
@@ -406,7 +406,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/OrderResponse"
+                    "$ref": "#/components/schemas/Order"
                   }
                 }
               },
@@ -414,7 +414,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/OrderResponse"
+                    "$ref": "#/components/schemas/Order"
                   }
                 }
               }
@@ -423,7 +423,7 @@
         }
       }
     },
-    "/api/Order/Details/{orderId}": {
+    "/api/Order/{orderId}/Details": {
       "get": {
         "tags": [
           "Order"
@@ -445,17 +445,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/OrderResponse"
+                  "$ref": "#/components/schemas/Order"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/OrderResponse"
+                  "$ref": "#/components/schemas/Order"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/OrderResponse"
+                  "$ref": "#/components/schemas/Order"
                 }
               }
             }
@@ -463,7 +463,7 @@
         }
       }
     },
-    "/api/Order/UpdateStatus/{orderId}": {
+    "/api/Order/{orderId}/UpdateStatus": {
       "put": {
         "tags": [
           "Order"
@@ -477,27 +477,15 @@
               "type": "integer",
               "format": "int32"
             }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateStatusRequest"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateStatusRequest"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateStatusRequest"
-              }
+          },
+          {
+            "name": "newStatus",
+            "in": "query",
+            "schema": {
+              "type": "string"
             }
           }
-        },
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -527,25 +515,38 @@
         "tags": [
           "Review"
         ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ReviewRequest"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ReviewRequest"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/ReviewRequest"
-              }
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "ArticulToy",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "rating",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "comment",
+            "in": "query",
+            "schema": {
+              "type": "string"
             }
           }
-        },
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -570,7 +571,7 @@
         }
       }
     },
-    "/api/Review/GetByProduct/{articulToy}": {
+    "/api/Review/{articulToy}/GetByProduct": {
       "get": {
         "tags": [
           "Review"
@@ -593,7 +594,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/ReviewResponse"
+                    "$ref": "#/components/schemas/Review"
                   }
                 }
               },
@@ -601,7 +602,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/ReviewResponse"
+                    "$ref": "#/components/schemas/Review"
                   }
                 }
               },
@@ -609,7 +610,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/ReviewResponse"
+                    "$ref": "#/components/schemas/Review"
                   }
                 }
               }
@@ -618,7 +619,7 @@
         }
       }
     },
-    "/api/Review/GetByCustomer/{customerId}": {
+    "/api/Review/{customerId}/GetByCustomer": {
       "get": {
         "tags": [
           "Review"
@@ -667,7 +668,7 @@
         }
       }
     },
-    "/api/Review/Edit/{reviewId}": {
+    "/api/Review/{reviewId}/Edit": {
       "put": {
         "tags": [
           "Review"
@@ -681,27 +682,23 @@
               "type": "integer",
               "format": "int32"
             }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/EditReviewRequest"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/EditReviewRequest"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/EditReviewRequest"
-              }
+          },
+          {
+            "name": "rating",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "comment",
+            "in": "query",
+            "schema": {
+              "type": "string"
             }
           }
-        },
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -726,7 +723,7 @@
         }
       }
     },
-    "/api/Review/Delete/{reviewId}": {
+    "/api/Review/{reviewId}/Delete": {
       "delete": {
         "tags": [
           "Review"
@@ -749,7 +746,7 @@
         }
       }
     },
-    "/api/Review/AverageRating/{articulToy}": {
+    "/api/Review/{articulToy}/AverageRating": {
       "get": {
         "tags": [
           "Review"
@@ -770,17 +767,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/AverageRatingResponse"
+                  "$ref": "#/components/schemas/AverageRatingBear"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AverageRatingResponse"
+                  "$ref": "#/components/schemas/AverageRatingBear"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AverageRatingResponse"
+                  "$ref": "#/components/schemas/AverageRatingBear"
                 }
               }
             }
@@ -875,17 +872,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/auth"
+                "$ref": "#/components/schemas/AuthRequest"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/auth"
+                "$ref": "#/components/schemas/AuthRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/auth"
+                "$ref": "#/components/schemas/AuthRequest"
               }
             }
           }
@@ -1047,7 +1044,21 @@
   },
   "components": {
     "schemas": {
-      "AverageRatingResponse": {
+      "AuthRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AverageRatingBear": {
         "type": "object",
         "properties": {
           "averageRating": {
@@ -1057,20 +1068,6 @@
           "reviewCount": {
             "type": "integer",
             "format": "int32"
-          }
-        },
-        "additionalProperties": false
-      },
-      "EditReviewRequest": {
-        "type": "object",
-        "properties": {
-          "rating": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "comment": {
-            "type": "string",
-            "nullable": true
           }
         },
         "additionalProperties": false
@@ -1107,62 +1104,6 @@
         },
         "additionalProperties": false
       },
-      "OrderItemResponse": {
-        "type": "object",
-        "properties": {
-          "title": {
-            "type": "string",
-            "nullable": true
-          },
-          "quantity": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "unitPrice": {
-            "type": "number",
-            "format": "double"
-          },
-          "totalPrice": {
-            "type": "number",
-            "format": "double"
-          }
-        },
-        "additionalProperties": false
-      },
-      "OrderResponse": {
-        "type": "object",
-        "properties": {
-          "idOrder": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "dateOrder": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "statusOrder": {
-            "type": "string",
-            "nullable": true
-          },
-          "adressOrder": {
-            "type": "string",
-            "nullable": true
-          },
-          "totalAmount": {
-            "type": "number",
-            "format": "double"
-          },
-          "items": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/OrderItemResponse"
-            },
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
       "Review": {
         "type": "object",
         "properties": {
@@ -1187,55 +1128,6 @@
             "nullable": true
           },
           "dateReview": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "ReviewRequest": {
-        "type": "object",
-        "properties": {
-          "articulToy": {
-            "type": "string",
-            "nullable": true
-          },
-          "customerId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "rating": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "comment": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "ReviewResponse": {
-        "type": "object",
-        "properties": {
-          "idReview": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "customerName": {
-            "type": "string",
-            "nullable": true
-          },
-          "rating": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "comment": {
-            "type": "string",
-            "nullable": true
-          },
-          "date": {
             "type": "string",
             "format": "date-time",
             "nullable": true
@@ -1277,16 +1169,6 @@
         },
         "additionalProperties": false
       },
-      "UpdateStatusRequest": {
-        "type": "object",
-        "properties": {
-          "newStatus": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
       "Useransadmin": {
         "type": "object",
         "properties": {
@@ -1311,20 +1193,6 @@
             "nullable": true
           },
           "roleUsers": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "auth": {
-        "type": "object",
-        "properties": {
-          "email": {
-            "type": "string",
-            "nullable": true
-          },
-          "password": {
             "type": "string",
             "nullable": true
           }

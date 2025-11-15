@@ -1,6 +1,53 @@
 [
   {
     "ContainingType": "StoreTeddyBear.Controllers.AdminToyController",
+    "Method": "DeleteToy",
+    "RelativePath": "api/AdminToy/{articulToy}/Delete",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "articulToy",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "StoreTeddyBear.Controllers.AdminToyController",
+    "Method": "UpdateToy",
+    "RelativePath": "api/AdminToy/{articulToy}/Update",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "articulToy",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "updatedToy",
+        "Type": "StoreTeddyBear.Models.Toy",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "StoreTeddyBear.Models.Toy",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "StoreTeddyBear.Controllers.AdminToyController",
     "Method": "AddToy",
     "RelativePath": "api/AdminToy/Add",
     "HttpMethod": "POST",
@@ -27,22 +74,6 @@
   },
   {
     "ContainingType": "StoreTeddyBear.Controllers.AdminToyController",
-    "Method": "DeleteToy",
-    "RelativePath": "api/AdminToy/Delete/{articulToy}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "articulToy",
-        "Type": "System.String",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "StoreTeddyBear.Controllers.AdminToyController",
     "Method": "SearchToys",
     "RelativePath": "api/AdminToy/Search",
     "HttpMethod": "GET",
@@ -58,37 +89,6 @@
     "ReturnTypes": [
       {
         "Type": "System.Collections.Generic.List\u00601[[StoreTeddyBear.Models.Toy, StoreTeddyBear, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "StoreTeddyBear.Controllers.AdminToyController",
-    "Method": "UpdateToy",
-    "RelativePath": "api/AdminToy/Update/{articulToy}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "articulToy",
-        "Type": "System.String",
-        "IsRequired": true
-      },
-      {
-        "Name": "updatedToy",
-        "Type": "StoreTeddyBear.Models.Toy",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "StoreTeddyBear.Models.Toy",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -231,7 +231,7 @@
   {
     "ContainingType": "StoreTeddyBear.Controllers.OrderController",
     "Method": "GetCustomerOrders",
-    "RelativePath": "api/Order/CustomerOrders/{customerId}",
+    "RelativePath": "api/Order/{customerId}/CustomerOrders",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -244,7 +244,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.List\u00601[[StoreTeddyBear.Controllers.OrderResponse, StoreTeddyBear, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.List\u00601[[StoreTeddyBear.Models.Order, StoreTeddyBear, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -257,7 +257,7 @@
   {
     "ContainingType": "StoreTeddyBear.Controllers.OrderController",
     "Method": "GetOrderDetails",
-    "RelativePath": "api/Order/Details/{orderId}",
+    "RelativePath": "api/Order/{orderId}/Details",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -265,37 +265,6 @@
       {
         "Name": "orderId",
         "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "StoreTeddyBear.Controllers.OrderResponse",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "StoreTeddyBear.Controllers.OrderController",
-    "Method": "UpdateOrderStatus",
-    "RelativePath": "api/Order/UpdateStatus/{orderId}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "orderId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "request",
-        "Type": "StoreTeddyBear.Controllers.UpdateStatusRequest",
         "IsRequired": true
       }
     ],
@@ -312,22 +281,27 @@
     ]
   },
   {
-    "ContainingType": "StoreTeddyBear.Controllers.ReviewController",
-    "Method": "AddReview",
-    "RelativePath": "api/Review/Add",
-    "HttpMethod": "POST",
+    "ContainingType": "StoreTeddyBear.Controllers.OrderController",
+    "Method": "UpdateOrderStatus",
+    "RelativePath": "api/Order/{orderId}/UpdateStatus",
+    "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "request",
-        "Type": "StoreTeddyBear.Controllers.ReviewRequest",
+        "Name": "orderId",
+        "Type": "System.Int32",
         "IsRequired": true
+      },
+      {
+        "Name": "newStatus",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "StoreTeddyBear.Models.Review",
+        "Type": "StoreTeddyBear.Models.Order",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -340,7 +314,7 @@
   {
     "ContainingType": "StoreTeddyBear.Controllers.ReviewController",
     "Method": "GetAverageRating",
-    "RelativePath": "api/Review/AverageRating/{articulToy}",
+    "RelativePath": "api/Review/{articulToy}/AverageRating",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -353,7 +327,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "StoreTeddyBear.Controllers.AverageRatingResponse",
+        "Type": "StoreTeddyBear.Controllers.AverageRatingBear",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -365,42 +339,21 @@
   },
   {
     "ContainingType": "StoreTeddyBear.Controllers.ReviewController",
-    "Method": "DeleteReview",
-    "RelativePath": "api/Review/Delete/{reviewId}",
-    "HttpMethod": "DELETE",
+    "Method": "GetReviewsByProduct",
+    "RelativePath": "api/Review/{articulToy}/GetByProduct",
+    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "reviewId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "StoreTeddyBear.Controllers.ReviewController",
-    "Method": "EditReview",
-    "RelativePath": "api/Review/Edit/{reviewId}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "reviewId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "request",
-        "Type": "StoreTeddyBear.Controllers.EditReviewRequest",
+        "Name": "articulToy",
+        "Type": "System.String",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "StoreTeddyBear.Models.Review",
+        "Type": "System.Collections.Generic.List\u00601[[StoreTeddyBear.Models.Review, StoreTeddyBear, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -413,7 +366,7 @@
   {
     "ContainingType": "StoreTeddyBear.Controllers.ReviewController",
     "Method": "GetReviewsByCustomer",
-    "RelativePath": "api/Review/GetByCustomer/{customerId}",
+    "RelativePath": "api/Review/{customerId}/GetByCustomer",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -438,21 +391,88 @@
   },
   {
     "ContainingType": "StoreTeddyBear.Controllers.ReviewController",
-    "Method": "GetReviewsByProduct",
-    "RelativePath": "api/Review/GetByProduct/{articulToy}",
-    "HttpMethod": "GET",
+    "Method": "DeleteReview",
+    "RelativePath": "api/Review/{reviewId}/Delete",
+    "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "articulToy",
-        "Type": "System.String",
+        "Name": "reviewId",
+        "Type": "System.Int32",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "StoreTeddyBear.Controllers.ReviewController",
+    "Method": "EditReview",
+    "RelativePath": "api/Review/{reviewId}/Edit",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "reviewId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "rating",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "comment",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.List\u00601[[StoreTeddyBear.Controllers.ReviewResponse, StoreTeddyBear, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "StoreTeddyBear.Models.Review",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "StoreTeddyBear.Controllers.ReviewController",
+    "Method": "AddReview",
+    "RelativePath": "api/Review/Add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "customerId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "ArticulToy",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "rating",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "comment",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "StoreTeddyBear.Models.Review",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -545,7 +565,7 @@
     "Parameters": [
       {
         "Name": "auth",
-        "Type": "StoreTeddyBear.Controllers.UserController\u002Bauth",
+        "Type": "StoreTeddyBear.Controllers.UserController\u002BAuthRequest",
         "IsRequired": true
       }
     ],

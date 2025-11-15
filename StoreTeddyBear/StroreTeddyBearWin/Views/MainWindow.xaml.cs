@@ -70,7 +70,7 @@ namespace StroreTeddyBearWin
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка подключения: {ex.Message}", "Ошибка",
+                MessageBox.Show($"Ошибка аворизации: {ex.Message}", "Ошибка",
                       MessageBoxButton.OK, MessageBoxImage.Error);
             }
             finally
@@ -115,7 +115,7 @@ namespace StroreTeddyBearWin
 
                 var errors = UserController.GetValidationErrors(cus);
                 var existingCustomer = StorepinkteddybearBdContext.Instance.Useransadmins.FirstOrDefault(c =>
-                                       c.EmailUsers.Equals(cus.EmailUsers, StringComparison.OrdinalIgnoreCase));
+                                       c.EmailUsers.Equals(cus.EmailUsers));
 
                 if (existingCustomer != null) errors.Add("Данная почта уже зарегистрирована");
 
@@ -126,9 +126,12 @@ namespace StroreTeddyBearWin
                 }
                 var res = await API.Registration(email: UserEmailRegistrationTbox.Text, name: UserNameRegistrationTbox.Text, password: _password);
 
-                if (res == null)
+                if (res != null)
                 {
                     MessageBox.Show($"Успешная регистрация! Добро пожаловать, {res.NameUsers}!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                    CatalogWindow catalog = new CatalogWindow(res);
+                    catalog.Show();
+                    this.Close();
                     UserEmailRegistrationTbox.Text = "";
                     UserNameRegistrationTbox.Text = "";
                     UserPasswordRegistrationPbox.Password = "";
@@ -136,11 +139,11 @@ namespace StroreTeddyBearWin
                     RegistrationWindow.Visibility = Visibility.Hidden;
                 }
                 else
-                    MessageBox.Show("Не удалось зарегистрировать пользователя. Проверьте введенные данные.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Не удалось зарегистрировать пользователя. Проверьте введенные данные", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка подключения: {ex.Message}", "Ошибка",
+                MessageBox.Show($"Ошибка регистрации: {ex.Message}", "Ошибка",
                       MessageBoxButton.OK, MessageBoxImage.Error);
             }
             finally

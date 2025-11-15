@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
 C:\Users\user\Desktop\проекты\проекты WPF\GitHub Bears\StoreTeddyBear\StroreTeddyBearWin\App.xaml
-7-571624305
+81084938944
 22-1389451269
-11-1526434377
+121445291162
 3531737156156
-ElementsVisualization\Grafics.xaml;Views\AdminWindow.xaml;Views\CartCatalog.xaml;Views\CartControl.xaml;Views\CatalogWindow.xaml;Views\MainWindow.xaml;Views\ProfileWindow.xaml;
+ElementsVisualization\Grafics.xaml;Views\AdminWindow.xaml;Views\CartCatalog.xaml;Views\CartControl.xaml;Views\CatalogWindow.xaml;Views\MainWindow.xaml;Views\ProfileWindow.xaml;Views\ReviewWindow.xaml;
 
-False
+True
 

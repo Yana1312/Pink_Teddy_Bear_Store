@@ -4,11 +4,13 @@
     "Projects": [
       {
         "Path": "StroreTeddyBearWin\\StroreTeddyBearWin.csproj",
-        "Action": "Start"
+        "Action": "Start",
+        "DebugTarget": "StroreTeddyBearWin"
       },
       {
         "Path": "StoreTeddyBear\\StoreTeddyBear.csproj",
-        "Action": "Start"
+        "Action": "Start",
+        "DebugTarget": "http"
       }
     ]
   }

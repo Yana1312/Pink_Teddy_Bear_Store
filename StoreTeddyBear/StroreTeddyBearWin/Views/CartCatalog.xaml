@@ -43,11 +43,98 @@
                           Style="{StaticResource MaterialDesignListView}"
                           HorizontalAlignment="Stretch"
                           ScrollViewer.VerticalScrollBarVisibility="Auto">
-                    <ListView.ItemsPanel>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="#F8BED4" CornerRadius="40">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Viewbox Stretch="Uniform">
+                                        <Grid Margin="20 15">
+                                            <Rectangle Width="140" Height="180" Fill="#FFF4F4" RadiusX="30" RadiusY="30"/>
+
+                                            <Image x:Name="BearInItemsCartImg" Width="140" Height="180" Source="\ElementsVisualization\Bears\дефолт картинка2.png"/>
+                                            <!--<Ellipse Width="140" Height="180">
+                    <Ellipse.Fill>
+                        <ImageBrush x:Name="BearInItemsCartImg"
+                               ImageSource="\ElementsVisualization\Bears\дефолт картинка2.png"
+                               >
+                        </ImageBrush>
+                    </Ellipse.Fill>
+                </Ellipse>-->
+
+                                        </Grid>
+                                    </Viewbox>
+
+                                    <Grid Grid.Column="1">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Viewbox Grid.Row="0" Stretch="Uniform" HorizontalAlignment="Left">
+                                            <TextBlock x:Name="TitleBearTb"
+                           Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}"
+                           FontSize="46"
+                           Margin="0 10 0 0"
+                           Style="{StaticResource LightTextBlockStyle}"/>
+                                        </Viewbox>
+
+                                        <Viewbox Grid.Row="1" Stretch="Uniform" HorizontalAlignment="Left">
+                                            <TextBlock x:Name="DescriptionBearTb" 
+                           Width="500"
+                           FontSize="30"
+                           TextWrapping="Wrap"
+                           Text="{Binding Descriptionn, UpdateSourceTrigger=PropertyChanged}"
+                           Style="{StaticResource TextBlockStyle}"/>
+                                        </Viewbox>
+                                        <Viewbox Grid.Row="2" Stretch="Uniform" HorizontalAlignment="Left">
+                                            <TextBlock x:Name="WeightAndHeightBearTb"
+                           FontSize="35"
+                           Text="высота: 25 см, вес: 300 г"
+                           Style="{StaticResource TextBlockStyle}"/>
+                                        </Viewbox>
+                                    </Grid>
+
+                                    <Grid Grid.Column="2" >
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="60"/>
+                                        </Grid.RowDefinitions>
+
+                                        <Viewbox Grid.Row="0" Stretch="Uniform"  VerticalAlignment="Top">
+                                            <StackPanel Orientation="Horizontal" Margin="15 5">
+                                                <TextBlock Text="{Binding Price, StringFormat='{}{0} ₽', UpdateSourceTrigger=PropertyChanged}"
+                               x:Name="PriceTb"
+                               FontSize="50"
+                               HorizontalAlignment="Center"
+                               Style="{StaticResource LightTextBlockStyle}"/>
+                                            </StackPanel>
+                                        </Viewbox>
+
+                                        <Viewbox Grid.Row="2" Stretch="Uniform" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+                                            <StackPanel Orientation="Horizontal" Margin="0 0 0 5">
+                                                <Button x:Name="AddcountBtn" Click="AddcountBtn_Click"  Content="+" Background="#FFF4F4" Foreground="#2C2C2C" BorderThickness="0" Width="25"/>
+                                                <TextBlock x:Name="CountTb" Text="1" Background="#FFF4F4" Foreground="#2C2C2C" HorizontalAlignment="Center"/>
+                                                <Button x:Name="DiscountBtn" Click="DiscountBtn_Click"  Content="-" Background="#FFF4F4" BorderThickness="0" Width="25"/>
+                                            </StackPanel>
+                                        </Viewbox>
+                                    </Grid>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                    
+                    <!--<ListView.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel Orientation="Vertical"/>
                         </ItemsPanelTemplate>
-                    </ListView.ItemsPanel>
+                    </ListView.ItemsPanel>-->
                 </ListView>
             </Viewbox>
         </Grid>
@@ -92,8 +179,8 @@
             </Viewbox>
 
             <Viewbox Stretch="Uniform" VerticalAlignment="Top" Grid.Column="1" Grid.RowSpan="2">
-                <Grid Width="490" Height="2821" >
-                    <ContentControl Content="{StaticResource MenuRight}" />
+                <Grid Width="450" Height="2821">
+                    <ContentControl  Content="{StaticResource MenuRight}" />
                     <Image Source="/ElementsVisualization/Image/Профиль обратный.png" Width="340" Height="340" Margin="20 130 0 0" VerticalAlignment="Top" MouseDown="BackToMainWindowImg_MouseDown" x:Name="BackToMainWindowImg"/>
                     <Image Source="/ElementsVisualization/Image/Корзина товаров.png" Width="340" Height="340" Margin="20 600 0 0" VerticalAlignment="Top" x:Name="CartBtn"/>
                 </Grid>

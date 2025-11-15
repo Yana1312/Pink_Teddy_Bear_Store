@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("StoreTeddyBear")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ac1071f677b277e7c76d296986f4e69b70d38efb")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6135cc8bc1be3a26cca7a3a99c7b65578ccf2ec2")]
 [assembly: System.Reflection.AssemblyProductAttribute("StoreTeddyBear")]
 [assembly: System.Reflection.AssemblyTitleAttribute("StoreTeddyBear")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

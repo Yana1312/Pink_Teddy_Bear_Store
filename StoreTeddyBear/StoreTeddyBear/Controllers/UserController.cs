@@ -13,31 +13,38 @@ namespace StoreTeddyBear.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        
+        private readonly StorepinkteddybearBdContext _context;
+
+        public UserController(StorepinkteddybearBdContext context)
+        {
+            _context = context;
+        }
+
+
         [HttpGet("GetAllCustomers")]
         public ActionResult<List<Useransadmin>> GetAllCustomers()
         {
-            return Ok(StorepinkteddybearBdContext.Instance.Useransadmins.ToList());
+            return Ok(_context.Useransadmins.ToList());
         }
 
         [HttpGet("{id}")]
         public ActionResult<Useransadmin> GetChooseCustomer(int id)
         {
-            Useransadmin? customer = StorepinkteddybearBdContext.Instance.Useransadmins.Find(id);
+            Useransadmin? customer = _context.Useransadmins.Find(id);
             return customer == null ? NotFound("Покупатель не найден") : Ok(customer);
         }
 
-        public class auth
+        public class AuthRequest
         {
-            public string email {  get; set; }
+            public string email { get; set; }
             public string password { get; set; }
         }
 
         [HttpPost("Authorization")]
-        public ActionResult<Useransadmin> Authorization([FromBody] auth auth)
+        public ActionResult<Useransadmin> Authorization([FromBody] AuthRequest auth)
         {
-            var customer = StorepinkteddybearBdContext.Instance.Useransadmins.FirstOrDefault(cus => cus.EmailUsers == auth.email);
-            var errors = GetErrorsAuth(auth.email, auth.password, customer);
+            var customer = _context.Useransadmins.FirstOrDefault(cus => cus.EmailUsers == auth.email);
+            var errors = GetErrorsAuth(auth.password, auth.email, customer);
             if (errors.Count > 0)
                 return BadRequest($"Некорректные данные:\n\n{string.Join("\n", errors)}");
             return Ok(customer);
@@ -64,7 +71,7 @@ namespace StoreTeddyBear.Controllers
         public static List<string> GetErrorsAuth(string password, string email, Useransadmin customer)
         {
             var errors = new List<string>();
-            if (customer == null) return new List<string> { "Пользователь не найден"};
+            if (customer == null) return new List<string> { "Пользователь не найден" };
 
             if (email != customer.EmailUsers || !BCrypt.Net.BCrypt.Verify(password, customer.PasswordHash))
                 errors.Add("Некорректные данные, попробуйте ещё раз");
@@ -72,7 +79,7 @@ namespace StoreTeddyBear.Controllers
             if (customer.StatusUsersProfile == "неактивный")
                 errors.Add("Данный аккаунт перестал существовать");
 
-            errors.AddRange(GetValidationErrors(Useransadmin.CreateUser(email, customer.NameUsers, password)));
+            //errors.AddRange(GetValidationErrors(Useransadmin.CreateUser(email, customer.NameUsers, password)));
 
             return errors;
         }
@@ -81,9 +88,8 @@ namespace StoreTeddyBear.Controllers
         public ActionResult<Useransadmin> Registration([FromBody] Useransadmin customer)
         {
             var errors = GetValidationErrors(customer);
-            var existingCustomer = StorepinkteddybearBdContext.Instance.Useransadmins.FirstOrDefault(c =>
-            c.EmailUsers.Equals(customer.EmailUsers, StringComparison.OrdinalIgnoreCase));
-
+            Useransadmin? existingCustomer = _context.Useransadmins.FirstOrDefault(c =>
+                    c.EmailUsers.ToLower() == customer.EmailUsers.ToLower());
             if (existingCustomer != null)
             {
                 if (existingCustomer.StatusUsersProfile?.ToLower() == "активный")
@@ -99,8 +105,8 @@ namespace StoreTeddyBear.Controllers
             if (customer.RoleUsers?.Trim().ToLower() != "админ")
                 customer.RoleUsers = "пользователь";
             customer.PasswordHash = BCrypt.Net.BCrypt.HashPassword(customer.PasswordHash);
-            StorepinkteddybearBdContext.Instance.Useransadmins.Add(customer);
-            StorepinkteddybearBdContext.Instance.SaveChanges();
+            _context.Useransadmins.Add(customer);
+            _context.SaveChanges();
             return Ok(customer);
         }
 
@@ -109,15 +115,15 @@ namespace StoreTeddyBear.Controllers
         {
             if (id != updatedCustomer.IdCustomer) return BadRequest("Ваши уникальные ключи не совпадают");
 
-            var currentCustomer = StorepinkteddybearBdContext.Instance.Useransadmins.Find(updatedCustomer.IdCustomer);
+            var currentCustomer = _context.Useransadmins.Find(updatedCustomer.IdCustomer);
             if (currentCustomer == null) return NotFound("Пользователь не найден");
 
             var errors = GetValidationErrors(updatedCustomer);
-            var existCustomer = StorepinkteddybearBdContext.Instance.Useransadmins.FirstOrDefault(c => c.EmailUsers.Equals(updatedCustomer.EmailUsers, StringComparison.OrdinalIgnoreCase) &&
+            var existCustomer = _context.Useransadmins.FirstOrDefault(c => c.EmailUsers.ToLower() == updatedCustomer.EmailUsers.ToLower() &&
                                                             c.IdCustomer != updatedCustomer.IdCustomer);
 
             if (existCustomer != null)
-                    errors.Add("Данная почта уже используется другим пользователем");
+                errors.Add("Данная почта уже используется другим пользователем");
 
             if (errors.Count > 0)
                 return BadRequest($"Некорректные данные:\n\n{string.Join("\n", errors)}");
@@ -128,19 +134,19 @@ namespace StoreTeddyBear.Controllers
             if (!BCrypt.Net.BCrypt.Verify(updatedCustomer.PasswordHash, currentCustomer.PasswordHash))
                 currentCustomer.PasswordHash = BCrypt.Net.BCrypt.HashPassword(updatedCustomer.PasswordHash);
 
-            StorepinkteddybearBdContext.Instance.SaveChanges();
+            _context.SaveChanges();
             return Ok(currentCustomer);
         }
 
         [HttpPatch("{id}/Deactivate")]
         public ActionResult DeactivateCustomer(int id)
         {
-            var currentCustomer = StorepinkteddybearBdContext.Instance.Useransadmins.Find(id);
+            var currentCustomer = _context.Useransadmins.Find(id);
             if (currentCustomer == null)
                 return NotFound("Пользователь не найден");
             if (currentCustomer.StatusUsersProfile == "неактивный") return BadRequest("Пользователь уже деактивирован");
             currentCustomer.StatusUsersProfile = "неактивный";
-            StorepinkteddybearBdContext.Instance.SaveChanges();
+            _context.SaveChanges();
 
             return Ok("Пользователь успешно деактивирован");
         }
