@@ -18,9 +18,8 @@ public partial class Review
 
     public DateTime? DateReview { get; set; }
 
-    [JsonIgnore]
+
     public virtual Toy ArticulToyNavigation { get; set; } = null!;
 
-    [JsonIgnore]
     public virtual Useransadmin IdCustomerNavigation { get; set; } = null!;
 }

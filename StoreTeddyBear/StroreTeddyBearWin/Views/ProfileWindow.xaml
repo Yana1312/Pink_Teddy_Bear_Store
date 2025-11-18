@@ -5,44 +5,322 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StroreTeddyBearWin.Views"
         mc:Ignorable="d"
-        Title="Профиль" Height="450" Width="800" WindowState="Maximized" Icon="/ElementsVisualization/Image/Профиль.png">
+        Title="Профиль" Height="450" Width="800" WindowState="Maximized" 
+        Icon="/ElementsVisualization/Image/Профиль.png">
+    <Window.Resources>
+        <Style TargetType="TextBlock" x:Key="RegistrationTextBlockStyle">
+            <Setter Property="FontFamily" Value="pack://application:,,,/ElementsVisualization/Shrift/PlayfairDisplay.ttf#Playfair Display"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="9 5 0 5"/>
+            <Setter Property="Foreground" Value="#2C2C2C"/>
+        </Style>
+    </Window.Resources>
     <Grid Background="#FFF4F4">
         <Grid.RowDefinitions>
             <RowDefinition Height="120"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        
-        
+
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="150"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <Viewbox Stretch="Uniform" HorizontalAlignment="Left" Margin="30 5">
-                <Ellipse Width="100" Height="100">
-                    <Ellipse.Fill>
-                        <ImageBrush ImageSource="/ElementsVisualization/Image/Дефолтное фото пользователя квадрат.png"/>
-                    </Ellipse.Fill>
-                </Ellipse>
-            </Viewbox>
+            <StackPanel Orientation="Horizontal" Margin="20">
+                <Border Width="80" 
+                        Height="80" 
+                        Background="#F8BED4" 
+                        CornerRadius="40"
+                        HorizontalAlignment="Left">
+                    <TextBlock Text="U" 
+                               x:Name="StartNameTb"
+                               FontSize="24" 
+                               FontWeight="Bold"
+                               Foreground="White"
+                               HorizontalAlignment="Center" 
+                               VerticalAlignment="Center"/>
+                </Border>
+                <StackPanel Margin="15,0,0,0" VerticalAlignment="Center">
+                    <TextBlock Text="{Binding NameUsers, UpdateSourceTrigger=PropertyChanged}" 
+                               FontSize="18" 
+                               FontWeight="Bold"
+                               Foreground="#333333"/>
+                    <TextBlock Text="{Binding RoleUsers, UpdateSourceTrigger=PropertyChanged}" 
+                               FontSize="14" 
+                               Foreground="#666666"
+                               Margin="0,5,0,0"/>
+                </StackPanel>
+            </StackPanel>
 
-            <Viewbox Grid.Column="2" Stretch="Uniform" Height="100" Width="80" HorizontalAlignment="Right">
+            <Viewbox Grid.Column="1" Stretch="Uniform" Height="100" Width="80" HorizontalAlignment="Right" Margin="0">
                 <Grid>
                     <Image Source="/ElementsVisualization/Image/фон для правой меню.png"/>
-                    <Image Source="/ElementsVisualization/Image/Профиль обратный.png" Width="450" Height="450"/>
+                    <Image x:Name="CatalogBtn" MouseDown="CatalogBtn_MouseDown"  Source="/ElementsVisualization/Image/Профиль обратный.png" Width="450" Height="450"/>
                 </Grid>
             </Viewbox>
-            
         </Grid>
-        
-        
-        <Grid Grid.Row="1">
+
+        <Grid Grid.Row="1" Margin="20">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
+
+            <Border Background="White" 
+                    CornerRadius="15" 
+                    Margin="0,0,10,0" 
+                    Padding="20">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Margin="0,0,0,25">
+                            <StackPanel>
+                                <TextBlock Text="Контактная информация" 
+                                           FontSize="16" 
+                                           FontWeight="SemiBold"
+                                           Foreground="#E984A6"
+                                           Margin="0,0,0,10"/>
+
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock  Text="{Binding EmailUsers, UpdateSourceTrigger=PropertyChanged, StringFormat='{}Email: {0}'}" 
+                                               Foreground="#666666"/>
+
+                                    <TextBlock Grid.Row="1" Text="{Binding StatusUsersProfile, UpdateSourceTrigger=PropertyChanged, StringFormat='{}Статус: {0}'}" 
+                                               Foreground="#666666"/>
+                                </Grid>
+                            </StackPanel>
+
+                            <StackPanel VerticalAlignment="Top">
+                                <TextBlock Text="Статистика" 
+                                           FontSize="16" 
+                                           FontWeight="SemiBold"
+                                           Foreground="#E984A6"
+                                           Margin="0,0,0,10"/>
+
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Row="0" 
+                                               x:Name="OrdersCountTb"
+                                               Foreground="#666666"/>
+
+                                    <TextBlock Grid.Row="1" 
+                                               Name="ReviewsCountTb"
+                                               Foreground="#666666"/>
+
+                                    <TextBlock Grid.Row="2" 
+                                               x:Name="CartItemsCountTb"
+                                               Foreground="#666666"/>
+                                </Grid>
+                            </StackPanel>
+                        </StackPanel>
+
+                        
+
+                        <StackPanel Margin="0,25,0,0" Grid.Row="2" VerticalAlignment="Bottom">
+                            <Button x:Name="EditProfileBtn" 
+                                    Content="Редактировать профиль" 
+                                    Background="#F8BED4"
+                                    Foreground="#333333"
+                                    Padding="15,10"
+                                    BorderThickness="0"
+                                    Click="EditProfileBtn_Click"
+                                    Margin="0,0,0,10"/>
+
+                            <Button x:Name="DeactivateBtn" 
+                                    Content="Деактивировать аккаунт" 
+                                    Background="#FF6B6B"
+                                    Foreground="White"
+                                    FontWeight="SemiBold"
+                                    Padding="15,10"
+                                    BorderThickness="0"
+                                    Click="DeactivateBtn_Click"/>
+                        </StackPanel>
+                    </Grid>
+                </ScrollViewer>
+            </Border>
+
+            <TabControl Grid.Column="1" Background="White">
+                <TabItem Header="Мои заказы">
+                    <ScrollViewer>
+                        <StackPanel Margin="10">
+                            <TextBlock Text="История заказов" 
+                                       FontSize="18" 
+                                       FontWeight="Bold" 
+                                       Foreground="#E984A6"
+                                       Margin="0,0,0,15"/>
+
+                            <ItemsControl x:Name="OrdersItemsControl">
+
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Background="#F8F8F8" 
+                                                CornerRadius="10" 
+                                                Margin="0,0,0,10"
+                                                Padding="15">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <StackPanel>
+                                                    <TextBlock Text="{Binding OrderDate, UpdateSourceTrigger=PropertyChanged, StringFormat='Заказ от {0:dd.MM.yyyy}'}" 
+                                                               FontWeight="SemiBold"
+                                                               FontSize="14"/>
+                                                    <TextBlock Text="{Binding StatusOrder, UpdateSourceTrigger=PropertyChanged}" 
+                                                               Margin="0,5,0,0"
+                                                               Foreground="#666666"/>
+                                                    <TextBlock Text="{Binding TotalAmount, UpdateSourceTrigger=PropertyChanged, StringFormat='Сумма: {0}₽'}" 
+                                                               Margin="0,5,0,0"
+                                                               FontWeight="SemiBold"
+                                                               Foreground="#E984A6"/>
+                                                </StackPanel>
+
+                                                <TextBlock Grid.Column="1" 
+                                                           Text="{Binding IdOrder}" 
+                                                           FontSize="12"
+                                                           Foreground="#999999"
+                                                           VerticalAlignment="Top"/>
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+
+                            <TextBlock x:Name="NoOrdersText" 
+                                       Text="У вас пока нет заказов" 
+                                       Foreground="#666666" 
+                                       FontStyle="Italic"
+                                       HorizontalAlignment="Center"
+                                       Margin="20"
+                                       Visibility="Collapsed"/>
+                        </StackPanel>
+                    </ScrollViewer>
+                </TabItem>
+
+                <TabItem Header="Мои отзывы">
+                    <ScrollViewer>
+                        <StackPanel Margin="10">
+                            <TextBlock Text="Мои отзывы" 
+                                       FontSize="18" 
+                                       FontWeight="Bold" 
+                                       Foreground="#E984A6"
+                                       Margin="0,0,0,15"/>
+
+                            <ItemsControl x:Name="ReviewsItemsControl">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Background="#F8F8F8" 
+                                                CornerRadius="10" 
+                                                Margin="0,0,0,10"
+                                                Padding="15">
+                                            <StackPanel>
+                                                <TextBlock Text="{Binding ArticulToyNavigation.Title, UpdateSourceTrigger=PropertyChanged}" 
+                                                           FontWeight="SemiBold"
+                                                           FontSize="14"/>
+                                                <TextBlock Text="{Binding CommentReview, UpdateSourceTrigger=PropertyChanged}" 
+                                                           Margin="0,5,0,0"
+                                                           TextWrapping="Wrap"/>
+                                                <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                                                    <TextBlock Text="Рейтинг:" 
+                                                               Foreground="#666666"/>
+                                                    <TextBlock Text="{Binding RatingReview, UpdateSourceTrigger=PropertyChanged}" 
+                                                               FontWeight="SemiBold"
+                                                               Margin="5,0,0,0"
+                                                               Foreground="#E984A6"/>
+                                                </StackPanel>
+                                                <TextBlock Text="{Binding DateReview, UpdateSourceTrigger=PropertyChanged, StringFormat='Оставлен: {0:dd.MM.yyyy}'}" 
+                                                           FontSize="11"
+                                                           Foreground="#999999"
+                                                           Margin="0,5,0,0"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+
+                            <TextBlock x:Name="NoReviewsText" 
+                                       Text="Вы еще не оставляли отзывы" 
+                                       Foreground="#666666" 
+                                       FontStyle="Italic"
+                                       HorizontalAlignment="Center"
+                                       Margin="20"
+                                       Visibility="Collapsed"/>
+                        </StackPanel>
+                    </ScrollViewer>
+                </TabItem>
+            </TabControl>
+        </Grid>
+
+        <Grid x:Name="EditGrid" Grid.RowSpan="2" Grid.ColumnSpan="2" Visibility="Hidden">
+            <Grid.Background>
+                <SolidColorBrush Color="#FF6E6969" Opacity="0.6"/>
+            </Grid.Background>
+            <Viewbox VerticalAlignment="Center"
+                    HorizontalAlignment="Center" Stretch="Uniform"
+                    >
+                <Border 
+            Margin="60"
+            BorderThickness="3"
+            BorderBrush="#fffff4f4"
+            CornerRadius="45">
+                    <Border.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FFFAC0D5"/>
+                            <GradientStop Color="#FFEB85A7" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <Grid Margin="20">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid Margin="10 3 10 0" Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="8*"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock VerticalAlignment="Center"  HorizontalAlignment="Center" Style="{StaticResource RegistrationTextBlockStyle}" Text="Редактирование" FontSize="17"/>
+                            <Button x:Name="CrossBtn" Click="CrossBtn_Click"  Height="25" Width="25" BorderThickness="0" Grid.Column="1"  Background="Transparent">
+                                <Image Source="/ElementsVisualization/Image/cross.png" Stretch="Uniform"/>
+                            </Button>
+                        </Grid>
+                        <TextBlock Grid.Row="1" Text="Ваше имя" Style="{StaticResource RegistrationTextBlockStyle}"/>
+                        <TextBox Grid.Row="2" Text="{Binding NameUsers, UpdateSourceTrigger=PropertyChanged}" x:Name="UserNameRegistrationTbox" Style="{StaticResource RoundedTextBoxStyle}"/>
+                        <TextBlock Grid.Row="3" Text="Введите почту" Style="{StaticResource RegistrationTextBlockStyle}"/>
+                        <TextBox Grid.Row="4" Text="{Binding EmailUsers, UpdateSourceTrigger=PropertyChanged}" x:Name="UserEmailRegistrationTbox" Style="{StaticResource RoundedTextBoxStyle}"/>
+                        <TextBlock Grid.Row="5" Text="Придумайте пароль" Style="{StaticResource RegistrationTextBlockStyle}"/>
+                        <TextBox Grid.Row="6" Visibility="Hidden" x:Name="UserPasswordRegistrationTbox" Style="{StaticResource RoundedTextBoxStyle}"/>
+                        <PasswordBox Grid.Row="6" x:Name="UserPasswordRegistrationPbox" Style="{StaticResource RoundedPasswordBoxStyle}"/>
+                        <CheckBox Grid.Row="7" Content="Показать пароль" IsChecked="False" x:Name="ShowPasswordRegistrationCbox" Style="{StaticResource CheckBoxStyle}" Margin="9 5 0 5" Checked="ShowPasswordCbox_Checked"  Unchecked="ShowPasswordCbox_Unchecked"/>
+                        <Button Grid.Row="8" x:Name="EditBtn" Content="Отредактировать" Width="200" Style="{StaticResource RoundedButtonStyle}" Margin="20 5 20 10" FontSize="15" Height="27" Click="EditBtn_Click"/>
+                    </Grid>
+                </Border>
+            </Viewbox>
         </Grid>
     </Grid>
 </Window>

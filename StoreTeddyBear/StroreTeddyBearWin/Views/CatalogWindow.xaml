@@ -80,6 +80,7 @@
                 <Image x:Name="CurrentBearImg" 
                        Source="/ElementsVisualization/Bears/Весенний.png"
                        Width="100"
+                       MouseDown="CurrentBearImg_MouseDown"
                        Height="100"
                        />
                 <!--<Image x:Name="CurrentBearImg" Source="/ElementsVisualization/Мишки/Мишка _Весенний_.png"  Margin="150 90 150 0"/>-->
@@ -117,7 +118,14 @@
         </Viewbox>
 
             <Viewbox Stretch="Uniform" Grid.Column="2" Grid.Row="1">
-                <Button x:Name="AddToCartButton" Click="AddToCartButton_Click" Style="{StaticResource RoundedSquertBtnStyle}" Margin="10" Content="Добавить в корзину"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="AddToCartButton" Click="AddToCartButton_Click" Style="{StaticResource RoundedSquertBtnStyle}" Margin="10" Content="Добавить в корзину"/>
+                    <Button Grid.Column="1" x:Name="ProfileBtn" Click="ProfileBtn_Click"  Style="{StaticResource RoundedSquertBtnStyle}" Margin="10" Content="Профиль"/>
+                </Grid>
             </Viewbox>
         </Grid>
 

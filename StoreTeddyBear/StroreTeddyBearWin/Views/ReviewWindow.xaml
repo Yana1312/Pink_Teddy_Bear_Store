@@ -5,8 +5,173 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StroreTeddyBearWin.Views"
         mc:Ignorable="d"
-        Title="Окно отзывов" Height="450" Width="800" Icon="/ElementsVisualization/Image/Профиль обратный.png">
+        Title="Окно отзывов" Height="450" Width="800" Icon="/ElementsVisualization/Image/Профиль обратный.png" WindowState="Maximized">
+    <Window.Resources>
+        <Style TargetType="TextBlock" x:Key="RegistrationTextBlockStyle">
+            <Setter Property="FontFamily" Value="pack://application:,,,/ElementsVisualization/Shrift/PlayfairDisplay.ttf#Playfair Display"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="9 5 0 5"/>
+            <Setter Property="Foreground" Value="#2C2C2C"/>
+        </Style>
+    </Window.Resources>
     <Grid Background="#FFF4F4">
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="95"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Image x:Name="BearInItemsCartImg" Source="/ElementsVisualization/Bears/Премиум класс.png" Stretch="Fill" Margin="10 20 0 0"/>
+
+            <Viewbox Grid.Row="1" Margin="10 0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" Foreground="#E984A6" Style="{StaticResource TextBlockStyle}" FontSize="45"/>
+                    <TextBlock x:Name="RatingAvgTb" Text="Рейтинг" Style="{StaticResource TextBlockStyle}" FontSize="35" Grid.Row="1"/>
+                    <TextBlock x:Name="HeightTb" Text="Рост" Style="{StaticResource TextBlockStyle}" FontSize="35" Grid.Row="2"/>
+                    <TextBlock x:Name="Weighttb" Text="Вес" Style="{StaticResource TextBlockStyle}" FontSize="35" Grid.Row="3"/>
+                    <TextBlock x:Name="PriceTb" Text="Цена: 1899 Р" Margin="15 10" Foreground="#E984A6" Style="{StaticResource TextBlockStyle}" FontSize="35" Grid.Row="4"/>
+                </Grid>
+            </Viewbox>
+            
+        </Grid>
+
+        <StackPanel Grid.Column="1" Margin="20" Orientation="Vertical">
+            <ListView x:Name="ReviewsByToyLv" HorizontalContentAlignment="Stretch"
+                      SelectionChanged="ReviewsByToyLv_SelectionChanged"
+                      Height="360">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Vertical"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                            <Border Background="#F8BED4" 
+                                    CornerRadius="20"
+                                    Margin="5"
+                                    Width="400"
+                                    Height="90">
+                                <Grid Margin="10" >
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="2*"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock x:Name="userNameTb" FontSize="14" FontWeight="Bold" Text="{Binding IdCustomerNavigation.NameUsers, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TextBlockStyle}"/>
+                                    <TextBlock x:Name="ReviewTb" Grid.Row="1" Text="{Binding CommentReview, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" Style="{StaticResource TextBlockStyle}"/>
+                                    <TextBlock FontSize="14" x:Name="RatingTb" Grid.Row="2" Text="{Binding RatingReview, UpdateSourceTrigger=PropertyChanged, StringFormat='{}Рейтинг: {0}'}" Style="{StaticResource TextBlockStyle}"/>
+                                </Grid>
+                            </Border>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <StackPanel Orientation="Horizontal">
+                <Button Content="Добавить отзыв" 
+                        Name="ReviewBtn"
+                        Background="#F8BED4"
+                        Foreground="#333333"
+                        Padding="15,10"
+                        BorderThickness="0"
+                        Click="ReviewBtn_Click"
+                        Margin="10,0,10,0"/>
+                
+                <Button Content="Удалить отзыв" 
+                        Name="DeleteReviewBtn"
+                        Background="#F8BED4"
+                        Foreground="#333333"
+                        Padding="15,10"
+                        BorderThickness="0"
+                        Click="DeleteReviewBtn_Click"
+                        Margin="10 0"/>
+                <Button Content="Редактировать отзыв" 
+                        Name="EditReviewBtn"
+                        Background="#F8BED4"
+                        Foreground="#333333"
+                        Padding="15,10"
+                        BorderThickness="0"
+                        Click="EditReviewBtn_Click"
+                        Margin="10,0,0,0"/>
+            </StackPanel>
+
+            
+        </StackPanel>
+
+
+        <Grid Grid.Column="2">
+            <Viewbox Stretch="Uniform" VerticalAlignment="Top" Grid.Column="1" Grid.RowSpan="2">
+                <Grid x:Name="RightMenuGrid">
+                    <ContentControl Content="{StaticResource MenuRight}"/>
+                    <Image Source="/ElementsVisualization/Image/Профиль обратный.png" Width="340" Height="340" Margin="20 130 0 0" VerticalAlignment="Top" x:Name="BackToMainWindowImg" MouseDown="BackToMainWindowImg_MouseDown"/>
+                    <Image Source="/ElementsVisualization/Image/Корзина товаров.png" Width="340" Height="340" Margin="20 600 0 0" VerticalAlignment="Top" x:Name="CartBtn" MouseDown="CartBtn_MouseDown"/>
+                </Grid>
+            </Viewbox>
+            <Viewbox Margin="20" Stretch="Uniform" VerticalAlignment="Bottom">
+                <Button x:Name="NextToyBtn" Content=">" Width="20" Height="20" Background="#E984A6" Foreground="#FFF4F4" VerticalAlignment="Center" HorizontalAlignment="Center" BorderThickness="0" Click="NextToyBtn_Click"/>
+            </Viewbox>
+
+        </Grid>
+
+        <Grid x:Name="AddReviewGrid" Grid.ColumnSpan="3" Visibility="Hidden">
+            <Grid.Background>
+                <SolidColorBrush Color="#FF6E6969" Opacity="0.6"/>
+            </Grid.Background>
+            <Viewbox VerticalAlignment="Center"
+            HorizontalAlignment="Center" Stretch="Uniform"
+            >
+                <Border 
+            Margin="60"
+            BorderThickness="3"
+            BorderBrush="#fffff4f4"
+            CornerRadius="45">
+                    <Border.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FFFAC0D5"/>
+                            <GradientStop Color="#FFEB85A7" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <Grid Margin="20">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid Margin="10 3 10 0" Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="8*"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock VerticalAlignment="Center"  HorizontalAlignment="Center" Style="{StaticResource RegistrationTextBlockStyle}" Text="Добавление отзыва" FontSize="17"/>
+                            <Button x:Name="CrossBtn" Click="CrossBtn_Click"  Height="25" Width="25" BorderThickness="0" Grid.Column="1"  Background="Transparent">
+                                <Image Source="/ElementsVisualization/Image/cross.png" Stretch="Uniform"/>
+                            </Button>
+                        </Grid>
+                        <TextBlock Grid.Row="1" Text="Введите рейтинг" Style="{StaticResource RegistrationTextBlockStyle}"/>
+                        <TextBox Grid.Row="2" x:Name="RatingTbox" PreviewTextInput="RatingTbox_PreviewTextInput" Style="{StaticResource RoundedTextBoxStyle}"/>
+                        <TextBlock Grid.Row="3" Text="Введите отзыв" Style="{StaticResource RegistrationTextBlockStyle}"/>
+                        <TextBox Grid.Row="4" x:Name="ReviewAddTbox" TextWrapping="Wrap" Height="50" Style="{StaticResource RoundedTextBoxStyle}"/>
+                        <Button Grid.Row="8" x:Name="AddReviewBtn" Content="Добавить отзыв" Width="200" Style="{StaticResource RoundedButtonStyle}" Margin="20 5 20 10" FontSize="15" Height="27" Click="AddReviewBtn_Click"/>
+                    </Grid>
+                </Border>
+            </Viewbox>
+        </Grid>
     </Grid>
 </Window>

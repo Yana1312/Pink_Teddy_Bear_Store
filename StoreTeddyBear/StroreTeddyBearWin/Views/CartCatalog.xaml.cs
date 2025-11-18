@@ -48,7 +48,7 @@ namespace StroreTeddyBearWin.Views
             {
                 _currentCart = await API.GetCart(_currentUser.IdCustomer);
 
-                if (_currentCart != null && _currentCart.Orderitems != null && _currentCart.Orderitems.Any())
+                if (_currentCart != null && _currentCart.Orderitems != null)
                 {
                     UpdateListView(_currentCart.Orderitems.ToList());
                     UpdateTotalAmount();
@@ -79,79 +79,6 @@ namespace StroreTeddyBearWin.Views
             else
             {
                 TotalAmountText.Text = "Итоговая сумма заказа: 0 рублей";
-            }
-        }
-
-        private async void OnRemoveItemClicked(object sender, int orderItemId)
-        {
-            await RemoveCartItem(orderItemId);
-        }
-
-        private async void OnIncreaseQuantityClicked(object sender, int orderItemId)
-        {
-            await UpdateCartItemQuantity(orderItemId, true);
-        }
-
-        private async void OnDecreaseQuantityClicked(object sender, int orderItemId)
-        {
-            await UpdateCartItemQuantity(orderItemId, false);
-        }
-
-        private async System.Threading.Tasks.Task RemoveCartItem(int orderItemId)
-        {
-            try
-            {
-                var result = await API.RemoveFromCart(orderItemId);
-                if (result)
-                {
-                    MessageBox.Show("Товар удален из корзины", "Успех",
-                        MessageBoxButton.OK, MessageBoxImage.Information);
-                    LoadCart();
-                }
-                else
-                {
-                    MessageBox.Show("Ошибка при удалении товара", "Ошибка",
-                        MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ошибка при удалении товара: {ex.Message}", "Ошибка",
-                    MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        private async System.Threading.Tasks.Task UpdateCartItemQuantity(int orderItemId, bool increase)
-        {
-            try
-            {
-                var currentItem = _currentCart.Orderitems.FirstOrDefault(i => i.IdOrderItem == orderItemId);
-                if (currentItem != null)
-                {
-                    int newQuantity = increase ? currentItem.Quantity + 1 : currentItem.Quantity - 1;
-
-                    if (newQuantity <= 0)
-                    {
-                        await RemoveCartItem(orderItemId);
-                        return;
-                    }
-
-                    var result = await API.UpdateQuantity(orderItemId, newQuantity);
-                    if (result)
-                    {
-                        LoadCart();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Не удалось изменить количество товара", "Ошибка",
-                            MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ошибка при изменении количества: {ex.Message}", "Ошибка",
-                    MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -203,8 +130,11 @@ namespace StroreTeddyBearWin.Views
 
         private void UpdateListView(List<Orderitem> currentOrder)
         {
-            CartItemsLv.ItemsSource = null;
-            CartItemsLv.ItemsSource = currentOrder;
+            foreach (Orderitem item in currentOrder)
+            {
+                CartItemsLv.Items.Add(new CartControl(item));
+            }
+
         }
 
         private async void ClearCartBtn_Click(object sender, RoutedEventArgs e)
@@ -247,14 +177,5 @@ namespace StroreTeddyBearWin.Views
             this.Close();
         }
 
-        private void DiscountBtn_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void AddcountBtn_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }

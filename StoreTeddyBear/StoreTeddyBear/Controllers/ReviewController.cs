@@ -124,30 +124,38 @@ namespace StoreTeddyBear.Controllers
         }
 
         [HttpGet("{articulToy}/AverageRating")]
-        public ActionResult<AverageRatingBear> GetAverageRating(string articulToy)
+        public  ActionResult<AverageRatingBear> GetAverageRating(string articulToy)
         {
-            var reviews = StorepinkteddybearBdContext.Instance.Reviews
-                .Where(r => r.ArticulToy == articulToy);
-
-            decimal averageRating = 0;
-            int reviewCount = 0;
-
-            if (!reviews.Any())
-                return Ok(new AverageRatingBear {AverageRating = averageRating,ReviewCount = reviewCount});
-
-            averageRating = reviews.Average(r => (decimal)r.RatingReview);
-            reviewCount = reviews.Count();
-
-            var response = new AverageRatingBear
+            using (var context = new StorepinkteddybearBdContext())
             {
-                AverageRating = Math.Round((decimal)averageRating, 1),
-                ReviewCount = reviewCount
-            };
+                var reviews = context.Reviews
+                    .Include(r => r.IdCustomerNavigation)
+                    .Where(r => r.ArticulToy == articulToy)
+                    .OrderByDescending(r => r.DateReview)
+                    .ToList();
 
-            return Ok(response);
+                decimal averageRating = 0;
+                int reviewCount = 0;
+
+                if (!reviews.Any())
+                    return Ok(new AverageRatingBear { AverageRating = averageRating, ReviewCount = reviewCount });
+
+                averageRating = reviews.Average(r => (decimal)r.RatingReview);
+                reviewCount = reviews.Count();
+
+                var response = new AverageRatingBear
+                {
+                    AverageRating = Math.Round((decimal)averageRating, 1),
+                    ReviewCount = reviewCount
+                };
+
+                return Ok(response);
+            }
+
+            
         }
 
-        private List<string> GetValidationErrors(int rating, string comment)
+        public static List<string> GetValidationErrors(int rating, string comment)
         {
             var errors = new List<string>();
 

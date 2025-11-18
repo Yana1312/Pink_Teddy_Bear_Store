@@ -1,6 +1,7 @@
 ﻿using StoreTeddyBear.Data;
 using StoreTeddyBear.Models;
 using System;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
@@ -9,16 +10,13 @@ namespace StroreTeddyBearWin.Views
 {
     public partial class CartControl : UserControl
     {
-        public event EventHandler<int> RemoveItemClicked;
-        public event EventHandler<int> IncreaseQuantityClicked;
-        public event EventHandler<int> DecreaseQuantityClicked;
-
         private Orderitem _cartItem;
 
         public CartControl(Orderitem cartItem)
         {
             _cartItem = cartItem;
             InitializeComponent();
+            DataContext = _cartItem;
             LoadToyData();
         }
 
@@ -26,37 +24,26 @@ namespace StroreTeddyBearWin.Views
         {
             try
             {
-                // Загружаем полную информацию о товаре из базы данных
-                using (var context = new StorepinkteddybearBdContext())
+                var toy = StorepinkteddybearBdContext.Instance.Toys.FirstOrDefault(t => t.ArticulToy == _cartItem.ArticulToy);
+                if (toy != null)
                 {
-                    var toy = context.Toys.FirstOrDefault(t => t.ArticulToy == _cartItem.ArticulToy);
-                    if (toy != null)
-                    {
-                        // Устанавливаем данные
-                        TitleBearTb.Text = toy.Title;
-                        DescriptionBearTb.Text = toy.Descriptionn;
-                        WeightAndHeightBearTb.Text = $"высота: {toy.Height}, вес: {toy.Weight}";
-                        PriceTb.Text = $"{toy.Price:F2} ₽";
-                        CountTb.Text = _cartItem.Quantity.ToString();
+                    TitleBearTb.Text = toy.Title;
+                    DescriptionBearTb.Text = toy.Descriptionn;
+                    WeightAndHeightBearTb.Text = $"высота: {toy.Height}, вес: {toy.Weight}";
+                    PriceTb.Text = $"{toy.Price:F2} ₽";
+                    CountTb.Text = _cartItem.Quantity.ToString();
 
-                        // Загружаем изображение
-                        try
-                        {
-                            BearInItemsCartImg.Source = new BitmapImage(
-                                new Uri($"/ElementsVisualization/Bears/{toy.Title}.png", UriKind.Relative));
-                        }
-                        catch
-                        {
-                            // Используем изображение-заглушку при ошибке
-                            BearInItemsCartImg.Source = new BitmapImage(
-                                new Uri("/ElementsVisualization/Image/placeholder.png", UriKind.Relative));
-                        }
+                    try
+                    {
+                        BearInItemsCartImg.Source = new BitmapImage(
+                            new Uri($"/ElementsVisualization/Bears/{toy.Title}.png", UriKind.Relative));
+                    }
+                    catch
+                    {
+                        BearInItemsCartImg.Source = new BitmapImage(
+                            new Uri("/ElementsVisualization/Image/placeholder.png", UriKind.Relative));
                     }
                 }
-
-                // Устанавливаем Tag кнопок для идентификации товара
-                AddcountBtn.Tag = _cartItem.IdOrderItem;
-                DiscountBtn.Tag = _cartItem.IdOrderItem;
             }
             catch (Exception ex)
             {
@@ -65,26 +52,43 @@ namespace StroreTeddyBearWin.Views
             }
         }
 
-        private void AddcountBtn_Click(object sender, RoutedEventArgs e)
+        private async void AddcountBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (AddcountBtn.Tag is int orderItemId)
+            await UpdateQuantity(int.Parse(CountTb.Text) + 1);
+            if (CountTb.Text == "0") RemoveFromCart();
+        }
+
+        private async void DiscountBtn_Click(object sender, RoutedEventArgs e)
+        {
+           await UpdateQuantity(int.Parse(CountTb.Text) - 1);
+            if (CountTb.Text == "0") RemoveFromCart();
+        }
+
+        private async void RemoveFromCart()
+        {
+            try
             {
-                IncreaseQuantityClicked?.Invoke(this, orderItemId);
+                var res = await API.RemoveFromCart(_cartItem.IdOrderItem);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка  удаления товара: {ex.Message}", "Ошибка",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
-        private void DiscountBtn_Click(object sender, RoutedEventArgs e)
+        public async Task UpdateQuantity(int newQuantity)
         {
-            if (DiscountBtn.Tag is int orderItemId)
+            try
             {
-                DecreaseQuantityClicked?.Invoke(this, orderItemId);
+                var quantity = await API.UpdateQuantity(_cartItem.IdOrderItem, newQuantity);
+                CountTb.Text = quantity.ToString();
             }
-        }
-
-        // Метод для обновления количества (вызывается из CartCatalog после успешного обновления)
-        public void UpdateQuantity(int newQuantity)
-        {
-            CountTb.Text = newQuantity.ToString();
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка обновления количества товара: {ex.Message}", "Ошибка",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

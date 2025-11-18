@@ -528,7 +528,7 @@
     "ContainingType": "StoreTeddyBear.Controllers.UserController",
     "Method": "EditProfile",
     "RelativePath": "api/User/{id}/EditProfile",
-    "HttpMethod": "PATCH",
+    "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [

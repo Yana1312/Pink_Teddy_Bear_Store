@@ -960,7 +960,7 @@
       }
     },
     "/api/User/{id}/EditProfile": {
-      "patch": {
+      "put": {
         "tags": [
           "User"
         ],
@@ -1100,6 +1100,42 @@
             "type": "number",
             "format": "double",
             "nullable": true
+          },
+          "orderitems": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Orderitem"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Orderitem": {
+        "type": "object",
+        "properties": {
+          "idOrderItem": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "idOrder": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "articulToy": {
+            "type": "string",
+            "nullable": true
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "unitPrice": {
+            "type": "number",
+            "format": "double"
+          },
+          "articulToyNavigation": {
+            "$ref": "#/components/schemas/Toy"
           }
         },
         "additionalProperties": false
@@ -1131,6 +1167,12 @@
             "type": "string",
             "format": "date-time",
             "nullable": true
+          },
+          "articulToyNavigation": {
+            "$ref": "#/components/schemas/Toy"
+          },
+          "idCustomerNavigation": {
+            "$ref": "#/components/schemas/Useransadmin"
           }
         },
         "additionalProperties": false

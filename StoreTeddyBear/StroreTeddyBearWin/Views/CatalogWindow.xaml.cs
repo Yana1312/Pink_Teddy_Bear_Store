@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using static System.Net.Mime.MediaTypeNames;
 using System.IO;
+using StoreTeddyBear.Controllers;
 
 namespace StroreTeddyBearWin.Views
 {
@@ -98,9 +99,12 @@ namespace StroreTeddyBearWin.Views
             {
                 AddToCartButton.IsEnabled = true;
                 AddToCartButton.Content = "Добавить в корзину";
+                ProfileBtn.IsEnabled = true;
             }
             else
             {
+                ProfileBtn.IsEnabled = false;
+                ProfileBtn.Visibility = Visibility.Hidden;
                 AddToCartButton.IsEnabled = false;
                 AddToCartButton.Visibility = Visibility.Hidden;
             }
@@ -208,6 +212,20 @@ namespace StroreTeddyBearWin.Views
             }
             CartCatalog cartCatalog = new CartCatalog(_currentUser);
             cartCatalog.Show();
+            this.Close();
+        }
+
+        private void CurrentBearImg_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            ReviewWindow reviewWindow = new ReviewWindow(_allToys[_currentToyIndex], _currentUser);
+            reviewWindow.Show();
+            this.Close();
+        }
+
+        private void ProfileBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ProfileWindow profileWindow = new ProfileWindow(_currentUser);
+            profileWindow.Show();
             this.Close();
         }
     }

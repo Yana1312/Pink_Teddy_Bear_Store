@@ -16,7 +16,6 @@ public partial class Orderitem
 
     public decimal UnitPrice { get; set; }
 
-    [JsonIgnore]
     public virtual Toy ArticulToyNavigation { get; set; } = null!;
 
     [JsonIgnore]

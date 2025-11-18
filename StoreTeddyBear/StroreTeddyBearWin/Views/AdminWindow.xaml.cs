@@ -65,7 +65,6 @@ namespace StroreTeddyBearWin.Views
             {
                 try
                 {
-                    // Используем API для удаления
                     var success = await API.DeleteToy(_selectedToy.ArticulToy);
 
                     if (success)
@@ -128,7 +127,6 @@ namespace StroreTeddyBearWin.Views
                 _selectedImagePath = openFileDialog.FileName;
                 PathToImageTbox.Text = _selectedImagePath;
 
-                // Копируем изображение в папку проекта
                 try
                 {
                     CopyImageToProject(_selectedImagePath);
@@ -152,12 +150,10 @@ namespace StroreTeddyBearWin.Views
                 var projectImagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
                     "ElementsVisualization", "Bears", fileName);
 
-                // Создаем директорию если не существует
                 var directory = Path.GetDirectoryName(projectImagePath);
                 if (!Directory.Exists(directory))
                     Directory.CreateDirectory(directory);
 
-                // Копируем файл
                 File.Copy(sourcePath, projectImagePath, true);
 
                 MessageBox.Show($"Изображение скопировано: {projectImagePath}", "Успех",
@@ -178,7 +174,6 @@ namespace StroreTeddyBearWin.Views
             {
                 if (_isEditMode)
                 {
-                    // Редактирование существующего товара через API
                     var updatedToy = new Toy
                     {
                         ArticulToy = _selectedToy.ArticulToy,
@@ -206,7 +201,6 @@ namespace StroreTeddyBearWin.Views
                 }
                 else
                 {
-                    // Добавление нового товара через API
                     var newToy = new Toy
                     {
                         ArticulToy = GenerateArticul(),

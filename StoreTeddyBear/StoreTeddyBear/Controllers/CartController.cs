@@ -94,6 +94,7 @@ namespace StoreTeddyBear.Controllers
             var order = StorepinkteddybearBdContext.Instance.Orders
                 .Include(o => o.Orderitems)
                 .FirstOrDefault(o => o.IdCustomer == customerId && o.StatusOrder == "ожидает подтверждения");
+            
             if (order == null)
             {
                 order = new Order
@@ -165,7 +166,7 @@ namespace StoreTeddyBear.Controllers
 
             UpdateOrderTotalAmount(orderItem.IdOrder);
 
-            return Ok("Количество обновлено");
+            return Ok(orderItem.Quantity);
         }
 
 

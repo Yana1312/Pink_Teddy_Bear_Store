@@ -129,12 +129,6 @@
            
             
             <Style x:Key="TextBoxSearchStyle" TargetType="TextBox">
-                <Style.Triggers>
-                    <Trigger Property="Text" Value="Поиск игрушки...">
-                        <Setter Property="Foreground" Value="#2C2C2C"/>
-                        <Setter Property="FontFamily" Value="pack://application:,,,/ElementsVisualization/Shrift/PlayfairDisplay.ttf#Playfair Display"/>
-                    </Trigger>
-                </Style.Triggers>
                 <Setter Property="Foreground" Value="#2C2C2C"/>
                 <Setter Property="Background" Value="Transparent"/>
                 <Setter Property="BorderThickness" Value="0"/>

@@ -27,6 +27,8 @@ namespace StroreTeddyBearWin
     /// </summary>
     public partial class MainWindow : Window
     {
+        private Toy currentToy;
+        private List<Toy> toys = StorepinkteddybearBdContext.Instance.Toys.ToList();
         public MainWindow()
         {
             InitializeComponent();
@@ -53,7 +55,7 @@ namespace StroreTeddyBearWin
                 var res = await API.Auth(email: EmailTbox.Text, password: _password);
                 if (res == null)
                 {
-                    MessageBox.Show("Пользователь не найден");
+                    MessageBox.Show("Пользователь не найден", "Ошибка" ,MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
                 if (res.RoleUsers == "пользователь")
@@ -87,7 +89,17 @@ namespace StroreTeddyBearWin
         
         private void ReviewsBtn_Click(object sender, RoutedEventArgs e)
         {
+            if (toys == null || toys.Count == 0)
+            {
+                MessageBox.Show("Игрушек в магазине нет...");
+                return;
+            }
+            Random random = new Random();
+            int randomIndex = random.Next(0, toys.Count);
 
+            ReviewWindow review = new ReviewWindow(toys[randomIndex], null);
+            review.Show();
+            this.Close();
         }
 
         private void CatalogBtn_Click(object sender, RoutedEventArgs e)

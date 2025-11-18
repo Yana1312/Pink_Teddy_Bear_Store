@@ -110,7 +110,7 @@ namespace StoreTeddyBear.Controllers
             return Ok(customer);
         }
 
-        [HttpPatch("{id}/EditProfile")]
+        [HttpPut("{id}/EditProfile")]
         public ActionResult<Useransadmin> EditProfile(int id, [FromBody] Useransadmin updatedCustomer)
         {
             if (id != updatedCustomer.IdCustomer) return BadRequest("Ваши уникальные ключи не совпадают");
