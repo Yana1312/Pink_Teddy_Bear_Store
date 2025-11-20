@@ -131,9 +131,13 @@ namespace StoreTeddyBear.Controllers
             currentCustomer.NameUsers = updatedCustomer.NameUsers;
             currentCustomer.EmailUsers = updatedCustomer.EmailUsers;
 
-            if (!BCrypt.Net.BCrypt.Verify(updatedCustomer.PasswordHash, currentCustomer.PasswordHash))
-                currentCustomer.PasswordHash = BCrypt.Net.BCrypt.HashPassword(updatedCustomer.PasswordHash);
-
+            if (!string.IsNullOrEmpty(updatedCustomer.PasswordHash))
+            {
+                if (!BCrypt.Net.BCrypt.Verify(updatedCustomer.PasswordHash, currentCustomer.PasswordHash))
+                {
+                    currentCustomer.PasswordHash = BCrypt.Net.BCrypt.HashPassword(updatedCustomer.PasswordHash);
+                }
+            }
             _context.SaveChanges();
             return Ok(currentCustomer);
         }

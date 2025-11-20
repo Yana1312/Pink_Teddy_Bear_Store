@@ -80,7 +80,7 @@ namespace StoreTeddyBear.Controllers
         }
 
         [HttpPut("{reviewId}/Edit")]
-        public ActionResult<Review> EditReview(int reviewId, int rating, string comment)
+        public ActionResult<Review> EditReview(int reviewId, sbyte rating, string comment)
         {
             var review = StorepinkteddybearBdContext.Instance.Reviews
                 .Find(reviewId);

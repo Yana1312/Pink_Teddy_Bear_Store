@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Win32;
 using StoreTeddyBear.Data;
 using StoreTeddyBear.Models;
 using System;
@@ -362,5 +363,149 @@ namespace StroreTeddyBearWin.Views
                 BearsItemsLv.ItemsSource = filteredToys;
             }
         }
+
+        //private List<Order> _allOrders = new List<Order>();
+
+        //// Обработчик кнопки "Управление заказами"
+        //private void OrdersBtn_Click(object sender, RoutedEventArgs e)
+        //{
+        //    OrdersGrid.Visibility = Visibility.Visible;
+        //    LoadAllOrders();
+        //}
+
+        //// Обработчик закрытия окна заказов
+        //private void CloseOrdersBtn_Click(object sender, RoutedEventArgs e)
+        //{
+        //    OrdersGrid.Visibility = Visibility.Hidden;
+        //}
+
+        //// Загрузка всех заказов
+        //private async void LoadAllOrders()
+        //{
+        //    try
+        //    {
+        //        using (var context = new StorepinkteddybearBdContext())
+        //        {
+        //            _allOrders = context.Orders
+        //                .Include(o => o.Orderitems)
+        //                .ThenInclude(oi => oi.ArticulToyNavigation)
+        //                .OrderByDescending(o => o.DateOrder)
+        //                .ToList();
+
+        //            OrdersListView.ItemsSource = _allOrders;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show($"Ошибка загрузки заказов: {ex.Message}", "Ошибка",
+        //            MessageBoxButton.OK, MessageBoxImage.Error);
+        //    }
+        //}
+
+        //// Обновление статуса заказа
+        //private async void UpdateStatusBtn_Click(object sender, RoutedEventArgs e)
+        //{
+        //    var button = sender as Button;
+        //    if (button?.Tag == null) return;
+
+        //    int orderId = (int)button.Tag;
+
+        //    // Находим родительский контейнер с ComboBox
+        //    var stackPanel = button.Parent as StackPanel;
+        //    var comboBox = stackPanel?.Children.OfType<ComboBox>().FirstOrDefault();
+
+        //    if (comboBox?.SelectedItem is ComboBoxItem selectedItem)
+        //    {
+        //        string newStatus = selectedItem.Content.ToString();
+
+        //        try
+        //        {
+        //            var result = await API.UpdateOrderStatus(orderId, newStatus);
+
+        //            if (result != null && result.IdOrder > 0)
+        //            {
+        //                MessageBox.Show($"Статус заказа №{orderId} изменен на: {newStatus}", "Успех",
+        //                    MessageBoxButton.OK, MessageBoxImage.Information);
+
+        //                LoadAllOrders(); // Обновляем список
+        //            }
+        //            else
+        //            {
+        //                MessageBox.Show("Не удалось обновить статус заказа", "Ошибка",
+        //                    MessageBoxButton.OK, MessageBoxImage.Error);
+        //            }
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            MessageBox.Show($"Ошибка обновления статуса: {ex.Message}", "Ошибка",
+        //                MessageBoxButton.OK, MessageBoxImage.Error);
+        //        }
+        //    }
+        //}
+
+        //// Поиск заказов
+        //private void OrderSearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        //{
+        //    FilterOrders();
+        //}
+
+        //// Фильтрация по статусу
+        //private void StatusFilterComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    FilterOrders();
+        //}
+
+        //// Метод фильтрации заказов
+        //private void FilterOrders()
+        //{
+        //    if (_allOrders == null) return;
+
+        //    var filteredOrders = _allOrders.AsEnumerable();
+
+        //    // Фильтр по поиску
+        //    var searchTerm = OrderSearchTextBox.Text;
+        //    if (!string.IsNullOrWhiteSpace(searchTerm) && searchTerm != "Поиск по ID заказа...")
+        //    {
+        //        if (int.TryParse(searchTerm, out int orderId))
+        //        {
+        //            filteredOrders = filteredOrders.Where(o => o.IdOrder == orderId);
+        //        }
+        //    }
+
+        //    // Фильтр по статусу
+        //    if (StatusFilterComboBox.SelectedItem is ComboBoxItem statusItem &&
+        //        statusItem.Content.ToString() != "Все статусы")
+        //    {
+        //        string selectedStatus = statusItem.Content.ToString();
+        //        filteredOrders = filteredOrders.Where(o => o.StatusOrder == selectedStatus);
+        //    }
+
+        //    OrdersListView.ItemsSource = filteredOrders.ToList();
+        //}
+
+        //// Обновление списка заказов
+        //private void RefreshOrdersBtn_Click(object sender, RoutedEventArgs e)
+        //{
+        //    LoadAllOrders();
+        //}
+
+        //// Добавьте обработчики для TextBox (подсказки)
+        //private void OrderSearchTextBox_GotFocus(object sender, RoutedEventArgs e)
+        //{
+        //    var textBox = sender as TextBox;
+        //    if (textBox?.Text == "Поиск по ID заказа...")
+        //    {
+        //        textBox.Text = "";
+        //    }
+        //}
+
+        //private void OrderSearchTextBox_LostFocus(object sender, RoutedEventArgs e)
+        //{
+        //    var textBox = sender as TextBox;
+        //    if (string.IsNullOrWhiteSpace(textBox?.Text))
+        //    {
+        //        textBox.Text = "Поиск по ID заказа...";
+        //    }
+        //}
     }
 }

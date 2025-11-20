@@ -420,7 +420,7 @@
       },
       {
         "Name": "rating",
-        "Type": "System.Int32",
+        "Type": "System.SByte",
         "IsRequired": false
       },
       {

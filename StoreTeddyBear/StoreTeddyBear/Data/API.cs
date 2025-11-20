@@ -1,6 +1,7 @@
 ﻿using Castle.Core.Resource;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using StoreTeddyBear.Models;
 using System.Text;
@@ -166,7 +167,7 @@ namespace StoreTeddyBear.Data
             }
         }
 
-        public static async Task<string> UpdateQuantity(int orderItemId, int newQuantity)
+        public static async Task<Orderitem> UpdateQuantity(int orderItemId, int newQuantity)
         {
             try
             {
@@ -182,28 +183,46 @@ namespace StoreTeddyBear.Data
                 if (response.IsSuccessStatusCode)
                 {
                     string responseJson = await response.Content.ReadAsStringAsync();
-                    return JsonConvert.DeserializeObject<string>(responseJson);
+                    return JsonConvert.DeserializeObject<Orderitem>(responseJson);
                 }
                 else
                 {
                     var errorMessage = await response.Content.ReadAsStringAsync();
                     Console.WriteLine($"Ошибка обновления количества: {errorMessage}");
-                    return "0";
+                    return null;
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Ошибка обновления количества: {ex.Message}");
-                return "0";
+                return null;
             }
         }
 
+        //public static async Task<List<Order>> GetAllOrders()
+        //{
+        //    try
+        //    {
+        //        using (var context = new StorepinkteddybearBdContext())
+        //        {
+        //            return context.Orders
+        //                .Include(o => o.Orderitems)
+        //                .ThenInclude(oi => oi.ArticulToyNavigation)
+        //                .OrderByDescending(o => o.DateOrder)
+        //                .ToList();
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine($"Ошибка получения всех заказов: {ex.Message}");
+        //        return new List<Order>();
+        //    }
+        //}
         public static async Task<Order?> Checkout(int orderId, string shippingAddress)
         {
             try
             {
-                var content = new StringContent(JsonConvert.SerializeObject(shippingAddress), Encoding.UTF8, "application/json");
-                var response = await _httpClient.PostAsync($"{_baseUrl}/Cart/{orderId}/Checkout", content);
+                var response = await _httpClient.PostAsync($"{_baseUrl}/Cart/{orderId}/Checkout?address={shippingAddress}", null);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -224,21 +243,20 @@ namespace StoreTeddyBear.Data
             }
         }
 
-
         public static async Task<Review?> AddReview(string articulToy, int customerId, sbyte rating, string comment)
         {
             try
             {
-                var review = new Review
-                {
-                    ArticulToy = articulToy,
-                    IdCustomer = customerId,
-                    RatingReview = rating,
-                    CommentReview = comment,
-                    DateReview = DateTime.Now
-                };
+                //var review = new Review
+                //{
+                //    ArticulToy = articulToy,
+                //    IdCustomer = customerId,
+                //    RatingReview = rating,
+                //    CommentReview = comment,
+                //    DateReview = DateTime.Now
+                //};
 
-                var content = new StringContent(JsonConvert.SerializeObject(review), Encoding.UTF8, "application/json");
+                //var content = new StringContent(JsonConvert.SerializeObject(review), Encoding.UTF8, "application/json");
                 var response = await _httpClient.PostAsync($"{_baseUrl}/Review/Add?customerId={customerId}&ArticulToy={articulToy}&rating={rating}&comment={comment}", null);
 
                 if (response.IsSuccessStatusCode)
@@ -304,14 +322,15 @@ namespace StoreTeddyBear.Data
         {
             try
             {
-                var editRequest = new
-                {
-                    rating,
-                    comment
-                };
+                //var editRequest = new
+                //{
+                //    reviewId,
+                //    rating,
+                //    comment
+                //};
 
-                var content = new StringContent(JsonConvert.SerializeObject(editRequest), Encoding.UTF8, "application/json");
-                var response = await _httpClient.PutAsync($"{_baseUrl}/Review/Edit/{reviewId}", content);
+                //var content = new StringContent(JsonConvert.SerializeObject(editRequest), Encoding.UTF8, "application/json");
+                var response = await _httpClient.PutAsync($"{_baseUrl}/Review/{reviewId}/Edit?rating={rating}&comment={comment}", null);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -336,7 +355,7 @@ namespace StoreTeddyBear.Data
         {
             try
             {
-                var response = await _httpClient.DeleteAsync($"{_baseUrl}/Review/Delete/{reviewId}");
+                var response = await _httpClient.DeleteAsync($"{_baseUrl}/Review/{reviewId}/Delete");
 
                 if (response.IsSuccessStatusCode)  return true;
                 else
@@ -470,7 +489,7 @@ namespace StoreTeddyBear.Data
         {
             try
             {
-                var response = await _httpClient.GetAsync($"{_baseUrl}/OrderController/{customerId}/CustomerOrders");
+                var response = await _httpClient.GetAsync($"{_baseUrl}/Order/{customerId}/CustomerOrders");
                 if (response.IsSuccessStatusCode) 
                 {
                     string responseJson = await response.Content.ReadAsStringAsync();
@@ -489,7 +508,7 @@ namespace StoreTeddyBear.Data
         {
             try
             {
-                var response = await _httpClient.GetAsync($"{_baseUrl}/OrderController/{orderId}/Details");
+                var response = await _httpClient.GetAsync($"{_baseUrl}/Order/{orderId}/Details");
                 if (response.IsSuccessStatusCode)
                 {
                     string responseJson = await response.Content.ReadAsStringAsync();
@@ -514,7 +533,7 @@ namespace StoreTeddyBear.Data
                     newStatus
                 };
                 var content = new StringContent(JsonConvert.SerializeObject(statusOrder), Encoding.UTF8, "application/json");
-                var response = await _httpClient.PutAsync($"{_baseUrl}/OrderController/{orderId}/UpdateStatus",  content);
+                var response = await _httpClient.PutAsync($"{_baseUrl}/Order/{orderId}/UpdateStatus",  content);
                 if (response.IsSuccessStatusCode)
                 {
                     string responseJson = await response.Content.ReadAsStringAsync();

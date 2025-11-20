@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="ElementsVisualization\Image\basket.png" />
     <None Remove="ElementsVisualization\Image\cross.png" />
     <None Remove="ElementsVisualization\Image\Image2.png" />
     <None Remove="ElementsVisualization\Image\Image3.png" />
@@ -42,6 +43,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="ElementsVisualization\Image\basket.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="ElementsVisualization\Image\cross.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>

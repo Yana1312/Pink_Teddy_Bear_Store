@@ -39,16 +39,17 @@
             </Viewbox>
 
             <Viewbox Grid.Row="1" Margin="10" Stretch="Uniform">
-                <ListView x:Name="CartItemsLv"
-                          Style="{StaticResource MaterialDesignListView}"
-                          HorizontalAlignment="Stretch"
-                          ScrollViewer.VerticalScrollBarVisibility="Auto">
-                    <ListView.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel Orientation="Vertical"/>
-                        </ItemsPanelTemplate>
-                    </ListView.ItemsPanel>
-                </ListView>
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ListView x:Name="CartItemsLv"
+                              Style="{StaticResource MaterialDesignListView}"
+                              HorizontalContentAlignment="Stretch">
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Vertical"/>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                    </ListView>
+                </ScrollViewer>
             </Viewbox>
         </Grid>
 

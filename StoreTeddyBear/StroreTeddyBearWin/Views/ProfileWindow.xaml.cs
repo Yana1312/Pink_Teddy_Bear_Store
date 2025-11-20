@@ -57,7 +57,6 @@ namespace StroreTeddyBearWin.Views
 
                 OrdersCountTb.Text = $"Всего заказов: {OrdersCount.ToString()}";
                 ReviewsCountTb.Text = $"Оставлено отзывов: {ReviewsCount.ToString()}";
-                CartItemsCountTb.Text = $"Активная корзина: {CartItemsCount.ToString()}";
                 OrdersItemsControl.ItemsSource = _customerOrders;
                 ReviewsItemsControl.ItemsSource = _customerReviews;
 
@@ -169,7 +168,7 @@ namespace StroreTeddyBearWin.Views
                     MessageBox.Show($"Некорректные данные:\n\n{string.Join("\n", errors)}");
                     return;
                 }
-                var res = await API.EditProfile(id: CurrentUser.IdCustomer, email: UserEmailRegistrationTbox.Text, name: UserNameRegistrationTbox.Text, password: _password);
+                var res = await API.EditProfile(id: CurrentUser.IdCustomer, email: UserEmailRegistrationTbox.Text, password: _password, name: UserNameRegistrationTbox.Text);
 
                 if (res != null)
                 {

@@ -5,6 +5,7 @@ using StoreTeddyBear.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using static MaterialDesignThemes.Wpf.Theme;
 
 namespace StroreTeddyBearWin.Views
 {
@@ -34,10 +36,26 @@ namespace StroreTeddyBearWin.Views
             LoadToy();
             LoadReviewsByToy();
             if (currentUser == null)
+            {
                 ReviewBtn.Visibility = Visibility.Hidden;
+                DeleteReviewBtn.Visibility = Visibility.Hidden;
+                EditReviewBtn.Visibility = Visibility.Hidden;
+            }
         }
 
-
+        private void LoadImage(System.Windows.Controls.Image image, string imagePath)
+        {
+            try
+            {
+                if (File.Exists(@"C:\Users\user\Desktop\проекты\проекты WPF\GitHub Bears\StoreTeddyBear\StroreTeddyBearWin\" + imagePath))
+                    image.Source = new BitmapImage(new Uri(imagePath, UriKind.Relative));
+                else throw new Exception();
+            }
+            catch (Exception)
+            {
+                image.Source = new BitmapImage(new Uri("/ElementsVisualization/Image/placeholder.png", UriKind.Relative));
+            }
+        }
 
 
         private async Task LoadReviewsByToy()
@@ -49,17 +67,7 @@ namespace StroreTeddyBearWin.Views
                 return;
             }
             ReviewsByToyLv.ItemsSource = res;
-
-            try
-            {
-                BearInItemsCartImg.Source = new BitmapImage(
-                    new Uri($"/ElementsVisualization/Bears/{Toy.Title}.png", UriKind.Relative));
-            }
-            catch
-            {
-                BearInItemsCartImg.Source = new BitmapImage(
-                    new Uri("/ElementsVisualization/Image/placeholder.png", UriKind.Relative));
-            }
+            LoadImage(BearInItemsCartImg, $"/ElementsVisualization/Bears/{Toy.Title}.png");
         }
 
         private async Task LoadToy()
@@ -128,8 +136,48 @@ namespace StroreTeddyBearWin.Views
             return rightIndex >= toys.Count ? 0 : rightIndex;
         }
 
+        private async void EditReview()
+        {
+            try
+            {
+               
+                AddReviewBtn.IsEnabled = false;
+                AddReviewBtn.Content = "      Редактирование...     ";
+                int rating = int.Parse(RatingTbox.Text);
+                var errors = ReviewController.GetValidationErrors(rating, ReviewAddTbox.Text);
+                if (errors.Count > 0)
+                {
+                    MessageBox.Show($"Некорректные данные:\n\n{string.Join("\n", errors)}");
+                    return;
+                }
+                var res = await API.EditReview(selectedReview.IdReview, (sbyte)rating, ReviewAddTbox.Text);
+
+                if (res != null)
+                {
+                    MessageBox.Show("Отзыв изменился!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                    LoadReviewsByToy();
+                }
+                else MessageBox.Show($"Не удалось отредактировать отзыв.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка редактирования отзыва: {ex.Message}", "Ошибка",
+                      MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                AddReviewBtn.IsEnabled = true;
+                AddReviewBtn.Content = "      Отредактировать     ";
+            }
+        }
+
         private async void AddReviewBtn_Click(object sender, RoutedEventArgs e)
         {
+            if (mainTextTb.Text == "Редактирование отзыва")
+            {
+                EditReview();
+                return;
+            }
             try
             {
                 AddReviewBtn.IsEnabled = false;
@@ -247,10 +295,13 @@ namespace StroreTeddyBearWin.Views
             }
 
             RatingTbox.Text = selectedReview.RatingReview.ToString();
-            ReviewAddTbox.Text = selectedReview.CommentReview;
+            ReviewAddTbox.Text = selectedReview.CommentReview.ToString();
 
+            AddReviewBtn.Content = "Отредактировать";
+            mainTextTb.Text = "Редактирование отзыва";
             AddReviewGrid.Visibility = Visibility.Visible;
             this.Title = "Редактирование отзыва";
+
         }
         public Review selectedReview;
 

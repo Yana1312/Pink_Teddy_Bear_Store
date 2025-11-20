@@ -31,8 +31,7 @@ namespace StoreTeddyBear.Controllers
             if (toy == null)
                 return NotFound("Товар не найден");
 
-            if (toy.QuantityInStock < Quantity)
-                return BadRequest($"Недостаточно товара на складе. Доступно: {toy.QuantityInStock}");
+           
             //1 этап - ожидает подтверждения
             //2 этап - в обработке
             //3 этап - отгружен
@@ -65,8 +64,12 @@ namespace StoreTeddyBear.Controllers
             var existingOrderItem = StorepinkteddybearBdContext.Instance.Orderitems
                 .FirstOrDefault(oi => oi.IdOrder == order.IdOrder && oi.ArticulToy == ArticulToy);
 
+            
+
             if (existingOrderItem != null)
             {
+                if (toy.QuantityInStock < Quantity + existingOrderItem.Quantity)
+                    return BadRequest($"Недостаточно товара на складе. Доступно: {toy.QuantityInStock}");
                 existingOrderItem.Quantity += Quantity;
             }
             else
@@ -91,23 +94,26 @@ namespace StoreTeddyBear.Controllers
         [HttpGet("{customerId}/GetCart")]
         public ActionResult<Order> GetCart(int customerId)
         {
-            var order = StorepinkteddybearBdContext.Instance.Orders
+            using (var context = new StorepinkteddybearBdContext())
+            {
+                var order = context.Orders
                 .Include(o => o.Orderitems)
                 .FirstOrDefault(o => o.IdCustomer == customerId && o.StatusOrder == "ожидает подтверждения");
-            
-            if (order == null)
-            {
-                order = new Order
+
+                if (order == null)
                 {
-                    IdCustomer = customerId,
-                    StatusOrder = "ожидает подтверждения",
-                    AdressOrder = "",
-                    DateOrder = DateTime.Now,
-                    TotalAmount = 0
-                };
+                    order = new Order
+                    {
+                        IdCustomer = customerId,
+                        StatusOrder = "ожидает подтверждения",
+                        AdressOrder = "",
+                        DateOrder = DateTime.Now,
+                        TotalAmount = 0
+                    };
+                }
+                UpdateOrderTotalAmount(order.IdOrder);
+                return Ok(order);
             }
-            UpdateOrderTotalAmount(order.IdOrder);
-            return Ok(order);
         }
 
         [HttpDelete("{orderItemId}/RemoveFromCart")]
@@ -166,14 +172,13 @@ namespace StoreTeddyBear.Controllers
 
             UpdateOrderTotalAmount(orderItem.IdOrder);
 
-            return Ok(orderItem.Quantity);
+            return Ok(orderItem);
         }
-
 
         [HttpPost("{orderId}/Checkout")]
         public ActionResult<Order> Checkout(int orderId, string address)
         {
-            if (!string.IsNullOrEmpty(address)) return BadRequest("Добавьте к заказу адрес");
+            if (string.IsNullOrEmpty(address)) return BadRequest("Добавьте к заказу адрес");
             var order = StorepinkteddybearBdContext.Instance.Orders
                 .Include(o => o.Orderitems)
                 .ThenInclude(oi => oi.ArticulToyNavigation)
@@ -196,6 +201,8 @@ namespace StoreTeddyBear.Controllers
 
             return Ok(order);
         }
+        
+
 
         private void UpdateOrderTotalAmount(int orderId)
         {

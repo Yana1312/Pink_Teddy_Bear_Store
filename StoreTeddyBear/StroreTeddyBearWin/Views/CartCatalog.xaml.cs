@@ -48,7 +48,7 @@ namespace StroreTeddyBearWin.Views
             {
                 _currentCart = await API.GetCart(_currentUser.IdCustomer);
 
-                if (_currentCart != null && _currentCart.Orderitems != null)
+                if (_currentCart != null && _currentCart.Orderitems.Count != 0)
                 {
                     UpdateListView(_currentCart.Orderitems.ToList());
                     UpdateTotalAmount();
@@ -130,11 +130,42 @@ namespace StroreTeddyBearWin.Views
 
         private void UpdateListView(List<Orderitem> currentOrder)
         {
+            CartItemsLv.Items.Clear();
             foreach (Orderitem item in currentOrder)
             {
-                CartItemsLv.Items.Add(new CartControl(item));
+                var cartControl = new CartControl(item);
+                cartControl.itemRemoved += OnCartItemRemoved;
+                CartItemsLv.Items.Add(cartControl);
             }
 
+        }
+
+        private async void OnCartItemRemoved(CartControl cartControl)
+        {
+            CartItemsLv.Items.Remove(cartControl);
+
+            cartControl.itemRemoved -= OnCartItemRemoved;
+
+            await ReloadCart();
+        }
+        private async Task ReloadCart()
+        {
+            _currentCart = await API.GetCart(_currentUser.IdCustomer);
+
+            if (_currentCart == null || !_currentCart.Orderitems.Any())
+            {
+                // Если корзина пуста
+                CartItemsLv.Items.Clear();
+                TotalAmountText.Text = "Итоговая сумма заказа: 0 рублей";
+                CreateOrderBtn.IsEnabled = false;
+                ClearCartBtn.IsEnabled = false;
+            }
+            else
+            {
+                UpdateTotalAmount();
+                CreateOrderBtn.IsEnabled = true;
+                ClearCartBtn.IsEnabled = true;
+            }
         }
 
         private async void ClearCartBtn_Click(object sender, RoutedEventArgs e)
@@ -158,10 +189,11 @@ namespace StroreTeddyBearWin.Views
                         await API.RemoveFromCart(item.IdOrderItem);
                     }
 
+                    CartItemsLv.Items.Clear();
+
+                    await ReloadCart();
                     MessageBox.Show("Корзина очищена", "Успех",
                         MessageBoxButton.OK, MessageBoxImage.Information);
-
-                    LoadCart();
                 }
             }
             catch (Exception ex)

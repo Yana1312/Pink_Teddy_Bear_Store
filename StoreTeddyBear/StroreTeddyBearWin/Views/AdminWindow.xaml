@@ -134,6 +134,7 @@
 
         <Viewbox Grid.Row="1" Stretch="Uniform" HorizontalAlignment="Left" Grid.ColumnSpan="2">
             <StackPanel Margin="4" Orientation="Horizontal">
+                <!--<Button Margin="3" x:Name="OrdersBtn" Content="Управление заказами" Style="{StaticResource RoundedButtonStyle}" Background="#F8BED4" Click="OrdersBtn_Click"/>-->
                 <Button Margin="3" x:Name="AddBearBtn" Content="Добавить игрушку" Style="{StaticResource RoundedButtonStyle}" Background="#F8BED4" Click="AddBearBtn_Click"/>
                 <Button Margin="3" x:Name="DeleteBearBtn" Content="Удалить игрушку" Style="{StaticResource RoundedButtonStyle}" Background="#F8BED4" Click="DeleteBearBtn_Click"/>
                 <Button Margin="3" x:Name="RedacBearBtn" Content="Редактировать игрушку" Style="{StaticResource RoundedButtonStyle}" Background="#F8BED4" Click="RedacBearBtn_Click"/>
@@ -214,6 +215,143 @@
                 </Border>
             </Viewbox>
         </Grid>
+
+        <!--<Grid x:Name="OrdersGrid" Grid.ColumnSpan="2" Grid.RowSpan="3" Visibility="Visible">
+            <Grid.Background>
+                <SolidColorBrush Color="#FF6E6969" Opacity="0.6"/>
+            </Grid.Background>
+            <Viewbox VerticalAlignment="Center" HorizontalAlignment="Center" Stretch="Uniform">
+                <Border 
+            Margin="60"
+            BorderThickness="3"
+            BorderBrush="#fffff4f4"
+            CornerRadius="45"
+            Width="1000"
+            Height="600">
+                    <Border.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FFFAC0D5"/>
+                            <GradientStop Color="#FFEB85A7" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <Grid Margin="20">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="0" Margin="0 0 0 10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Управление заказами" FontSize="20" FontWeight="Bold" 
+                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <Button x:Name="CloseOrdersBtn" Click="CloseOrdersBtn_Click" Grid.Column="1"
+                            Height="25" Width="25" BorderThickness="0" Background="Transparent">
+                                <Image Source="/ElementsVisualization/Image/cross.png" Stretch="Uniform"/>
+                            </Button>
+                        </Grid>
+
+                        <ListView x:Name="OrdersListView" Grid.Row="1" 
+                          ScrollViewer.VerticalScrollBarVisibility="Auto"
+                          Background="Transparent"
+                          BorderThickness="0">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Background="#FFF4F4" 
+                                    BorderBrush="#F8BED4" 
+                                    BorderThickness="2"
+                                    CornerRadius="10"
+                                    Margin="5"
+                                    Padding="10">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <StackPanel Grid.Column="0">
+                                                <TextBlock Text="{Binding IdOrder, StringFormat={}Заказ №{0}}" 
+                                                   FontWeight="Bold" FontSize="14"/>
+                                                <TextBlock Text="{Binding DateOrder, StringFormat={}Дата: {0:dd.MM.yyyy HH:mm}}" 
+                                                   FontSize="12" Foreground="#666666"/>
+                                                <TextBlock Text="{Binding TotalAmount, StringFormat={}Сумма: {0}₽}" 
+                                                   FontSize="12" Foreground="#666666"/>
+                                                <TextBlock Text="{Binding ShippingAddress, StringFormat={}Адрес: {0}}" 
+                                                   FontSize="12" Foreground="#666666" TextWrapping="Wrap"/>
+
+                                                <ItemsControl ItemsSource="{Binding Orderitems}" Margin="0 5 0 0">
+                                                    <ItemsControl.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <Border Background="#F8BED4" CornerRadius="5" Padding="5" Margin="0 2">
+                                                                <Grid>
+                                                                    <Grid.ColumnDefinitions>
+                                                                        <ColumnDefinition Width="*"/>
+                                                                        <ColumnDefinition Width="Auto"/>
+                                                                    </Grid.ColumnDefinitions>
+                                                                    <TextBlock Text="{Binding ArticulToyNavigation.Title}" 
+                                                                       FontSize="11" FontWeight="SemiBold"/>
+                                                                    <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                                                        <TextBlock Text="{Binding Quantity, StringFormat={}x{0}}" 
+                                                                           FontSize="11" Margin="0 0 5 0"/>
+                                                                        <TextBlock Text="{Binding UnitPrice, StringFormat={}{0}₽}" 
+                                                                           FontSize="11" FontWeight="Bold"/>
+                                                                    </StackPanel>
+                                                                </Grid>
+                                                            </Border>
+                                                        </DataTemplate>
+                                                    </ItemsControl.ItemTemplate>
+                                                </ItemsControl>
+                                            </StackPanel>
+
+                                            <StackPanel Grid.Column="1" Width="150" Margin="10 0 0 0">
+                                                <TextBlock Text="Статус заказа:" FontWeight="Bold" FontSize="12"/>
+                                                <ComboBox x:Name="StatusComboBox" 
+                                                  SelectedItem="{Binding StatusOrder}"
+                                                  FontSize="11" Margin="0 5 0 5">
+                                                    <ComboBoxItem Content="ожидает подтверждения"/>
+                                                    <ComboBoxItem Content="в обработке"/>
+                                                    <ComboBoxItem Content="отгружен"/>
+                                                    <ComboBoxItem Content="доставлен"/>
+                                                </ComboBox>
+                                                <Button Content="Обновить статус" 
+                                                Click="UpdateStatusBtn_Click"
+                                                Tag="{Binding IdOrder}"
+                                                Style="{StaticResource RoundedButtonStyle}"
+                                                FontSize="10" Height="25" Margin="0 5 0 0"/>
+                                            </StackPanel>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+
+                        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0 10 0 0">
+                            <TextBox x:Name="OrderSearchTextBox" Width="200" 
+                             Style="{StaticResource RoundedTextBoxStyle}"
+                             TextChanged="OrderSearchTextBox_TextChanged"
+                             Text="Поиск по ID заказа..."/>
+
+                            <ComboBox x:Name="StatusFilterComboBox" Width="150" Margin="10 0 0 0"
+                              SelectionChanged="StatusFilterComboBox_SelectionChanged"
+                              FontSize="11">
+                                <ComboBoxItem Content="Все статусы" IsSelected="True"/>
+                                <ComboBoxItem Content="ожидает подтверждения"/>
+                                <ComboBoxItem Content="в обработке"/>
+                                <ComboBoxItem Content="отгружен"/>
+                                <ComboBoxItem Content="доставлен"/>
+                            </ComboBox>
+
+                            <Button Content="Обновить список" Click="RefreshOrdersBtn_Click"
+                            Style="{StaticResource RoundedButtonStyle}"
+                            FontSize="11" Height="25" Margin="10 0 0 0"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Viewbox>
+        </Grid>-->
 
     </Grid>
 </Window>

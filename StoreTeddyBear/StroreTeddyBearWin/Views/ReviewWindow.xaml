@@ -28,7 +28,7 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Image x:Name="BearInItemsCartImg" Source="/ElementsVisualization/Bears/Премиум класс.png" Stretch="Fill" Margin="10 20 0 0"/>
+            <Image x:Name="BearInItemsCartImg" Source="/ElementsVisualization/Image/placeholder.png" Stretch="Fill" Margin="10 20 0 0"/>
 
             <Viewbox Grid.Row="1" Margin="10 0">
                 <Grid>
@@ -52,7 +52,7 @@
         <StackPanel Grid.Column="1" Margin="20" Orientation="Vertical">
             <ListView x:Name="ReviewsByToyLv" HorizontalContentAlignment="Stretch"
                       SelectionChanged="ReviewsByToyLv_SelectionChanged"
-                      Height="360">
+                      Height="320">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel Orientation="Vertical"/>
@@ -81,7 +81,7 @@
                 </ListView.ItemTemplate>
             </ListView>
 
-            <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal" Margin="0 20">
                 <Button Content="Добавить отзыв" 
                         Name="ReviewBtn"
                         Background="#F8BED4"
@@ -134,11 +134,10 @@
             <Viewbox VerticalAlignment="Center"
             HorizontalAlignment="Center" Stretch="Uniform"
             >
-                <Border 
-            Margin="60"
-            BorderThickness="3"
-            BorderBrush="#fffff4f4"
-            CornerRadius="45">
+                <Border Margin="60"
+                        BorderThickness="3"
+                        BorderBrush="#fffff4f4"
+                        CornerRadius="45">
                     <Border.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="#FFFAC0D5"/>
@@ -159,15 +158,15 @@
                                 <ColumnDefinition Width="8*"/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock VerticalAlignment="Center"  HorizontalAlignment="Center" Style="{StaticResource RegistrationTextBlockStyle}" Text="Добавление отзыва" FontSize="17"/>
+                            <TextBlock x:Name="mainTextTb" VerticalAlignment="Center"  HorizontalAlignment="Center" Style="{StaticResource RegistrationTextBlockStyle}" Text="Добавление отзыва" FontSize="17"/>
                             <Button x:Name="CrossBtn" Click="CrossBtn_Click"  Height="25" Width="25" BorderThickness="0" Grid.Column="1"  Background="Transparent">
                                 <Image Source="/ElementsVisualization/Image/cross.png" Stretch="Uniform"/>
                             </Button>
                         </Grid>
                         <TextBlock Grid.Row="1" Text="Введите рейтинг" Style="{StaticResource RegistrationTextBlockStyle}"/>
-                        <TextBox Grid.Row="2" x:Name="RatingTbox" PreviewTextInput="RatingTbox_PreviewTextInput" Style="{StaticResource RoundedTextBoxStyle}"/>
+                        <TextBox Grid.Row="2" MaxLength="1" x:Name="RatingTbox" PreviewTextInput="RatingTbox_PreviewTextInput" Style="{StaticResource RoundedTextBoxStyle}"/>
                         <TextBlock Grid.Row="3" Text="Введите отзыв" Style="{StaticResource RegistrationTextBlockStyle}"/>
-                        <TextBox Grid.Row="4" x:Name="ReviewAddTbox" TextWrapping="Wrap" Height="50" Style="{StaticResource RoundedTextBoxStyle}"/>
+                        <TextBox Grid.Row="4" x:Name="ReviewAddTbox" TextWrapping="Wrap" MaxWidth="235" MaxLength="60" Height="50" Style="{StaticResource RoundedTextBoxStyle}"/>
                         <Button Grid.Row="8" x:Name="AddReviewBtn" Content="Добавить отзыв" Width="200" Style="{StaticResource RoundedButtonStyle}" Margin="20 5 20 10" FontSize="15" Height="27" Click="AddReviewBtn_Click"/>
                     </Grid>
                 </Border>

@@ -123,10 +123,6 @@
                                     <TextBlock Grid.Row="1" 
                                                Name="ReviewsCountTb"
                                                Foreground="#666666"/>
-
-                                    <TextBlock Grid.Row="2" 
-                                               x:Name="CartItemsCountTb"
-                                               Foreground="#666666"/>
                                 </Grid>
                             </StackPanel>
                         </StackPanel>
@@ -181,23 +177,36 @@
                                                 </Grid.ColumnDefinitions>
 
                                                 <StackPanel>
-                                                    <TextBlock Text="{Binding OrderDate, UpdateSourceTrigger=PropertyChanged, StringFormat='Заказ от {0:dd.MM.yyyy}'}" 
+                                                    <TextBlock Text="{Binding DateOrder, UpdateSourceTrigger=PropertyChanged, StringFormat='Заказ от {0:dd.MM.yyyy}'}" 
                                                                FontWeight="SemiBold"
                                                                FontSize="14"/>
                                                     <TextBlock Text="{Binding StatusOrder, UpdateSourceTrigger=PropertyChanged}" 
                                                                Margin="0,5,0,0"
                                                                Foreground="#666666"/>
+
+                                                    <ItemsControl ItemsSource="{Binding Orderitems}" Margin="0,5,0,0">
+                                                        <ItemsControl.ItemTemplate>
+                                                            <DataTemplate>
+                                                                <StackPanel Orientation="Horizontal">
+                                                                    <TextBlock Text="{Binding ArticulToyNavigation.Title, StringFormat={}{0}      }" 
+                                                                                Margin="0,2,0,0"
+                                                                                Foreground="#666666"
+                                                                                FontSize="12"/>
+
+                                                                    <TextBlock Text="{Binding Quantity, StringFormat={} {0} шт.}" 
+                                                                               Margin="0,2,0,0"
+                                                                               Foreground="#666666"
+                                                                               FontSize="12"/>
+                                                                </StackPanel>
+                                                                
+                                                            </DataTemplate>
+                                                        </ItemsControl.ItemTemplate>
+                                                    </ItemsControl>
                                                     <TextBlock Text="{Binding TotalAmount, UpdateSourceTrigger=PropertyChanged, StringFormat='Сумма: {0}₽'}" 
                                                                Margin="0,5,0,0"
                                                                FontWeight="SemiBold"
                                                                Foreground="#E984A6"/>
                                                 </StackPanel>
-
-                                                <TextBlock Grid.Column="1" 
-                                                           Text="{Binding IdOrder}" 
-                                                           FontSize="12"
-                                                           Foreground="#999999"
-                                                           VerticalAlignment="Top"/>
                                             </Grid>
                                         </Border>
                                     </DataTemplate>
