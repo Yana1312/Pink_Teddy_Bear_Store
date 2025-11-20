@@ -423,7 +423,7 @@ namespace StoreTeddyBear.Data
             try
             {
                 var content = new StringContent(JsonConvert.SerializeObject(updatedToy), Encoding.UTF8, "application/json");
-                var response = await _httpClient.PutAsync($"{_baseUrl}/AdminToy/Update/{Uri.EscapeDataString(articulToy)}", content);
+                var response = await _httpClient.PutAsync($"{_baseUrl}/AdminToy/{Uri.EscapeDataString(articulToy)}/Update", content);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -448,7 +448,7 @@ namespace StoreTeddyBear.Data
         {
             try
             {
-                var response = await _httpClient.DeleteAsync($"{_baseUrl}/AdminToy/Delete/{Uri.EscapeDataString(articulToy)}");
+                var response = await _httpClient.DeleteAsync($"{_baseUrl}/AdminToy/{Uri.EscapeDataString(articulToy)}/Delete");
 
                 if (response.IsSuccessStatusCode) return true;
                 else
@@ -527,13 +527,7 @@ namespace StoreTeddyBear.Data
         {
             try
             {
-                var statusOrder = new
-                {
-                    orderId,
-                    newStatus
-                };
-                var content = new StringContent(JsonConvert.SerializeObject(statusOrder), Encoding.UTF8, "application/json");
-                var response = await _httpClient.PutAsync($"{_baseUrl}/Order/{orderId}/UpdateStatus",  content);
+                var response = await _httpClient.PutAsync($"{_baseUrl}/Order/{orderId}/UpdateStatus?newStatus={newStatus}",  null);
                 if (response.IsSuccessStatusCode)
                 {
                     string responseJson = await response.Content.ReadAsStringAsync();

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using StoreTeddyBear.Controllers;
 using StoreTeddyBear.Data;
 using StoreTeddyBear.Models;
+using StroreTeddyBearWin.Services;
 using StroreTeddyBearWin.Views;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -84,9 +85,10 @@ namespace StroreTeddyBearWin
 
         private void ForgotPasswordBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            ForgotPasswordWindow.Visibility = Visibility.Visible;
+            ForgotPasswordEmailTbox.Text = EmailTbox.Text;
+            this.Title = "Восстановление пароля";
         }
-        
         private void ReviewsBtn_Click(object sender, RoutedEventArgs e)
         {
             if (toys == null || toys.Count == 0)
@@ -210,6 +212,86 @@ namespace StroreTeddyBearWin
                 UnShowPassword(UserPasswordRegistrationTbox, UserPasswordRegistrationPbox);
             else if (checkBox != null && checkBox.Name == "ShowPasswordAuthorizationCbox")
                 UnShowPassword(PasswordAuthorizatoinTbox, PasswordAuthorizationPbox);
+        }
+
+        private void ForgotPasswordCrossBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ForgotPasswordWindow.Visibility = Visibility.Hidden;
+            this.Title = "Авторизация";
+        }
+        private readonly EmailService _emailService = new EmailService();
+        private async void SendNewPasswordBtn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string email = ForgotPasswordEmailTbox.Text.Trim();
+
+                if (string.IsNullOrWhiteSpace(email))
+                {
+                    MessageBox.Show("Введите адрес электронной почты", "Ошибка",
+                        MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                if (new System.Net.Mail.MailAddress(email).Address != email)
+                {
+                    MessageBox.Show("Введите корректный адрес электронной почты", "Ошибка",
+                        MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                var user = StorepinkteddybearBdContext.Instance.Useransadmins
+                    .FirstOrDefault(u => u.EmailUsers == email);
+
+                if (user == null)
+                {
+                    MessageBox.Show("Пользователь с такой почтой не найден", "Ошибка",
+                        MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                SendNewPasswordBtn.IsEnabled = false;
+                SendNewPasswordBtn.Content = "Отправка...";
+
+                string newPassword = NewPaawordTbox.ToString();
+
+                bool emailSent = await _emailService.SendPasswordResetEmail(
+                    email, newPassword, user.NameUsers);
+
+                if (emailSent)
+                {
+                    var passwordUpdated = await API.EditProfile(user.IdCustomer, user.EmailUsers, newPassword, user.NameUsers);
+
+                    if (passwordUpdated != null)
+                    {
+                        MessageBox.Show("Новый пароль отправлен на вашу почту", "Успех",
+                            MessageBoxButton.OK, MessageBoxImage.Information);
+
+                        ForgotPasswordWindow.Visibility = Visibility.Hidden;
+                        this.Title = "Авторизация";
+                    }
+                    else
+                    {
+                        MessageBox.Show("Не удалось обновить пароль. Попробуйте позже.", "Ошибка",
+                            MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Не удалось отправить письмо. Проверьте подключение к интернету.", "Ошибка",
+                        MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при восстановлении пароля: {ex.Message}", "Ошибка",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                SendNewPasswordBtn.IsEnabled = true;
+                SendNewPasswordBtn.Content = "Отправить";
+            }
         }
     }
 }

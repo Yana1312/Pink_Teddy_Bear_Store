@@ -111,7 +111,7 @@ namespace StoreTeddyBear.Controllers
             return Ok(toys);
         }
 
-        private List<string> GetToyValidationErrors(Toy toy)
+        public static List<string> GetToyValidationErrors(Toy toy)
         {
             var errors = new List<string>();
 
@@ -120,6 +120,15 @@ namespace StoreTeddyBear.Controllers
 
             if (string.IsNullOrWhiteSpace(toy.Title))
                 errors.Add("Название не может быть пустым");
+            
+            if (string.IsNullOrWhiteSpace(toy.Descriptionn))
+                errors.Add("Описание не может быть пустым");
+
+            if (string.IsNullOrWhiteSpace(toy.Height))
+                errors.Add("Введите рост товара");
+            
+            if (string.IsNullOrWhiteSpace(toy.Weight))
+                errors.Add("Введите вес товара");
 
             if (toy.Price < 0)
                 errors.Add("Цена не может быть отрицательной");

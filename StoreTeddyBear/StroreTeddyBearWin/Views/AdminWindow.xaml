@@ -14,14 +14,14 @@
             <RowDefinition Height="55"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="75"/>
         </Grid.ColumnDefinitions>
 
         <Border CornerRadius="35" Background="#F8BED4" Grid.Row="0" Margin="10 20">
-            <TextBox x:Name="SearchTextBox" Style="{StaticResource TextBoxSearchStyle}" Text="Поиск игрушки..." Margin="40 0" FontSize="15" TextChanged="SearchTextBox_TextChanged"/>
+            <TextBox x:Name="SearchTextBox" Style="{StaticResource MaterialDesignTextBox}" VerticalAlignment="Center" Margin="40 0" FontSize="15" TextChanged="SearchTextBox_TextChanged"/>
         </Border>
 
         <Grid Grid.Column="1" Margin="0 ">
@@ -29,112 +29,177 @@
             <Image Source="/ElementsVisualization/Image/Профиль обратный.png" x:Name="ProfileImg" Height="50" MouseDown="ProfileImg_MouseDown"   />
         </Grid>
 
+        <TabControl Grid.Row="2" Grid.ColumnSpan="2" Background="White" Margin="10">
+            <TabItem Header="Товары">
+                <ScrollViewer>
+                    <StackPanel Margin="10">
+                        <ItemsControl x:Name="ToysItemsControl">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
 
-        <Viewbox Grid.Row="2" Stretch="Fill" VerticalAlignment="Top" Grid.ColumnSpan="2">   
-            <ListView x:Name="BearsItemsLv"
-                        Height="400"
-                        Width="800"
-                        Margin="10"
-                      Padding="8"
-                        Background="#F8BED4"
-                        SelectionChanged="BearsItemsLv_SelectionChanged"
-                        ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Background="#FFF4F4" 
+                                            BorderBrush="#F8BED4" 
+                                            BorderThickness="2"
+                                            CornerRadius="10"
+                                            Margin="5"
+                                            MouseDown="Border_MouseDown"
+                                            Width="180"
+                                            Height="200">
+                                        <Grid Margin="10">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
 
-                <ListView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel Orientation="Horizontal" />
-                    </ItemsPanelTemplate>
-                </ListView.ItemsPanel>
+                                            <TextBlock Grid.Row="0" 
+                                           Text="{Binding ArticulToy}" 
+                                           FontSize="12"
+                                           Foreground="#666666"/>
 
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <Border Background="#FFF4F4" 
-                        BorderBrush="#F8BED4" 
-                        BorderThickness="2"
-                        CornerRadius="10"
-                        Margin="5"
-                        Width="180"
-                        Height="200">
-                            <Grid Margin="10">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
+                                            <TextBlock Grid.Row="1" 
+                                           Text="{Binding Title}" 
+                                           FontWeight="Bold"
+                                           FontSize="14"
+                                           TextWrapping="Wrap"
+                                           Margin="0,5,0,5"/>
 
-                                <!-- Артикул -->
-                                <TextBlock Grid.Row="0" 
-                                   Text="{Binding ArticulToy}" 
-                                   FontWeight="Bold"
-                                   FontSize="12"
-                                   Foreground="#666666"/>
+                                            <TextBlock Grid.Row="2" 
+                                           Text="{Binding Descriptionn}" 
+                                           FontSize="10"
+                                           TextWrapping="Wrap"
+                                           MaxHeight="40"
+                                           TextTrimming="CharacterEllipsis"
+                                           Foreground="#666666"/>
 
-                                <!-- Название -->
-                                <TextBlock Grid.Row="1" 
-                                   Text="{Binding Title}" 
-                                   FontWeight="Bold"
-                                   FontSize="14"
-                                   TextWrapping="Wrap"
-                                   Margin="0,5,0,5"/>
+                                            <TextBlock Grid.Row="3" 
+                                           Text="{Binding Price, StringFormat={}{0}₽}" 
+                                           FontWeight="Bold"
+                                           FontSize="16"
+                                           Foreground="#EE9EB8"
+                                           Margin="0,5,0,0"/>
 
-                                <!-- Описание (урезанное) -->
-                                <TextBlock Grid.Row="2" 
-                                   Text="{Binding Descriptionn}" 
-                                   FontSize="10"
-                                   TextWrapping="Wrap"
-                                   MaxHeight="40"
-                                   TextTrimming="CharacterEllipsis"
-                                   Foreground="#666666"/>
+                                            <TextBlock Grid.Row="4" 
+                                                       Text="{Binding QuantityInStock, StringFormat={}В наличии: {0} шт.}" 
+                                                       FontSize="10"
+                                                       Foreground="#666666"
+                                                       Margin="0,2,0,0"/>
 
-                                <!-- Цена -->
-                                <TextBlock Grid.Row="3" 
-                                   Text="{Binding Price, StringFormat={}{0}₽}" 
-                                   FontWeight="Bold"
-                                   FontSize="16"
-                                   Foreground="#E91E63"
-                                   Margin="0,5,0,0"/>
+                                            <StackPanel Grid.Row="5" Orientation="Vertical" Margin="0,5,0,0">
+                                                <TextBlock Text="{Binding Height}" FontSize="9" Foreground="#888888"/>
+                                                <TextBlock Text="{Binding Weight}" FontSize="9" Foreground="#888888"/>
+                                            </StackPanel>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+            
+            <TabItem Header="Заказы">
+                <ScrollViewer>
+                    <StackPanel Margin="10">
+                        <StackPanel Orientation="Horizontal" Margin="0 0 0 10">
+                            <ComboBox x:Name="StatusFilterComboBox" Width="150" Margin="10 0 0 0"
+                                      Style="{StaticResource MaterialDesignComboBox}"
+                                      SelectionChanged="StatusFilterComboBox_SelectionChanged"
+                                      FontSize="11">
+                                <ComboBoxItem Content="Все статусы" IsSelected="True"/>
+                                <ComboBoxItem Content="ожидает подтверждения"/>
+                                <ComboBoxItem Content="в обработке"/>
+                                <ComboBoxItem Content="отгружен"/>
+                                <ComboBoxItem Content="доставлен"/>
+                            </ComboBox>
 
-                                <!-- Количество -->
-                                <TextBlock Grid.Row="4" 
-                                   Text="{Binding QuantityInStock, StringFormat={}В наличии: {0} шт.}" 
-                                   FontSize="10"
-                                   Margin="0,2,0,0"/>
+                            <Button Content="Обновить список" Click="RefreshOrdersBtn_Click"
+                                    Style="{StaticResource RoundedSquertBtnStyle}"
+                                    FontSize="11" Height="25" Margin="10 0 0 0"/>
+                        </StackPanel>
 
-                                <!-- Размеры -->
-                                <StackPanel Grid.Row="5" Orientation="Horizontal" Margin="0,5,0,0">
-                                    <TextBlock Text="{Binding Height}" FontSize="9" Foreground="#888888"/>
-                                    <TextBlock Text=" • " FontSize="9" Foreground="#888888"/>
-                                    <TextBlock Text="{Binding Weight}" FontSize="9" Foreground="#888888"/>
-                                </StackPanel>
-                            </Grid>
-                        </Border>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
+                        <ItemsControl x:Name="OrdersItemsControl">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Background="#FFF4F4" 
+                                            CornerRadius="10"
+                                            Margin="5"
+                                            Padding="15">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
 
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="ListViewItem">
-                        <Setter Property="Background" Value="Transparent"/>
-                        <Setter Property="BorderThickness" Value="0"/>
-                        <Setter Property="Padding" Value="0"/>
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="ListViewItem">
-                                    <ContentPresenter/>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </ListView.ItemContainerStyle>
-            </ListView>
-        </Viewbox>
+                                            <StackPanel Grid.Column="0">
+                                                <TextBlock Text="{Binding IdOrder, StringFormat='Заказ №{0}'}" 
+                                                           FontSize="14"/>
+                                                <TextBlock Text="{Binding DateOrder, StringFormat='Дата: {0:dd.MM.yyyy HH:mm}'}" 
+                                                           FontSize="12" Foreground="#666666"/>
+                                                <TextBlock Text="{Binding TotalAmount, StringFormat='Сумма: {0}₽'}" 
+                                                           FontSize="12" Foreground="#666666"/>
+                                                <TextBlock Text="{Binding StatusOrder, StringFormat='Статус: {0}'}" 
+                                                           FontSize="12" Foreground="#666666"/>
+                                                <TextBlock Text="{Binding AdressOrder, StringFormat='Адрес: {0}', FallbackValue='{}Адрес: не указан'}" 
+                                                           FontSize="12" Foreground="#666666" TextWrapping="Wrap"/>
 
+                                                <TextBlock Text="Товары:" Margin="0 5 0 0"/>
+                                                <ItemsControl ItemsSource="{Binding Orderitems}" Margin="0 5 0 0">
+                                                    <ItemsControl.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <Border Background="#F8BED4" CornerRadius="5" Padding="5" Margin="0 2">
+                                                                <Grid>
+                                                                    <Grid.ColumnDefinitions>
+                                                                        <ColumnDefinition Width="*"/>
+                                                                        <ColumnDefinition Width="Auto"/>
+                                                                    </Grid.ColumnDefinitions>
+                                                                    <TextBlock Text="{Binding ArticulToyNavigation.Title}" 
+                                                                               FontSize="11"/>
+                                                                    <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                                                        <TextBlock Text="{Binding Quantity, StringFormat='{}{0} x'}" 
+                                                                                   FontSize="11" Margin="0 0 5 0"/>
+                                                                        <TextBlock Text="{Binding UnitPrice, StringFormat='{}{0}'}" 
+                                                                                   FontSize="11"/>
+                                                                    </StackPanel>
+                                                                </Grid>
+                                                            </Border>
+                                                        </DataTemplate>
+                                                    </ItemsControl.ItemTemplate>
+                                                </ItemsControl>
+                                            </StackPanel>
+
+                                            <StackPanel Grid.Column="1" Width="150" Margin="10 0 0 0">
+                                                <TextBlock Text="Изменить статус:" FontSize="12"/>
+                                                <ComboBox x:Name="StatusComboBox" 
+                                                          Style="{StaticResource MaterialDesignComboBox}"
+                                                          SelectedValue="{Binding StatusOrder}"
+                                                          SelectionChanged="StatusComboBox_SelectionChanged"
+                                                        Tag="{Binding IdOrder}"
+                                                          FontSize="11" Margin="0 5 0 5">
+                                                    <ComboBoxItem Content="отгружен"/>
+                                                    <ComboBoxItem Content="доставлен"/>
+                                                </ComboBox>
+                                            </StackPanel>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>
 
         <Viewbox Grid.Row="1" Stretch="Uniform" HorizontalAlignment="Left" Grid.ColumnSpan="2">
             <StackPanel Margin="4" Orientation="Horizontal">
-                <!--<Button Margin="3" x:Name="OrdersBtn" Content="Управление заказами" Style="{StaticResource RoundedButtonStyle}" Background="#F8BED4" Click="OrdersBtn_Click"/>-->
                 <Button Margin="3" x:Name="AddBearBtn" Content="Добавить игрушку" Style="{StaticResource RoundedButtonStyle}" Background="#F8BED4" Click="AddBearBtn_Click"/>
                 <Button Margin="3" x:Name="DeleteBearBtn" Content="Удалить игрушку" Style="{StaticResource RoundedButtonStyle}" Background="#F8BED4" Click="DeleteBearBtn_Click"/>
                 <Button Margin="3" x:Name="RedacBearBtn" Content="Редактировать игрушку" Style="{StaticResource RoundedButtonStyle}" Background="#F8BED4" Click="RedacBearBtn_Click"/>
@@ -159,28 +224,30 @@
                     </Border.Background>
                     <Grid Margin="20">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
+
                         <Grid Margin="10 3 10 0" Grid.Row="0">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="8*"/>
-                                <ColumnDefinition/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock VerticalAlignment="Center"  HorizontalAlignment="Center" Text="Добавление игрушки" FontSize="17" Style="{StaticResource TextBlockStyle}"/>
-                            <Button x:Name="CrossBtn" Click="CrossBtn_Click"  Height="25" Width="25" BorderThickness="0" Grid.Column="1"  Background="Transparent">
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="Добавление игрушки" FontSize="17" Style="{StaticResource TextBlockStyle}"/>
+                            <Button x:Name="CrossBtn" Click="CrossBtn_Click" Height="25" Width="25" BorderThickness="0" Grid.Column="1" Background="Transparent">
                                 <Image Source="/ElementsVisualization/Image/cross.png" Stretch="Uniform"/>
                             </Button>
                         </Grid>
+
                         <TextBlock Grid.Row="1" Text="Введите название игрушки" Style="{StaticResource TextBlockStyle}" Margin="10 3"/>
                         <TextBox Grid.Row="2" x:Name="UserNameRegistrationTbox" Style="{StaticResource RoundedTextBoxStyle}"/>
                         <TextBlock Grid.Row="3" Text="Введите описание" Style="{StaticResource TextBlockStyle}" Margin="10 3"/>
@@ -207,151 +274,11 @@
                             </Button>
                             <TextBox x:Name="PathToImageTbox" IsReadOnly="True" Width="120" Style="{StaticResource RoundedTextBoxStyle}"/>
                         </StackPanel>
-                        
-                        
-                        <Button Grid.Row="10" x:Name="SetUpBearBtn" Content="Добавить" Width="200" Style="{StaticResource RoundedButtonStyle}" Margin="20 10 20 10" FontSize="15" Height="27" Click="SetUpBearBtn_Click"/>
 
+                        <Button Grid.Row="10" x:Name="SetUpBearBtn" Content="Добавить" Width="200" Style="{StaticResource RoundedButtonStyle}" Margin="20 10 20 10" FontSize="15" Height="27" Click="SetUpBearBtn_Click"/>
                     </Grid>
                 </Border>
             </Viewbox>
         </Grid>
-
-        <!--<Grid x:Name="OrdersGrid" Grid.ColumnSpan="2" Grid.RowSpan="3" Visibility="Visible">
-            <Grid.Background>
-                <SolidColorBrush Color="#FF6E6969" Opacity="0.6"/>
-            </Grid.Background>
-            <Viewbox VerticalAlignment="Center" HorizontalAlignment="Center" Stretch="Uniform">
-                <Border 
-            Margin="60"
-            BorderThickness="3"
-            BorderBrush="#fffff4f4"
-            CornerRadius="45"
-            Width="1000"
-            Height="600">
-                    <Border.Background>
-                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <GradientStop Color="#FFFAC0D5"/>
-                            <GradientStop Color="#FFEB85A7" Offset="1"/>
-                        </LinearGradientBrush>
-                    </Border.Background>
-                    <Grid Margin="20">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-
-                        <Grid Grid.Row="0" Margin="0 0 0 10">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Text="Управление заказами" FontSize="20" FontWeight="Bold" 
-                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            <Button x:Name="CloseOrdersBtn" Click="CloseOrdersBtn_Click" Grid.Column="1"
-                            Height="25" Width="25" BorderThickness="0" Background="Transparent">
-                                <Image Source="/ElementsVisualization/Image/cross.png" Stretch="Uniform"/>
-                            </Button>
-                        </Grid>
-
-                        <ListView x:Name="OrdersListView" Grid.Row="1" 
-                          ScrollViewer.VerticalScrollBarVisibility="Auto"
-                          Background="Transparent"
-                          BorderThickness="0">
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <Border Background="#FFF4F4" 
-                                    BorderBrush="#F8BED4" 
-                                    BorderThickness="2"
-                                    CornerRadius="10"
-                                    Margin="5"
-                                    Padding="10">
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="Auto"/>
-                                            </Grid.ColumnDefinitions>
-
-                                            <StackPanel Grid.Column="0">
-                                                <TextBlock Text="{Binding IdOrder, StringFormat={}Заказ №{0}}" 
-                                                   FontWeight="Bold" FontSize="14"/>
-                                                <TextBlock Text="{Binding DateOrder, StringFormat={}Дата: {0:dd.MM.yyyy HH:mm}}" 
-                                                   FontSize="12" Foreground="#666666"/>
-                                                <TextBlock Text="{Binding TotalAmount, StringFormat={}Сумма: {0}₽}" 
-                                                   FontSize="12" Foreground="#666666"/>
-                                                <TextBlock Text="{Binding ShippingAddress, StringFormat={}Адрес: {0}}" 
-                                                   FontSize="12" Foreground="#666666" TextWrapping="Wrap"/>
-
-                                                <ItemsControl ItemsSource="{Binding Orderitems}" Margin="0 5 0 0">
-                                                    <ItemsControl.ItemTemplate>
-                                                        <DataTemplate>
-                                                            <Border Background="#F8BED4" CornerRadius="5" Padding="5" Margin="0 2">
-                                                                <Grid>
-                                                                    <Grid.ColumnDefinitions>
-                                                                        <ColumnDefinition Width="*"/>
-                                                                        <ColumnDefinition Width="Auto"/>
-                                                                    </Grid.ColumnDefinitions>
-                                                                    <TextBlock Text="{Binding ArticulToyNavigation.Title}" 
-                                                                       FontSize="11" FontWeight="SemiBold"/>
-                                                                    <StackPanel Grid.Column="1" Orientation="Horizontal">
-                                                                        <TextBlock Text="{Binding Quantity, StringFormat={}x{0}}" 
-                                                                           FontSize="11" Margin="0 0 5 0"/>
-                                                                        <TextBlock Text="{Binding UnitPrice, StringFormat={}{0}₽}" 
-                                                                           FontSize="11" FontWeight="Bold"/>
-                                                                    </StackPanel>
-                                                                </Grid>
-                                                            </Border>
-                                                        </DataTemplate>
-                                                    </ItemsControl.ItemTemplate>
-                                                </ItemsControl>
-                                            </StackPanel>
-
-                                            <StackPanel Grid.Column="1" Width="150" Margin="10 0 0 0">
-                                                <TextBlock Text="Статус заказа:" FontWeight="Bold" FontSize="12"/>
-                                                <ComboBox x:Name="StatusComboBox" 
-                                                  SelectedItem="{Binding StatusOrder}"
-                                                  FontSize="11" Margin="0 5 0 5">
-                                                    <ComboBoxItem Content="ожидает подтверждения"/>
-                                                    <ComboBoxItem Content="в обработке"/>
-                                                    <ComboBoxItem Content="отгружен"/>
-                                                    <ComboBoxItem Content="доставлен"/>
-                                                </ComboBox>
-                                                <Button Content="Обновить статус" 
-                                                Click="UpdateStatusBtn_Click"
-                                                Tag="{Binding IdOrder}"
-                                                Style="{StaticResource RoundedButtonStyle}"
-                                                FontSize="10" Height="25" Margin="0 5 0 0"/>
-                                            </StackPanel>
-                                        </Grid>
-                                    </Border>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
-
-                        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0 10 0 0">
-                            <TextBox x:Name="OrderSearchTextBox" Width="200" 
-                             Style="{StaticResource RoundedTextBoxStyle}"
-                             TextChanged="OrderSearchTextBox_TextChanged"
-                             Text="Поиск по ID заказа..."/>
-
-                            <ComboBox x:Name="StatusFilterComboBox" Width="150" Margin="10 0 0 0"
-                              SelectionChanged="StatusFilterComboBox_SelectionChanged"
-                              FontSize="11">
-                                <ComboBoxItem Content="Все статусы" IsSelected="True"/>
-                                <ComboBoxItem Content="ожидает подтверждения"/>
-                                <ComboBoxItem Content="в обработке"/>
-                                <ComboBoxItem Content="отгружен"/>
-                                <ComboBoxItem Content="доставлен"/>
-                            </ComboBox>
-
-                            <Button Content="Обновить список" Click="RefreshOrdersBtn_Click"
-                            Style="{StaticResource RoundedButtonStyle}"
-                            FontSize="11" Height="25" Margin="10 0 0 0"/>
-                        </StackPanel>
-                    </Grid>
-                </Border>
-            </Viewbox>
-        </Grid>-->
-
     </Grid>
 </Window>

@@ -168,6 +168,8 @@ namespace StroreTeddyBearWin.Views
             {
                 AddReviewBtn.IsEnabled = true;
                 AddReviewBtn.Content = "      Отредактировать     ";
+                AddReviewGrid.Visibility = Visibility.Hidden;
+                LoadToy();
             }
         }
 

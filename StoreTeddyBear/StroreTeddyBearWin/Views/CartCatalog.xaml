@@ -56,7 +56,7 @@
         <Grid Grid.Column="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="60"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="3*"/>
@@ -92,11 +92,10 @@
                 </Border>
             </Viewbox>
 
-            <Viewbox Stretch="Uniform" VerticalAlignment="Top" Grid.Column="1" Grid.RowSpan="2">
-                <Grid Width="450" Height="2821">
-                    <ContentControl  Content="{StaticResource MenuRight}" />
-                    <Image Source="/ElementsVisualization/Image/Профиль обратный.png" Width="340" Height="340" Margin="20 130 0 0" VerticalAlignment="Top" MouseDown="BackToMainWindowImg_MouseDown" x:Name="BackToMainWindowImg"/>
-                    <Image Source="/ElementsVisualization/Image/Корзина товаров.png" Width="340" Height="340" Margin="20 600 0 0" VerticalAlignment="Top" x:Name="CartBtn"/>
+            <Viewbox Stretch="Uniform" VerticalAlignment="Top" Grid.Column="1" Margin="0 10" Grid.RowSpan="2">
+                <Grid>
+                    <Image Width="70" Height="70" Source="/ElementsVisualization/Image/фон для правой меню.png" />
+                    <Image Source="/ElementsVisualization/Image/Профиль обратный.png" Height="50" MouseDown="BackToMainWindowImg_MouseDown" x:Name="BackToMainWindowImg" />
                 </Grid>
             </Viewbox>
 
