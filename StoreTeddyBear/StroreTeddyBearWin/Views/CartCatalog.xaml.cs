@@ -74,12 +74,31 @@ namespace StroreTeddyBearWin.Views
         {
             if (_currentCart != null)
             {
-                TotalAmountText.Text = $"Итоговая сумма заказа: {_currentCart.TotalAmount:F2} рублей";
+                decimal totalAmount = CalculateCurrentTotal();
+                TotalAmountText.Text = $"Итоговая сумма заказа: {totalAmount:F2} рублей";
             }
             else
             {
                 TotalAmountText.Text = "Итоговая сумма заказа: 0 рублей";
             }
+        }
+
+        private decimal CalculateCurrentTotal()
+        {
+            decimal total = 0;
+            if (_currentCart?.Orderitems != null)
+            {
+                foreach (var item in _currentCart.Orderitems)
+                {
+                    var toy = StorepinkteddybearBdContext.Instance.Toys
+                        .FirstOrDefault(t => t.ArticulToy == item.ArticulToy);
+                    if (toy != null)
+                    {
+                        total += toy.Price * item.Quantity;
+                    }
+                }
+            }
+            return total;
         }
 
         private async void CreateOrderBtn_Click(object sender, RoutedEventArgs e)
@@ -134,27 +153,33 @@ namespace StroreTeddyBearWin.Views
             foreach (Orderitem item in currentOrder)
             {
                 var cartControl = new CartControl(item);
-                cartControl.itemRemoved += OnCartItemRemoved;
+                cartControl.ItemRemoved += OnCartItemRemoved;
+                cartControl.QuantityUpdated += OnCartItemQuantityUpdated;
                 CartItemsLv.Items.Add(cartControl);
             }
+        }
 
+        private async void OnCartItemQuantityUpdated(CartControl cartControl)
+        {
+            await ReloadCart();
         }
 
         private async void OnCartItemRemoved(CartControl cartControl)
         {
             CartItemsLv.Items.Remove(cartControl);
 
-            cartControl.itemRemoved -= OnCartItemRemoved;
+            cartControl.ItemRemoved -= OnCartItemRemoved;
+            cartControl.QuantityUpdated -= OnCartItemQuantityUpdated;
 
             await ReloadCart();
         }
+
         private async Task ReloadCart()
         {
             _currentCart = await API.GetCart(_currentUser.IdCustomer);
 
             if (_currentCart == null || !_currentCart.Orderitems.Any())
             {
-                // Если корзина пуста
                 CartItemsLv.Items.Clear();
                 TotalAmountText.Text = "Итоговая сумма заказа: 0 рублей";
                 CreateOrderBtn.IsEnabled = false;
@@ -162,6 +187,7 @@ namespace StroreTeddyBearWin.Views
             }
             else
             {
+                UpdateListView(_currentCart.Orderitems.ToList());
                 UpdateTotalAmount();
                 CreateOrderBtn.IsEnabled = true;
                 ClearCartBtn.IsEnabled = true;
@@ -202,12 +228,12 @@ namespace StroreTeddyBearWin.Views
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
         private void BackToMainWindowImg_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             CatalogWindow catalogWindow = new CatalogWindow(_currentUser);
             catalogWindow.Show();
             this.Close();
         }
-
     }
 }

@@ -29,7 +29,6 @@ namespace StroreTeddyBearWin.Views
             LoadAllOrders();
         }
 
-
         private async void LoadToys()
         {
             try
@@ -73,6 +72,7 @@ namespace StroreTeddyBearWin.Views
         private void StatusFilterComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             FilterOrders();
+            
         }
 
         private void FilterOrders()
@@ -84,12 +84,18 @@ namespace StroreTeddyBearWin.Views
             if (StatusFilterComboBox.SelectedItem is ComboBoxItem statusItem &&
                 statusItem.Content.ToString() != "Все статусы")
             {
+                //if (statusItem.Content.ToString() == "доставлен" || statusItem.Content.ToString() == "ожидает подтверждения")
+                //    ChangeStatusCb.Visibility = Visibility.Hidden;
+
                 string selectedStatus = statusItem.Content.ToString();
                 filteredOrders = filteredOrders.Where(o => o.StatusOrder == selectedStatus);
             }
 
             OrdersItemsControl.ItemsSource = filteredOrders.ToList();
+
         }
+
+       
 
         private void RefreshOrdersBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -165,12 +171,37 @@ namespace StroreTeddyBearWin.Views
             AddBearGrid.Visibility = Visibility.Visible;
             SetUpBearBtn.Content = "Сохранить изменения";
         }
+
+        private string CopyImageToProject(string sourcePath, string toyTitle)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(sourcePath) && File.Exists(sourcePath))
+                {
+                    string imageFolder = Path.Combine(Directory.GetCurrentDirectory(), "ElementsVisualization", "Bears");
+
+                    string safeFileName = string.Join("_", toyTitle.Split(Path.GetInvalidFileNameChars()));
+                    string fileExtension = Path.GetExtension(sourcePath);
+                    string destinationFileName = $"{safeFileName}{fileExtension}";
+                    string destinationPath = Path.Combine(imageFolder, destinationFileName);
+
+                    File.Copy(sourcePath, destinationFileName, overwrite: true);
+
+                    return $"/ElementsVisualization/Bears/{destinationFileName}";
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка копирования изображения: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning); ;
+            }
+            return null;
+        }
         
         private void GetPathBtn_Click(object sender, RoutedEventArgs e)
         {
             var openFileDialog = new OpenFileDialog
             {
-                Filter = "Image files (*.png;*.jpg;*.jpeg)|*.png;*.jpg;*.jpeg|All files (*.*)|*.*",
+                Filter = "Image files (*.png;)|*.png;|All files (*.*)|*.*",
                 Title = "Выберите изображение товара"
             };
 
@@ -178,16 +209,7 @@ namespace StroreTeddyBearWin.Views
             {
                 _selectedImagePath = openFileDialog.FileName;
                 PathToImageTbox.Text = _selectedImagePath;
-
-                //try
-                //{
-                //    CopyImageToProject(_selectedImagePath);
-                //}
-                //catch (Exception ex)
-                //{
-                //    MessageBox.Show($"Ошибка копирования изображения: {ex.Message}", "Ошибка",
-                //        MessageBoxButton.OK, MessageBoxImage.Warning);
-                //}
+                BearNewImage.Source = new BitmapImage(new Uri(_selectedImagePath));
             }
         }
 
@@ -195,6 +217,25 @@ namespace StroreTeddyBearWin.Views
         {
             try
             {
+                string imageFileName = null;
+                if(!string.IsNullOrEmpty(_selectedImagePath) && File.Exists(_selectedImagePath))
+                {
+                    string toyTitle = UserNameRegistrationTbox.Text;
+                    if (string.IsNullOrEmpty(toyTitle))
+                    {
+                        MessageBox.Show("Введите название игрушки перед сохранением изображения", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return;
+                    }
+
+                    imageFileName = CopyImageToProject(_selectedImagePath, toyTitle);
+                    if (imageFileName == null)
+                    {
+                        MessageBox.Show("Не удалось сохранить изображение", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+                }
+
+
                 if (_isEditMode)
                 {
                     var updatedToy = new Toy
@@ -209,7 +250,7 @@ namespace StroreTeddyBearWin.Views
                         
                     };
 
-                    var errors = AdminToyController.GetToyValidationErrors(_selectedToy);
+                    var errors = AdminToyController.GetToyValidationErrors(updatedToy);
                     if (errors.Count() > 0)
                     {
                         MessageBox.Show($"Некорректные данные:\n\n{string.Join("\n", errors)}", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -300,7 +341,18 @@ namespace StroreTeddyBearWin.Views
             WeightTbox.Text = toy.Weight;
             QuantityTbox.Text = toy.QuantityInStock.ToString();
 
-            PathToImageTbox.Text = $"/ElementsVisualization/Bears/{toy.Title}.png";
+            string imagePath = $"/ElementsVisualization/Bears/{toy.Title}.png";
+            string fullPath = Path.Combine(Directory.GetCurrentDirectory(), "ElementsVisualization", "Bears", $"{toy.Title}.png");
+            if (File.Exists(fullPath))
+            {
+                PathToImageTbox.Text = imagePath;
+                _selectedImagePath = fullPath;
+            }
+            else
+            {
+                PathToImageTbox.Text = "Изображение не найдено";
+                _selectedImagePath = "";
+            }
         }
 
         private void ClearForm()
@@ -337,9 +389,20 @@ namespace StroreTeddyBearWin.Views
             var comboBox = sender as ComboBox;
             if (comboBox?.Tag == null) return;
 
-            int orderId = (int)comboBox.Tag;
+            if (comboBox.Items.Count == 0) return;
 
+            int orderId = (int)comboBox.Tag;
             string newStatus = comboBox.SelectedValue.ToString();
+
+            var order = _allOrders.FirstOrDefault(o => o.IdOrder == orderId);
+            if (order != null)
+            {
+                bool isValidTransition = (order.StatusOrder == "в обработке" && newStatus == "отгружен") ||
+                                         (order.StatusOrder == "отгружен" && newStatus == "доставлен");
+
+            }
+
+
             if (newStatus != null && newStatus.Contains(":"))
             {
                 newStatus = newStatus.Split(':').Last().Trim();
@@ -377,5 +440,14 @@ namespace StroreTeddyBearWin.Views
                 _selectedToy = toy;
             }
         }
+
+        private void PriceTbox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!char.IsDigit(e.Text, 0))
+            {
+                e.Handled = true;
+            }
+        }
+
     }
 }

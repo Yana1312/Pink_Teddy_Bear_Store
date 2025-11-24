@@ -38,8 +38,8 @@
                 </StackPanel>
             </Viewbox>
 
-            <Viewbox Grid.Row="1" Margin="10" Stretch="Uniform">
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <ScrollViewer VerticalScrollBarVisibility="Visible" Grid.Row="1">
+                <Viewbox Margin="10" Stretch="Uniform">
                     <ListView x:Name="CartItemsLv"
                               Style="{StaticResource MaterialDesignListView}"
                               HorizontalContentAlignment="Stretch">
@@ -49,21 +49,22 @@
                             </ItemsPanelTemplate>
                         </ListView.ItemsPanel>
                     </ListView>
-                </ScrollViewer>
-            </Viewbox>
+                </Viewbox>
+            </ScrollViewer>
+
         </Grid>
 
         <Grid Grid.Column="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="70"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="3*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Viewbox Stretch="Uniform">
+            <!--<Viewbox Stretch="Uniform">
                 <Border CornerRadius="10" Background="#FACBDB" Margin="40" Padding="5">
                     <Grid Margin="5">
                         <Grid.RowDefinitions>
@@ -90,7 +91,7 @@
 
                     </Grid>
                 </Border>
-            </Viewbox>
+            </Viewbox>-->
 
             <Viewbox Stretch="Uniform" VerticalAlignment="Top" Grid.Column="1" Margin="0 10" Grid.RowSpan="2">
                 <Grid>

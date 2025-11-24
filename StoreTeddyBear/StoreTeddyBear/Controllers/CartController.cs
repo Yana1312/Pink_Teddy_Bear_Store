@@ -31,7 +31,10 @@ namespace StoreTeddyBear.Controllers
             if (toy == null)
                 return NotFound("Товар не найден");
 
-           
+            if (toy.QuantityInStock <= 0)
+                return BadRequest($"Недостаточно товара на складе. Доступно: {toy.QuantityInStock}");
+
+
             //1 этап - ожидает подтверждения
             //2 этап - в обработке
             //3 этап - отгружен
@@ -68,7 +71,7 @@ namespace StoreTeddyBear.Controllers
 
             if (existingOrderItem != null)
             {
-                if (toy.QuantityInStock < Quantity + existingOrderItem.Quantity)
+                if (toy.QuantityInStock < Quantity + existingOrderItem.Quantity || toy.QuantityInStock == 0)
                     return BadRequest($"Недостаточно товара на складе. Доступно: {toy.QuantityInStock}");
                 existingOrderItem.Quantity += Quantity;
             }
@@ -160,7 +163,9 @@ namespace StoreTeddyBear.Controllers
             if (toy == null)
                 return NotFound("Товар не найден");
 
-            if (toy.QuantityInStock < newQuantity)
+            //if (catalog && toy.QuantityInStock < newQuantity + orderItem.Quantity)
+            //    return BadRequest($"Недостаточно товара на складе. Доступно: {toy.QuantityInStock}");
+             if (toy.QuantityInStock < newQuantity)
                 return BadRequest($"Недостаточно товара на складе. Доступно: {toy.QuantityInStock}");
 
             if (newQuantity <= 0)

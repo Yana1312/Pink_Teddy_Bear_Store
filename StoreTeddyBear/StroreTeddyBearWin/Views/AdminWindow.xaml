@@ -176,17 +176,40 @@
                                                 </ItemsControl>
                                             </StackPanel>
 
-                                            <StackPanel Grid.Column="1" Width="150" Margin="10 0 0 0">
+                                            <StackPanel x:Name="ChangeStatusCb" Grid.Column="1" Width="150" Margin="10 0 0 0">
                                                 <TextBlock Text="Изменить статус:" FontSize="12"/>
-                                                <ComboBox x:Name="StatusComboBox" 
-                                                          Style="{StaticResource MaterialDesignComboBox}"
+                                                <ComboBox x:Name="StatusComboBox"
                                                           SelectedValue="{Binding StatusOrder}"
+                                                          ItemsSource="{Binding AvailableStatuses}"
+                                                          Style="{StaticResource MaterialDesignComboBox}"
                                                           SelectionChanged="StatusComboBox_SelectionChanged"
-                                                        Tag="{Binding IdOrder}"
+                                                          Tag="{Binding IdOrder}"
                                                           FontSize="11" Margin="0 5 0 5">
-                                                    <ComboBoxItem Content="отгружен"/>
-                                                    <ComboBoxItem Content="доставлен"/>
                                                 </ComboBox>
+                                                <TextBlock Text="Статус нельзя изменить" 
+                                                           FontSize="10" 
+                                                           Foreground="Gray"
+                                                           Margin="0,5,0,0">
+                                                    <TextBlock.Style>
+                                                        <Style TargetType="TextBlock">
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding StatusOrder}" Value="ожидает подтверждения">
+                                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding StatusOrder}" Value="доставлен">
+                                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding StatusOrder}" Value="в обработке">
+                                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding StatusOrder}" Value="отгружен">
+                                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </TextBlock.Style>
+                                                </TextBlock>
+                                                
                                             </StackPanel>
                                         </Grid>
                                     </Border>
@@ -224,6 +247,7 @@
                     </Border.Background>
                     <Grid Margin="20">
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
@@ -237,7 +261,7 @@
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
 
-                        <Grid Margin="10 3 10 0" Grid.Row="0">
+                        <Grid Margin="10 0 10 0" Grid.Row="0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
@@ -248,34 +272,47 @@
                             </Button>
                         </Grid>
 
-                        <TextBlock Grid.Row="1" Text="Введите название игрушки" Style="{StaticResource TextBlockStyle}" Margin="10 3"/>
-                        <TextBox Grid.Row="2" x:Name="UserNameRegistrationTbox" Style="{StaticResource RoundedTextBoxStyle}"/>
-                        <TextBlock Grid.Row="3" Text="Введите описание" Style="{StaticResource TextBlockStyle}" Margin="10 3"/>
-                        <TextBox Grid.Row="4" Height="50" x:Name="UserEmailRegistrationTbox" Style="{StaticResource RoundedTextBoxStyle}"/>
-                        <StackPanel Grid.Row="5" Orientation="Horizontal" Margin="0 10 0 0">
-                            <TextBlock Text="Введите цену" Margin="10 0 33 0" Style="{StaticResource TextBlockStyle}"/>
-                            <TextBox x:Name="PriceTbox" Width="120" Style="{StaticResource RoundedTextBoxStyle}"/>
-                        </StackPanel>
+                        <Image Grid.Row="1" 
+                               Name="BearNewImage"
+                                Stretch="Uniform"
+                                MaxHeight="70"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center">
+                            <Image.Style>
+                                <Style TargetType="Image">
+                                    <Setter Property="Source" Value="/ElementsVisualization/Image/placeholder.png"/>
+                                </Style>
+                            </Image.Style>
+                        </Image>
+
+                        <TextBlock Grid.Row="2" Text="Введите название игрушки" Style="{StaticResource TextBlockStyle}" Margin="10 0"/>
+                        <TextBox Grid.Row="3" x:Name="UserNameRegistrationTbox" Style="{StaticResource RoundedTextBoxStyle}"/>
+                        <TextBlock Grid.Row="4" Text="Введите описание" Style="{StaticResource TextBlockStyle}" Margin="10 0"/>
+                        <TextBox TextWrapping="Wrap" Grid.Row="5" MaxWidth="240" Height="50" x:Name="UserEmailRegistrationTbox" Style="{StaticResource RoundedTextBoxStyle}" MaxLength="200" VerticalScrollBarVisibility="Auto"/>
                         <StackPanel Grid.Row="6" Orientation="Horizontal" Margin="0 10 0 0">
-                            <TextBlock Text="Введите рост" Margin="10 0 33 0" Style="{StaticResource TextBlockStyle}"/>
-                            <TextBox x:Name="HeightTbox" Width="120" Style="{StaticResource RoundedTextBoxStyle}"/>
+                            <TextBlock Text="Введите цену" Margin="10 0 33 0" Style="{StaticResource TextBlockStyle}"/>
+                            <TextBox x:Name="PriceTbox" Width="120" Style="{StaticResource RoundedTextBoxStyle}" MaxLength="5" PreviewTextInput="PriceTbox_PreviewTextInput"/>
                         </StackPanel>
                         <StackPanel Grid.Row="7" Orientation="Horizontal" Margin="0 10 0 0">
-                            <TextBlock Text="Введите вес" Margin="10 0 41 0" Style="{StaticResource TextBlockStyle}"/>
-                            <TextBox x:Name="WeightTbox" Width="120" Style="{StaticResource RoundedTextBoxStyle}"/>
+                            <TextBlock Text="Введите рост" Margin="10 0 33 0" Style="{StaticResource TextBlockStyle}"/>
+                            <TextBox x:Name="HeightTbox" Width="120" Style="{StaticResource RoundedTextBoxStyle}" MaxLength="5" PreviewTextInput="PriceTbox_PreviewTextInput"/>
                         </StackPanel>
                         <StackPanel Grid.Row="8" Orientation="Horizontal" Margin="0 10 0 0">
-                            <TextBlock Text="Введите количество" Width="70" TextWrapping="Wrap" Margin="10 0 39 0" Style="{StaticResource TextBlockStyle}"/>
-                            <TextBox x:Name="QuantityTbox" Width="120" Style="{StaticResource RoundedTextBoxStyle}"/>
+                            <TextBlock Text="Введите вес" Margin="10 0 41 0" Style="{StaticResource TextBlockStyle}"/>
+                            <TextBox x:Name="WeightTbox" Width="120" Style="{StaticResource RoundedTextBoxStyle}" MaxLength="5" PreviewTextInput="PriceTbox_PreviewTextInput"/>
                         </StackPanel>
-                        <StackPanel Grid.Row="9" Orientation="Horizontal" Margin="0 5 0 0">
+                        <StackPanel Grid.Row="9" Orientation="Horizontal" Margin="0 10 0 0">
+                            <TextBlock Text="Введите количество" Width="70" TextWrapping="Wrap" Margin="10 0 39 0" Style="{StaticResource TextBlockStyle}"/>
+                            <TextBox x:Name="QuantityTbox" Width="120" Style="{StaticResource RoundedTextBoxStyle}" MaxLength="5" PreviewTextInput="PriceTbox_PreviewTextInput"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="10" Orientation="Horizontal" Margin="0 5 0 0">
                             <Button Width="90" x:Name="GetPathBtn" Margin="0 0 30 0" Style="{StaticResource RoundedButtonStyle}" Height="35" Click="GetPathBtn_Click">
                                 <TextBlock Text="Выбрать изображение" TextWrapping="Wrap"/>
                             </Button>
                             <TextBox x:Name="PathToImageTbox" IsReadOnly="True" Width="120" Style="{StaticResource RoundedTextBoxStyle}"/>
                         </StackPanel>
 
-                        <Button Grid.Row="10" x:Name="SetUpBearBtn" Content="Добавить" Width="200" Style="{StaticResource RoundedButtonStyle}" Margin="20 10 20 10" FontSize="15" Height="27" Click="SetUpBearBtn_Click"/>
+                        <Button Grid.Row="11" x:Name="SetUpBearBtn" Content="Добавить" Width="200" Style="{StaticResource RoundedButtonStyle}" Margin="20 10 20 10" FontSize="15" Height="27" Click="SetUpBearBtn_Click"/>
                     </Grid>
                 </Border>
             </Viewbox>

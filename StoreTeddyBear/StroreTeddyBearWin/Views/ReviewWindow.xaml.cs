@@ -28,18 +28,89 @@ namespace StroreTeddyBearWin.Views
     {
         private Toy Toy;
         private Useransadmin currentUser;
+        private List<Order> userOrders;
+        private Review userReview;
+
         public ReviewWindow(Toy toy, Useransadmin user)
         {
             InitializeComponent();
             Toy = toy;
             currentUser = user;
-            LoadToy();
-            LoadReviewsByToy();
+            Initialization();
+        }
+
+        private async void Initialization()
+        {
+            await LoadToy();
+            await LoadReviewsByToy();
             if (currentUser == null)
             {
                 ReviewBtn.Visibility = Visibility.Hidden;
                 DeleteReviewBtn.Visibility = Visibility.Hidden;
                 EditReviewBtn.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                await LoadUserOrders();
+                UpdateButtonVisibility();
+            }
+        }
+
+        private async Task LoadUserOrders()
+        {
+            try
+            {
+                userOrders = await API.GetCustomerOrders(currentUser.IdCustomer);
+                CheckToy();
+                UpdateButtonVisibility();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка загрузки заказов: {ex.Message}", "Ошибка",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void UpdateButtonVisibility()
+        {
+            if (currentUser == null) return;
+
+            userReview = ReviewsByToyLv.ItemsSource?.Cast<Review>()
+                .FirstOrDefault(r => r.IdCustomer == currentUser.IdCustomer);
+
+            ReviewBtn.Visibility = CanLeaveReview() && userReview == null ? Visibility.Visible : Visibility.Hidden;
+
+            EditReviewBtn.Visibility = userReview != null ? Visibility.Visible : Visibility.Hidden;
+            DeleteReviewBtn.Visibility = userReview != null ? Visibility.Visible : Visibility.Hidden;
+
+            if (CanLeaveReview() && userReview != null)
+            {
+                ReviewBtn.IsEnabled = false;
+                ReviewBtn.ToolTip = "Вы уже оставили отзыв на этот товар";
+            }
+        }
+
+        private void CheckToy()
+        {
+            if (userOrders == null || !userOrders.Any())
+            {
+                ReviewBtn.IsEnabled = false;
+                ReviewBtn.ToolTip = "У вас нет завершенных заказов";
+                return;
+            }
+
+            bool hasPurchased = userOrders.Any(order => order.StatusOrder == "доставлен" &&
+                                                order.Orderitems?.Any(item => item.ArticulToy == Toy.ArticulToy) == true);
+
+            if (!hasPurchased)
+            {
+                ReviewBtn.IsEnabled = false;
+                ReviewBtn.ToolTip = "Вы можете оставлять отзывы только на купленные и доставленные товары";
+            }
+            else
+            {
+                ReviewBtn.IsEnabled = true;
+                ReviewBtn.ToolTip = "Оставить отзыв";
             }
         }
 
@@ -57,16 +128,13 @@ namespace StroreTeddyBearWin.Views
             }
         }
 
-
         private async Task LoadReviewsByToy()
         {
             var res = await API.GetReviewsByProduct(Toy.ArticulToy);
             if (res == null) 
-            {
-                MessageBox.Show("Отзывы на данного мишку отсутствуют...", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
-            ReviewsByToyLv.ItemsSource = res;
+                ReviewsByToyLv.ItemsSource = new List<Review>();
+            else
+                ReviewsByToyLv.ItemsSource = res;
             LoadImage(BearInItemsCartImg, $"/ElementsVisualization/Bears/{Toy.Title}.png");
         }
 
@@ -119,16 +187,23 @@ namespace StroreTeddyBearWin.Views
             }
         }
 
-        private void NextToyBtn_Click(object sender, RoutedEventArgs e)
+        private async void NextToyBtn_Click(object sender, RoutedEventArgs e)
         {
             int currentToyIndex = toys.FindIndex(t => t.ArticulToy == Toy.ArticulToy);
             if (currentToyIndex == -1) currentToyIndex = 0;
             Toy = toys[GetNextIndex(currentToyIndex)];
             DataContext = Toy;
-            LoadToy();
-            LoadReviewsByToy();
+            await LoadToy();
+            await LoadReviewsByToy();
+
+            if (currentUser != null)
+            {
+                CheckToy();
+                UpdateButtonVisibility();
+            }
         }
-         public List<Toy> toys = StorepinkteddybearBdContext.Instance.Toys.ToList();
+        
+        public List<Toy> toys = StorepinkteddybearBdContext.Instance.Toys.ToList();
 
         private int GetNextIndex(int _currentToyIndex)
         {
@@ -155,7 +230,8 @@ namespace StroreTeddyBearWin.Views
                 if (res != null)
                 {
                     MessageBox.Show("Отзыв изменился!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
-                    LoadReviewsByToy();
+                    await LoadReviewsByToy();
+                    UpdateButtonVisibility();
                 }
                 else MessageBox.Show($"Не удалось отредактировать отзыв.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -169,12 +245,26 @@ namespace StroreTeddyBearWin.Views
                 AddReviewBtn.IsEnabled = true;
                 AddReviewBtn.Content = "      Отредактировать     ";
                 AddReviewGrid.Visibility = Visibility.Hidden;
-                LoadToy();
+                await LoadToy();
             }
         }
 
         private async void AddReviewBtn_Click(object sender, RoutedEventArgs e)
         {
+            if (!CanLeaveReview())
+            {
+                MessageBox.Show("Вы можете оставлять отзывы только на купленные игрушки", "Ошибка",
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (userReview != null)
+            {
+                MessageBox.Show("Вы уже оставили отзыв на этот товар", "Ошибка",
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             if (mainTextTb.Text == "Редактирование отзыва")
             {
                 EditReview();
@@ -196,7 +286,9 @@ namespace StroreTeddyBearWin.Views
                 if (res != null)
                 {
                     MessageBox.Show("Отзыв добавился!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
-                    LoadReviewsByToy();
+                    await LoadReviewsByToy();
+                    UpdateButtonVisibility();
+                    AddReviewGrid.Visibility = Visibility.Hidden;
                 }
                 else MessageBox.Show($"Не удалось добавить отзыв.{res}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -209,20 +301,33 @@ namespace StroreTeddyBearWin.Views
             {
                 AddReviewBtn.IsEnabled = true;
                 AddReviewBtn.Content = "      Добавить отзыв     ";
+
             }
         }
-
 
         private void CrossBtn_Click(object sender, RoutedEventArgs e)
         {
             AddReviewGrid.Visibility = Visibility.Hidden;
             this.Title = "Окно отзывов";
+            mainTextTb.Text = "Добавление отзыва";
+            AddReviewBtn.Content = "Добавить отзыв";
+            RatingTbox.Text = "";
+            ReviewAddTbox.Text = "";
         }
 
         private void ReviewBtn_Click(object sender, RoutedEventArgs e)
         {
+            if (!CanLeaveReview())
+            {
+                MessageBox.Show("Вы можете оставлять отзывы только на купленные игрушки", "Ошибка",
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             AddReviewGrid.Visibility = Visibility.Visible;
             this.Title = "Добавление отзыва";
+            RatingTbox.Text = "";
+            ReviewAddTbox.Text = "";
         }
 
         private void RatingTbox_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -232,7 +337,6 @@ namespace StroreTeddyBearWin.Views
                 e.Handled = true;
             }
         }
-
 
         private async void DeleteReviewBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -262,7 +366,8 @@ namespace StroreTeddyBearWin.Views
                     {
                         MessageBox.Show("Отзыв успешно удален", "Успех",
                             MessageBoxButton.OK, MessageBoxImage.Information);
-                        LoadReviewsByToy();
+                        await LoadReviewsByToy();
+                        UpdateButtonVisibility();
                         ReviewsByToyLv.SelectedItem = null;
                         selectedReview = null;
                     }
@@ -310,6 +415,18 @@ namespace StroreTeddyBearWin.Views
         private void ReviewsByToyLv_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             selectedReview = ReviewsByToyLv.SelectedItem as Review;
+        }
+
+        private bool CanLeaveReview()
+        {
+            if (currentUser == null)
+                return false;
+            if (userOrders == null || !userOrders.Any())
+                return false;
+
+            return userOrders.Any(order =>
+                order.StatusOrder == "доставлен" &&
+                order.Orderitems?.Any(item => item.ArticulToy == Toy.ArticulToy) == true);
         }
     }
 }

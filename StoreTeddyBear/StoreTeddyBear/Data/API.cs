@@ -171,14 +171,15 @@ namespace StoreTeddyBear.Data
         {
             try
             {
-                var updateQuantity = new 
-                {
-                    orderItemId,
-                    newQuantity
-                };
+                //var updateQuantity = new 
+                //{
+                //    orderItemId,
+                //    newQuantity,
+                //    catalog
+                //};
 
-                var content = new StringContent(JsonConvert.SerializeObject(updateQuantity), Encoding.UTF8, "application/json");
-                var response = await _httpClient.PutAsync($"{_baseUrl}/Cart/UpdateQuantity?orderItemId={orderItemId}&newQuantity={newQuantity}", content);
+                //var content = new StringContent(JsonConvert.SerializeObject(updateQuantity), Encoding.UTF8, "application/json");
+                var response = await _httpClient.PutAsync($"{_baseUrl}/Cart/UpdateQuantity?orderItemId={orderItemId}&newQuantity={newQuantity}", null);
 
                 if (response.IsSuccessStatusCode)
                 {

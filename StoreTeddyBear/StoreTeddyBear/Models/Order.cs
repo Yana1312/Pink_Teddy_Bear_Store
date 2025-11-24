@@ -20,4 +20,26 @@ public partial class Order
     public decimal? TotalAmount { get; set; }
 
     public virtual ICollection<Orderitem> Orderitems { get; set; } = new List<Orderitem>();
+
+    public List<string> AvailableStatuses
+    {
+        get
+        {
+            var statuses = new List<string>();
+
+            switch (StatusOrder)
+            {
+                case "в обработке":
+                    statuses.Add("отгружен");
+                    break;
+                case "отгружен":
+                    statuses.Add("доставлен");
+                    break;
+                case "доставлен":
+                    break;
+            }
+
+            return statuses;
+        }
+    }
 }

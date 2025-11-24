@@ -594,3 +594,5 @@ C:\Users\user\Desktop\проекты\проекты WPF\GitHub Bears\StoreTeddyB
 C:\Users\user\Desktop\проекты\проекты WPF\GitHub Bears\StoreTeddyBear\StoreTeddyBear\obj\Debug\net8.0\StoreTeddyBear.pdb
 C:\Users\user\Desktop\проекты\проекты WPF\GitHub Bears\StoreTeddyBear\StoreTeddyBear\obj\Debug\net8.0\StoreTeddyBear.genruntimeconfig.cache
 C:\Users\user\Desktop\проекты\проекты WPF\GitHub Bears\StoreTeddyBear\StoreTeddyBear\obj\Debug\net8.0\ref\StoreTeddyBear.dll
+C:\Users\user\Desktop\проекты\проекты WPF\GitHub Bears\StoreTeddyBear\StoreTeddyBear\bin\Debug\net8.0\MaterialDesignColors.dll
+C:\Users\user\Desktop\проекты\проекты WPF\GitHub Bears\StoreTeddyBear\StoreTeddyBear\bin\Debug\net8.0\Microsoft.Xaml.Behaviors.dll

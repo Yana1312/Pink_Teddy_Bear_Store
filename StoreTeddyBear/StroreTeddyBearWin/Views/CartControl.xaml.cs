@@ -1,5 +1,4 @@
-﻿using Castle.Components.DictionaryAdapter.Xml;
-using StoreTeddyBear.Data;
+﻿using StoreTeddyBear.Data;
 using StoreTeddyBear.Models;
 using System;
 using System.IO;
@@ -7,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using System.Linq;
 
 namespace StroreTeddyBearWin.Views
 {
@@ -22,7 +22,8 @@ namespace StroreTeddyBearWin.Views
             LoadToyData();
         }
 
-        public event Action<CartControl> itemRemoved;
+        public event Action<CartControl> ItemRemoved;
+        public event Action<CartControl> QuantityUpdated;
 
         private void LoadImage(System.Windows.Controls.Image image, string imagePath)
         {
@@ -68,9 +69,8 @@ namespace StroreTeddyBearWin.Views
 
         private async void DiscountBtn_Click(object sender, RoutedEventArgs e)
         {
-           await UpdateQuantity(int.Parse(CountTb.Text) - 1);
+            await UpdateQuantity(int.Parse(CountTb.Text) - 1);
         }
-
 
         private async void RemoveFromCart()
         {
@@ -79,14 +79,14 @@ namespace StroreTeddyBearWin.Views
                 var res = await API.RemoveFromCart(_cartItem.IdOrderItem);
                 if (res)
                 {
-                    itemRemoved?.Invoke(this);
+                    ItemRemoved?.Invoke(this);
                     MessageBox.Show("Товар удален из корзины", "Успех",
                         MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка  удаления товара: {ex.Message}", "Ошибка",
+                MessageBox.Show($"Ошибка удаления товара: {ex.Message}", "Ошибка",
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -112,7 +112,10 @@ namespace StroreTeddyBearWin.Views
 
                 var orderItem = await API.UpdateQuantity(_cartItem.IdOrderItem, newQuantity);
                 if (orderItem == null) throw new Exception();
+
                 CountTb.Text = orderItem.Quantity.ToString();
+
+                QuantityUpdated?.Invoke(this);
             }
             catch (Exception ex)
             {

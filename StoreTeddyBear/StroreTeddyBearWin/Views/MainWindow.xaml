@@ -163,10 +163,10 @@
             </Grid.Background>
             <Viewbox VerticalAlignment="Center" HorizontalAlignment="Center" Stretch="Uniform">
                 <Border 
-            Margin="60"
-            BorderThickness="3"
-            BorderBrush="#fffff4f4"
-            CornerRadius="45">
+                        Margin="60"
+                        BorderThickness="3"
+                        BorderBrush="#fffff4f4"
+                        CornerRadius="45">
                     <Border.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="#FFFAC0D5"/>
@@ -190,39 +190,151 @@
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
                             <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" 
-                               Style="{StaticResource RegistrationTextBlockStyle}" 
-                               Text="Восстановление пароля" FontSize="17"/>
+                       Style="{StaticResource RegistrationTextBlockStyle}" 
+                       Text="Восстановление пароля" FontSize="17"/>
                             <Button x:Name="ForgotPasswordCrossBtn" Click="ForgotPasswordCrossBtn_Click" 
-                            Height="25" Width="25" BorderThickness="0" Grid.Column="1"  
-                            Background="Transparent">
+                    Height="25" Width="25" BorderThickness="0" Grid.Column="1"  
+                    Background="Transparent">
                                 <Image Source="/ElementsVisualization/Image/cross.png" Stretch="Uniform"/>
                             </Button>
                         </Grid>
 
                         <TextBlock Grid.Row="1" Text="Введите вашу почту" 
-                           Style="{StaticResource RegistrationTextBlockStyle}" Margin="10 10"/>
+                   Style="{StaticResource RegistrationTextBlockStyle}" Margin="10 10"/>
                         <TextBox Grid.Row="2" x:Name="ForgotPasswordEmailTbox" 
-                         Style="{StaticResource RoundedTextBoxStyle}" Margin="10 0"/>
-                        
-                        <TextBlock Grid.Row="3" Text="Введите ваш новый пароль" 
-                           Style="{StaticResource RegistrationTextBlockStyle}" Margin="10 10"/>
-                        <TextBox Grid.Row="4" x:Name="NewPaawordTbox" 
-                         Style="{StaticResource RoundedTextBoxStyle}" Margin="10 0"/>
+                 Style="{StaticResource RoundedTextBoxStyle}" Margin="10 0"/>
 
                         <TextBlock Grid.Row="5" x:Name="ForgotPasswordMessageText" 
-                           Text="На указанную почту будет отправлен новый пароль" 
-                           Style="{StaticResource RegistrationTextBlockStyle}" 
-                           FontSize="10" TextWrapping="Wrap" Margin="10 5"
-                           Foreground="#666666"/>
+                   Text="На указанную почту будет отправлен новый пароль" 
+                   Style="{StaticResource RegistrationTextBlockStyle}" 
+                   FontSize="10" TextWrapping="Wrap" Margin="10 5"
+                   Foreground="#666666"/>
 
                         <Button Grid.Row="6" x:Name="SendNewPasswordBtn" 
-                        Content="Отправить" 
-                        Width="200" Style="{StaticResource RoundedButtonStyle}" 
-                        Margin="20 10" FontSize="15" Height="27" 
-                        Click="SendNewPasswordBtn_Click"/>
+                Content="Отправить" 
+                Width="200" Style="{StaticResource RoundedButtonStyle}" 
+                Margin="20 10" FontSize="15" Height="27" 
+                Click="SendNewPasswordBtn_Click"/>
                     </Grid>
                 </Border>
             </Viewbox>
         </Grid>
+        
+        <Grid x:Name="CodeGrid" Grid.ColumnSpan="3" Visibility="Hidden">
+            <Grid.Background>
+                <SolidColorBrush Color="#FF6E6969" Opacity="0.6"/>
+            </Grid.Background>
+            <Viewbox VerticalAlignment="Center" HorizontalAlignment="Center" Stretch="Uniform">
+                <Border 
+                        Margin="60"
+                        BorderThickness="3"
+                        BorderBrush="#fffff4f4"
+                        CornerRadius="45">
+                    <Border.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FFFAC0D5"/>
+                            <GradientStop Color="#FFEB85A7" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <Grid Margin="20">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid Margin="10 3 10 0" Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                       Style="{StaticResource RegistrationTextBlockStyle}" 
+                                       Text="Восстановление пароля" FontSize="17"/>
+                            <Button Click="ForgotPasswordCrossBtn_Click" 
+                                    Height="25" Width="25" BorderThickness="0" Grid.Column="1"  
+                                    Background="Transparent">
+                                <Image Source="/ElementsVisualization/Image/cross.png" Stretch="Uniform"/>
+                            </Button>
+                        </Grid>
+
+                        <TextBlock Grid.Row="1" Text="Введите ваш код" 
+                   Style="{StaticResource RegistrationTextBlockStyle}" Margin="10 10"/>
+                        <TextBox Grid.Row="2" x:Name="CodeTbox" 
+                 Style="{StaticResource RoundedTextBoxStyle}" Margin="10 0"/>
+
+                        <Button Grid.Row="6" x:Name="CheckCodeBtn" 
+                                Content="Проверить код" 
+                                Width="200" Style="{StaticResource RoundedButtonStyle}" 
+                                Margin="20 10" FontSize="15" Height="27" 
+                                Click="CheckCodeBtn_Click"/>
+                    </Grid>
+                </Border>
+            </Viewbox>
+        </Grid>
+        
+        <Grid x:Name="NewPaswordGrid" Grid.ColumnSpan="3" Visibility="Hidden">
+            <Grid.Background>
+                <SolidColorBrush Color="#FF6E6969" Opacity="0.6"/>
+            </Grid.Background>
+            <Viewbox VerticalAlignment="Center" HorizontalAlignment="Center" Stretch="Uniform">
+                <Border 
+                        Margin="60"
+                        BorderThickness="3"
+                        BorderBrush="#fffff4f4"
+                        CornerRadius="45">
+                    <Border.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FFFAC0D5"/>
+                            <GradientStop Color="#FFEB85A7" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <Grid Margin="20">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid Margin="10 3 10 0" Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                       Style="{StaticResource RegistrationTextBlockStyle}" 
+                                       Text="Восстановление пароля" FontSize="17"/>
+                            <Button Click="ForgotPasswordCrossBtn_Click" 
+                                    Height="25" Width="25" BorderThickness="0" Grid.Column="1"  
+                                    Background="Transparent">
+                                <Image Source="/ElementsVisualization/Image/cross.png" Stretch="Uniform"/>
+                            </Button>
+                        </Grid>
+
+                        <TextBlock Grid.Row="1" Text="Введите новый пароль" 
+                                    Style="{StaticResource RegistrationTextBlockStyle}" Margin="10 10"/>
+                        <TextBox Grid.Row="2" x:Name="NewPasswordTbox" 
+                                Style="{StaticResource RoundedTextBoxStyle}" Margin="10 0"/>
+
+
+                        <Button Grid.Row="6" x:Name="ChekNewPasswordBtn" 
+                                Content="Сохранить" 
+                                Width="200" Style="{StaticResource RoundedButtonStyle}" 
+                                Margin="20 10" FontSize="15" Height="27" 
+                                Click="SaveNewPasswordBtn_Click"/>
+                    </Grid>
+                </Border>
+            </Viewbox>
+        </Grid>
+        
+        
     </Grid>
 </Window>

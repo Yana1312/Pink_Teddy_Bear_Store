@@ -1,15 +1,16 @@
-﻿using StoreTeddyBear.Models;
+﻿using Castle.Components.DictionaryAdapter.Xml;
+using StoreTeddyBear.Controllers;
 using StoreTeddyBear.Data;
+using StoreTeddyBear.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using static System.Net.Mime.MediaTypeNames;
-using System.IO;
-using StoreTeddyBear.Controllers;
 
 namespace StroreTeddyBearWin.Views
 {

@@ -14,17 +14,22 @@ namespace StoreTeddyBear.Controllers
         [HttpGet("{customerId}/CustomerOrders")]
         public ActionResult<List<Order>> GetCustomerOrders(int customerId)
         {
-            var orders = StorepinkteddybearBdContext.Instance.Orders
-                .Include(o => o.Orderitems)
-                .ThenInclude(oi => oi.ArticulToyNavigation)
-                .Where(o => o.IdCustomer == customerId)
-                .OrderByDescending(o => o.DateOrder)
-                .ToList();
 
-            if (orders == null) return NotFound("Заказы не найдены");
+            using (var context = new StorepinkteddybearBdContext())
+            {
+                var orders = context.Orders
+                    .Include(o => o.Orderitems)
+                    .ThenInclude(oi => oi.ArticulToyNavigation)
+                    .Where(o => o.IdCustomer == customerId)
+                    .OrderByDescending(o => o.DateOrder)
+                    .ToList();
 
-            return Ok(orders);
+                if (orders == null) return NotFound("Заказы не найдены");
+
+                return Ok(orders);
+            }
         }
+                
 
         [HttpGet("{orderId}/Details")]
         public ActionResult<Order> GetOrderDetails(int orderId)

@@ -133,10 +133,7 @@ namespace StoreTeddyBear.Controllers
 
             if (!string.IsNullOrEmpty(updatedCustomer.PasswordHash))
             {
-                if (!BCrypt.Net.BCrypt.Verify(updatedCustomer.PasswordHash, currentCustomer.PasswordHash))
-                {
-                    currentCustomer.PasswordHash = BCrypt.Net.BCrypt.HashPassword(updatedCustomer.PasswordHash);
-                }
+                currentCustomer.PasswordHash = BCrypt.Net.BCrypt.HashPassword(updatedCustomer.PasswordHash);
             }
             _context.SaveChanges();
             return Ok(currentCustomer);
