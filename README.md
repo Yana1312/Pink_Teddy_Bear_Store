@@ -11,3 +11,5 @@ Docker - платформа для управления приложением �
 Основная идея: 
 
 * Предоставить пользователям удобный интерфейс для покупки плюшевых медвежат.
+
+Ссылка на макет в фигме - https://www.figma.com/design/Kbg2g3lWOPbvi7yXfdoL23/PinkTeddyBearStore?m=auto&t=NZjB2m2M6I5vv2KN-7
